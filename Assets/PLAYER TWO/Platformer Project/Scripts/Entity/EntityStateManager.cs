@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public abstract class EntityStateManager :MonoBehaviour
 {
@@ -13,6 +14,8 @@ public abstract class EntityStateManager<T> : EntityStateManager where T : Entit
     protected Dictionary<Type, EntityState<T>> m_states = new Dictionary<Type, EntityState<T>>();
 
     public EntityState<T> current {  get; private set; }
+
+    public T entity {  get; private set; }
 
     protected virtual void Start()
     {
@@ -38,6 +41,14 @@ public abstract class EntityStateManager<T> : EntityStateManager where T : Entit
             {
                 current = m_list[0];
             }
+        }
+    }
+
+    public virtual void Step()
+    {
+        if(current != null && Time.timeScale > 0)
+        {
+            current.Step(entity);
         }
     }
 }
