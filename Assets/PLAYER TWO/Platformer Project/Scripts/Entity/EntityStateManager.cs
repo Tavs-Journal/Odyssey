@@ -19,6 +19,7 @@ public abstract class EntityStateManager<T> : EntityStateManager where T : Entit
 
     protected virtual void Start()
     {
+        entity = GetComponent<T>();
         InitializeStates();
     }
 

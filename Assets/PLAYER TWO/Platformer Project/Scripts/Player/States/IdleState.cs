@@ -2,24 +2,24 @@
 
 public class IdleState : PlayerState
 {
-    protected override void OnContact(Player entity, Collider other)
+    protected override void OnContact(Player player, Collider other)
     {
         
     }
 
-    protected override void OnEnter(Player entity)
+    protected override void OnEnter(Player player)
     {
         
     }
 
-    protected override void OnExit(Player entity)
+    protected override void OnExit(Player player)
     {
         
     }
 
-    protected override void OnStep(Player entity)
+    protected override void OnStep(Player player)
     {
-
-        Debug.Log("onstep");
+        var inputDireaction = player.input.GetMovementDirection();
+        Debug.Log(inputDireaction);
     }
 }
