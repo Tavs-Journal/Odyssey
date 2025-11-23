@@ -20,6 +20,10 @@ public class IdleState : PlayerState
     protected override void OnStep(Player player)
     {
         var inputDireaction = player.input.GetMovementDirection();
-        Debug.Log(inputDireaction);
+
+        if(inputDireaction.sqrMagnitude > 0 || player.lateralvelocity.sqrMagnitude > 0) 
+        {
+             
+        }
     }
 }
