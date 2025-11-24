@@ -9,6 +9,16 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
 
     public Vector3 velocity { get; set; }
 
+    public float accelerationMultiplier { get; set; } = 1f;
+
+    public float gravityMultiplier { get; set; } = 1f;
+
+    public float topSpeedMultiplier {  get; set; } = 1f;
+
+    public float turningDragMultiplier {  get; set; } = 1f;
+
+    public float decelerationMultiplier { get; set; } = 1f;
+
     public Vector3 lateralvelocity
     {
         get { return new Vector3(velocity.x, 0, velocity.z); }
@@ -23,6 +33,31 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
 
     protected virtual void InitializeStateManager() => states = GetComponent<EntityStateManager<T>>();
 
+    public virtual void Accelerate(Vector3 direction, float turningDrag, float acceleration, float TopSpeed)
+    {
+        var speed = Vector3.Dot(direction, lateralvelocity);
+        var velocity =  direction * speed;
+        var turningVelocity = lateralvelocity - velocity;
+        var turningDelta = turningDrag * turningDragMultiplier * Time.deltaTime;
+        var targetTopSpeed = TopSpeed * topSpeedMultiplier;
+
+        if(lateralvelocity.magnitude <  targetTopSpeed || speed < 0)
+        {
+            speed += acceleration * accelerationMultiplier * Time.deltaTime;
+            speed = Mathf.Clamp(speed, -targetTopSpeed, targetTopSpeed);
+        }
+
+        velocity = direction * speed;
+
+        turningVelocity = Vector3.MoveTowards(turningVelocity, Vector3.zero, turningDelta);
+
+        lateralvelocity = velocity + turningVelocity;
+    }
+
+    protected virtual void HandleController()
+    {
+        transform.position += velocity * Time.deltaTime;
+    }
     protected virtual void HandleState() => states.Step();
 
     protected virtual void Awake()
@@ -33,5 +68,6 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
     protected virtual void Update()
     {
         HandleState();
+        HandleController();
     }
 }

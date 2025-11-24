@@ -23,7 +23,7 @@ public class IdleState : PlayerState
 
         if(inputDireaction.sqrMagnitude > 0 || player.lateralvelocity.sqrMagnitude > 0) 
         {
-             
+            player.states.Change<WalkState>();
         }
     }
 }

@@ -9,11 +9,14 @@ public class PlayerInputManager :MonoBehaviour
 
     protected InputAction m_movement;
 
+    protected Camera m_camera;
+
     protected virtual void Awake() => CacheActions();
 
     protected virtual void Start()
     {
         actions.Enable();
+        m_camera = Camera.main;
     }
 
     protected virtual void Onable() => actions?.Enable();
@@ -42,4 +45,16 @@ public class PlayerInputManager :MonoBehaviour
     }
 
     protected float RemapToDeadZone(float value, float deadzone) => (value - (value > 0 ? -deadzone : deadzone)) / (1 - deadzone);
+
+    public virtual Vector3 GetMovementCameraDirection()
+    {
+        var direction = GetMovementDirection();
+        if(direction.sqrMagnitude > 0)
+        {
+            var rotation = Quaternion.AngleAxis(m_camera.transform.eulerAngles.y, Vector3.up);
+            direction = rotation * direction;
+            direction = direction.normalized;
+        }
+        return direction;
+    }
 }
