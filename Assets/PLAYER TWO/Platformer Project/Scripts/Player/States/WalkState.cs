@@ -28,7 +28,7 @@ public class WalkState : PlayerState
             if(dot >= player.stats.current.brakeThreshold)
             {
                 player.Accelerate(inputDirection);
-                Debug.Log("move");
+                player.FaceDirectionSmooth(player.lateralvelocity);
             }
         }
     }

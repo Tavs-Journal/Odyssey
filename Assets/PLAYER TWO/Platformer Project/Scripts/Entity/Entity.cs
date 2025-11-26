@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public abstract class EntityBase : MonoBehaviour { }
@@ -52,6 +53,18 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
         turningVelocity = Vector3.MoveTowards(turningVelocity, Vector3.zero, turningDelta);
 
         lateralvelocity = velocity + turningVelocity;
+    }
+
+    public virtual void FaceDirection(Vector3 direction, float degreesPersecond)
+    {
+        if (direction != Vector3.zero)
+        {
+            Debug.Log("change");
+            var rotation = transform.rotation;
+            var rotationDelta = degreesPersecond * Time.deltaTime;
+            var target = Quaternion.LookRotation(direction, Vector3.up);
+            transform.rotation = Quaternion.RotateTowards(rotation, target, rotationDelta); 
+        }
     }
 
     protected virtual void HandleController()

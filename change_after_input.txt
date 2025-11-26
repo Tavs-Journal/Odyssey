@@ -1,0 +1,647 @@
+diff --git a/Assets/PLAYER TWO/Platformer Project/Examples/Scenes/TestLevelScene.unity b/Assets/PLAYER TWO/Platformer Project/Examples/Scenes/TestLevelScene.unity
+index 28de751..a69473f 100644
+--- a/Assets/PLAYER TWO/Platformer Project/Examples/Scenes/TestLevelScene.unity	
++++ b/Assets/PLAYER TWO/Platformer Project/Examples/Scenes/TestLevelScene.unity	
+@@ -34416,6 +34416,16 @@ MonoBehaviour:
+   m_Script: {fileID: 11500000, guid: c75fa150788d2a240939f8614c0fe6a4, type: 3}
+   m_Name: 
+   m_EditorClassIdentifier: 
++  events:
++    onChange:
++      m_PersistentCalls:
++        m_Calls: []
++    onEnter:
++      m_PersistentCalls:
++        m_Calls: []
++    onExit:
++      m_PersistentCalls:
++        m_Calls: []
+   states:
+   - IdleState
+   - WalkState
+@@ -34431,6 +34441,33 @@ MonoBehaviour:
+   m_Script: {fileID: 11500000, guid: 0a5f2762f95532841b474eff50f960b7, type: 3}
+   m_Name: 
+   m_EditorClassIdentifier: 
++--- !u!114 &583133416
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 583133413}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: 0863e081466344f4c880d57c47d8e0e6, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
++  actions: {fileID: -944628639613478452, guid: 6b99b82d3ff7bfd4199643130476cdf4, type: 3}
++--- !u!114 &583133417
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 583133413}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: 82ed72aae805a7d418039f0ddba0a3ba, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
++  stats:
++  - {fileID: 11400000, guid: 00bcb4afab4c5b64b839b19378747f53, type: 2}
+ --- !u!4 &583747742 stripped
+ Transform:
+   m_CorrespondingSourceObject: {fileID: 2153768078682293615, guid: b28f9319f6e967d4fbdbd49d12fe14fd,
+@@ -90891,11 +90928,19 @@ PrefabInstance:
+     - targetCorrespondingSourceObject: {fileID: 6650432633027884458, guid: eb0f77ac3ce65a04db54ff55e59b0815,
+         type: 3}
+       insertIndex: -1
+-      addedObject: {fileID: 583133415}
++      addedObject: {fileID: 583133416}
++    - targetCorrespondingSourceObject: {fileID: 6650432633027884458, guid: eb0f77ac3ce65a04db54ff55e59b0815,
++        type: 3}
++      insertIndex: -1
++      addedObject: {fileID: 583133417}
+     - targetCorrespondingSourceObject: {fileID: 6650432633027884458, guid: eb0f77ac3ce65a04db54ff55e59b0815,
+         type: 3}
+       insertIndex: -1
+       addedObject: {fileID: 583133414}
++    - targetCorrespondingSourceObject: {fileID: 6650432633027884458, guid: eb0f77ac3ce65a04db54ff55e59b0815,
++        type: 3}
++      insertIndex: -1
++      addedObject: {fileID: 583133415}
+   m_SourcePrefab: {fileID: 100100000, guid: eb0f77ac3ce65a04db54ff55e59b0815, type: 3}
+ --- !u!1 &1479958866
+ GameObject:
+@@ -133012,7 +133057,7 @@ PrefabInstance:
+     - target: {fileID: 4843316740644930360, guid: 564bdb7014e760c43afd895061f62b70,
+         type: 3}
+       propertyPath: m_LocalPosition.x
+-      value: 10.520304
++      value: 10.520309
+       objectReference: {fileID: 0}
+     - target: {fileID: 4843316740644930360, guid: 564bdb7014e760c43afd895061f62b70,
+         type: 3}
+@@ -133069,6 +133114,21 @@ PrefabInstance:
+       propertyPath: m_RootOrder
+       value: 2
+       objectReference: {fileID: 0}
++    - target: {fileID: 4843316741654724384, guid: 564bdb7014e760c43afd895061f62b70,
++        type: 3}
++      propertyPath: m_LocalPosition.x
++      value: 160
++      objectReference: {fileID: 0}
++    - target: {fileID: 4843316741654724384, guid: 564bdb7014e760c43afd895061f62b70,
++        type: 3}
++      propertyPath: m_LocalPosition.y
++      value: 14
++      objectReference: {fileID: 0}
++    - target: {fileID: 4843316741654724384, guid: 564bdb7014e760c43afd895061f62b70,
++        type: 3}
++      propertyPath: m_LocalPosition.z
++      value: -65
++      objectReference: {fileID: 0}
+     - target: {fileID: 4843316741654724384, guid: 564bdb7014e760c43afd895061f62b70,
+         type: 3}
+       propertyPath: m_LocalEulerAnglesHint.x
+diff --git a/Assets/PLAYER TWO/Platformer Project/Examples/Stats/RegularPlayerStats.asset b/Assets/PLAYER TWO/Platformer Project/Examples/Stats/RegularPlayerStats.asset
+index 8770e72..6ce1a7b 100644
+--- a/Assets/PLAYER TWO/Platformer Project/Examples/Stats/RegularPlayerStats.asset	
++++ b/Assets/PLAYER TWO/Platformer Project/Examples/Stats/RegularPlayerStats.asset	
+@@ -9,137 +9,6 @@ MonoBehaviour:
+   m_GameObject: {fileID: 0}
+   m_Enabled: 1
+   m_EditorHideFlags: 0
+-  m_Script: {fileID: 11500000, guid: dfc96ef0b0170f143920b9fbe94b091a, type: 3}
++  m_Script: {fileID: 11500000, guid: e8d0baabd000cc449ab566e69559b0c0, type: 3}
+   m_Name: RegularPlayerStats
+   m_EditorClassIdentifier: 
+-  pushForce: 4
+-  snapForce: 15
+-  slideForce: 10
+-  rotationSpeed: 970
+-  gravity: 49
+-  fallGravity: 65
+-  gravityTopSpeed: 50
+-  canPickUp: 1
+-  canPickUpOnAir: 0
+-  canJumpWhileHolding: 1
+-  pickDistance: 0.25
+-  throwVelocityMultiplier: 1.5
+-  applySlopeFactor: 1
+-  acceleration: 16
+-  deceleration: 30
+-  friction: 28
+-  slopeFriction: 18
+-  topSpeed: 7.5
+-  turningDrag: 30
+-  airAcceleration: 32
+-  brakeThreshold: -0.8
+-  slopeUpwardForce: 25
+-  slopeDownwardForce: 28
+-  runningAcceleration: 20
+-  runningTopSpeed: 9
+-  runningTurningDrag: 14
+-  multiJumps: 1
+-  coyoteJumpThreshold: 0.15
+-  maxJumpHeight: 19
+-  minJumpHeight: 10
+-  crouchHeight: 1
+-  crouchFriction: 10
+-  crawlingAcceleration: 8
+-  crawlingFriction: 32
+-  crawlingTopSpeed: 2.5
+-  crawlingTurningSpeed: 3
+-  canWallDrag: 1
+-  wallJumpLockMovement: 1
+-  wallDragLayers:
+-    serializedVersion: 2
+-    m_Bits: 3585
+-  wallDragSkinOffset: {x: 0, y: 0, z: 0}
+-  wallDragGravity: 12
+-  wallJumpDistance: 8
+-  wallJumpHeight: 16
+-  canPoleClimb: 1
+-  poleClimbSkinOffset: {x: 0, y: 0, z: 0}
+-  climbUpSpeed: 3
+-  climbDownSpeed: 8
+-  climbRotationSpeed: 2
+-  poleJumpDistance: 8
+-  poleJumpHeight: 15
+-  waterConversion: 0.35
+-  waterRotationSpeed: 360
+-  waterUpwardsForce: 8
+-  waterJumpHeight: 15
+-  waterTurningDrag: 2.5
+-  swimAcceleration: 4
+-  swimDeceleration: 3
+-  swimTopSpeed: 4
+-  swimDiveForce: 15
+-  canSpin: 1
+-  canAirSpin: 1
+-  spinDuration: 0.5
+-  airSpinUpwardForce: 12
+-  allowedAirSpins: 1
+-  hurtUpwardForce: 13
+-  hurtBackwardsForce: 8
+-  canAirDive: 1
+-  applyDiveSlopeFactor: 1
+-  airDiveForwardForce: 16
+-  airDiveFriction: 32
+-  airDiveSlopeFriction: 12
+-  airDiveSlopeUpwardForce: 35
+-  airDiveSlopeDownwardForce: 40
+-  airDiveGroundLeapHeight: 10
+-  airDiveRotationSpeed: 45
+-  canStompAttack: 1
+-  stompDownwardForce: 20
+-  stompAirTime: 0.8
+-  stompGroundTime: 0.25
+-  stompGroundLeapHeight: 10
+-  canLedgeHang: 1
+-  ledgeHangingLayers:
+-    serializedVersion: 2
+-    m_Bits: 10753
+-  ledgeHangingSkinOffset: {x: 0, y: 0, z: 0}
+-  ledgeMaxForwardDistance: 0.25
+-  ledgeMaxDownwardDistance: 0.25
+-  ledgeSideMaxDistance: 0.5
+-  ledgeSideHeightOffset: 0.15
+-  ledgeSideCollisionRadius: 0.25
+-  ledgeMovementSpeed: 1.5
+-  canClimbLedges: 1
+-  ledgeClimbingLayers:
+-    serializedVersion: 2
+-    m_Bits: 8705
+-  ledgeClimbingSkinOffset: {x: 0, y: 0, z: 0}
+-  ledgeClimbingDuration: 1
+-  canBackflip: 1
+-  backflipLockMovement: 1
+-  backflipAirAcceleration: 12
+-  backflipTurningDrag: 2.5
+-  backflipTopSpeed: 7.5
+-  backflipJumpHeight: 23
+-  backflipGravity: 35
+-  backflipBackwardForce: 4
+-  backflipBackwardTurnForce: 8
+-  canGlide: 1
+-  glidingGravity: 10
+-  glidingMaxFallSpeed: 2
+-  glidingTurningDrag: 8
+-  canAirDash: 1
+-  canGroundDash: 1
+-  dashForce: 25
+-  dashDuration: 0.3
+-  groundDashCoolDown: 0.5
+-  allowedAirDashes: 1
+-  useCustomCollision: 1
+-  grindRadiusOffset: 0.26
+-  minGrindInitialSpeed: 10
+-  minGrindSpeed: 5
+-  grindTopSpeed: 25
+-  grindDownSlopeForce: 40
+-  grindUpSlopeForce: 30
+-  canGrindBrake: 1
+-  grindBrakeDeceleration: 10
+-  canGrindDash: 1
+-  applyGrindingSlopeFactor: 1
+-  grindDashCoolDown: 0.5
+-  grindDashForce: 25
+diff --git a/Assets/PLAYER TWO/Platformer Project/Scripts/Entity/Entity.cs b/Assets/PLAYER TWO/Platformer Project/Scripts/Entity/Entity.cs
+index bbf9763..721c0d2 100644
+--- a/Assets/PLAYER TWO/Platformer Project/Scripts/Entity/Entity.cs	
++++ b/Assets/PLAYER TWO/Platformer Project/Scripts/Entity/Entity.cs	
+@@ -7,8 +7,57 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
+ {
+     public EntityStateManager<T> states {  get; private set; }
+ 
++    public Vector3 velocity { get; set; }
++
++    public float accelerationMultiplier { get; set; } = 1f;
++
++    public float gravityMultiplier { get; set; } = 1f;
++
++    public float topSpeedMultiplier {  get; set; } = 1f;
++
++    public float turningDragMultiplier {  get; set; } = 1f;
++
++    public float decelerationMultiplier { get; set; } = 1f;
++
++    public Vector3 lateralvelocity
++    {
++        get { return new Vector3(velocity.x, 0, velocity.z); }
++        set { velocity = new Vector3(value.x, velocity.y, value.z);}
++    }
++
++    public Vector3 verticalVelocity
++    {
++        get { return new Vector3(0, velocity.y, 0); }
++        set { velocity = new Vector3(velocity.x, value.y, velocity.z); }
++    }
++
+     protected virtual void InitializeStateManager() => states = GetComponent<EntityStateManager<T>>();
+ 
++    public virtual void Accelerate(Vector3 direction, float turningDrag, float acceleration, float TopSpeed)
++    {
++        var speed = Vector3.Dot(direction, lateralvelocity);
++        var velocity =  direction * speed;
++        var turningVelocity = lateralvelocity - velocity;
++        var turningDelta = turningDrag * turningDragMultiplier * Time.deltaTime;
++        var targetTopSpeed = TopSpeed * topSpeedMultiplier;
++
++        if(lateralvelocity.magnitude <  targetTopSpeed || speed < 0)
++        {
++            speed += acceleration * accelerationMultiplier * Time.deltaTime;
++            speed = Mathf.Clamp(speed, -targetTopSpeed, targetTopSpeed);
++        }
++
++        velocity = direction * speed;
++
++        turningVelocity = Vector3.MoveTowards(turningVelocity, Vector3.zero, turningDelta);
++
++        lateralvelocity = velocity + turningVelocity;
++    }
++
++    protected virtual void HandleController()
++    {
++        transform.position += velocity * Time.deltaTime;
++    }
+     protected virtual void HandleState() => states.Step();
+ 
+     protected virtual void Awake()
+@@ -19,5 +68,6 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
+     protected virtual void Update()
+     {
+         HandleState();
++        HandleController();
+     }
+ }
+diff --git a/Assets/PLAYER TWO/Platformer Project/Scripts/Entity/EntityStateManager.cs b/Assets/PLAYER TWO/Platformer Project/Scripts/Entity/EntityStateManager.cs
+index 2016213..f7c38d9 100644
+--- a/Assets/PLAYER TWO/Platformer Project/Scripts/Entity/EntityStateManager.cs	
++++ b/Assets/PLAYER TWO/Platformer Project/Scripts/Entity/EntityStateManager.cs	
+@@ -5,7 +5,7 @@ using UnityEngine.Events;
+ 
+ public abstract class EntityStateManager :MonoBehaviour
+ {
+-
++    public EntityStateManagerEvents events;
+ }
+ public abstract class EntityStateManager<T> : EntityStateManager where T : Entity<T>
+ {
+@@ -15,6 +15,8 @@ public abstract class EntityStateManager<T> : EntityStateManager where T : Entit
+ 
+     public EntityState<T> current {  get; private set; }
+ 
++    public EntityState<T> last { get; private set; }
++
+     public T entity {  get; private set; }
+ 
+     protected virtual void Start()
+@@ -52,4 +54,31 @@ public abstract class EntityStateManager<T> : EntityStateManager where T : Entit
+             current.Step(entity);
+         }
+     }
++
++    public virtual void Change<TState>() where TState : EntityState<T>
++    {
++        var type = typeof(TState);
++        if (m_states.ContainsKey(type))
++        {
++            Change(m_states[type]);
++        }
++    }
++
++    public virtual void Change(EntityState<T> to)
++    {
++        if(to != null && Time.timeScale > 0)
++        {
++            if(current != null)
++            {
++                current.Exit(entity);
++                events.onExit.Invoke(current.GetType());
++                last = current;
++            }
++
++            current = to;
++            current.Enter(entity);
++            events.onEnter.Invoke(current.GetType());
++            events.onChange?.Invoke();
++        }
++    }
+ }
+diff --git a/Assets/PLAYER TWO/Platformer Project/Scripts/Entity/EntityStateManagerEvents.cs b/Assets/PLAYER TWO/Platformer Project/Scripts/Entity/EntityStateManagerEvents.cs
+new file mode 100644
+index 0000000..fb40167
+--- /dev/null
++++ b/Assets/PLAYER TWO/Platformer Project/Scripts/Entity/EntityStateManagerEvents.cs	
+@@ -0,0 +1,11 @@
++﻿using System;
++using UnityEngine.Events;
++[Serializable]
++public class EntityStateManagerEvents
++{
++    public UnityEvent onChange;
++
++    public UnityEvent<Type> onEnter;
++
++    public UnityEvent<Type> onExit;
++}
+\ No newline at end of file
+diff --git a/Assets/PLAYER TWO/Platformer Project/Scripts/Entity/EntityStateManagerEvents.cs.meta b/Assets/PLAYER TWO/Platformer Project/Scripts/Entity/EntityStateManagerEvents.cs.meta
+new file mode 100644
+index 0000000..8609819
+--- /dev/null
++++ b/Assets/PLAYER TWO/Platformer Project/Scripts/Entity/EntityStateManagerEvents.cs.meta	
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: dfdeaae7efa4fc94898f97c5f451556d
+\ No newline at end of file
+diff --git a/Assets/PLAYER TWO/Platformer Project/Scripts/Entity/EntityStats.cs b/Assets/PLAYER TWO/Platformer Project/Scripts/Entity/EntityStats.cs
+new file mode 100644
+index 0000000..02c65fa
+--- /dev/null
++++ b/Assets/PLAYER TWO/Platformer Project/Scripts/Entity/EntityStats.cs	
+@@ -0,0 +1,3 @@
++﻿using UnityEngine;
++
++public abstract class EntityStats<T> : ScriptableObject where T : ScriptableObject { }
+diff --git a/Assets/PLAYER TWO/Platformer Project/Scripts/Entity/EntityStats.cs.meta b/Assets/PLAYER TWO/Platformer Project/Scripts/Entity/EntityStats.cs.meta
+new file mode 100644
+index 0000000..737d022
+--- /dev/null
++++ b/Assets/PLAYER TWO/Platformer Project/Scripts/Entity/EntityStats.cs.meta	
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: a1eee2f2e1d9e8543b63df43024b9101
+\ No newline at end of file
+diff --git a/Assets/PLAYER TWO/Platformer Project/Scripts/Entity/EntityStatsManager.cs b/Assets/PLAYER TWO/Platformer Project/Scripts/Entity/EntityStatsManager.cs
+new file mode 100644
+index 0000000..daeec6a
+--- /dev/null
++++ b/Assets/PLAYER TWO/Platformer Project/Scripts/Entity/EntityStatsManager.cs	
+@@ -0,0 +1,26 @@
++﻿using UnityEngine;
++
++public abstract class EntityStatsManager<T> : MonoBehaviour where T : EntityStats<T> 
++{
++    public T[] stats;
++
++    public T current { get; protected set; }
++
++    public virtual void Change(int to)
++    {
++        if (to > 0 && stats.Length > 0)
++        {
++            if(current != stats[to])
++            {
++                current = stats[to];
++            }
++        }
++    }
++    protected virtual void Start()
++    {
++        if(stats.Length > 0)
++        {
++            current = stats[0];
++        }
++    }
++}
+diff --git a/Assets/PLAYER TWO/Platformer Project/Scripts/Entity/EntityStatsManager.cs.meta b/Assets/PLAYER TWO/Platformer Project/Scripts/Entity/EntityStatsManager.cs.meta
+new file mode 100644
+index 0000000..0498e8a
+--- /dev/null
++++ b/Assets/PLAYER TWO/Platformer Project/Scripts/Entity/EntityStatsManager.cs.meta	
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: b05ec4b2127fed543a383fdd5f96e8f8
+\ No newline at end of file
+diff --git a/Assets/PLAYER TWO/Platformer Project/Scripts/Player/Player.cs b/Assets/PLAYER TWO/Platformer Project/Scripts/Player/Player.cs
+index 11e1cdd..b209aec 100644
+--- a/Assets/PLAYER TWO/Platformer Project/Scripts/Player/Player.cs	
++++ b/Assets/PLAYER TWO/Platformer Project/Scripts/Player/Player.cs	
+@@ -1,12 +1,35 @@
+-﻿public class Player : Entity<Player>
++﻿using UnityEngine;
++
++public class Player : Entity<Player>
+ {
+     public PlayerInputManager input {  get; protected set; }
+ 
++    public PlayerStatsManager stats { get; protected set; }
++
+     protected override void Awake()
+     {
+         base.Awake();
+         InitializeInput();
++        InitailizeStats();
+     }
+ 
+     protected virtual void InitializeInput() => input = GetComponent<PlayerInputManager>();
++
++    protected virtual void InitailizeStats() => stats = GetComponent<PlayerStatsManager>();
++
++    public virtual void Accelerate(Vector3 direction)
++    {
++        //var turningDrag = isGrounded && inputs.GetRun() ? stats.current.runningTurningDrag : stats.current.turningDrag;
++        //var acceleration = isGrounded && input.GetRun() ? stats.current.runningAcceleration : stats.current.acceleration;
++        //var finalAcceleration = isGrounded ? acceleration : stats.current.acceleration;
++        //var topSpeed = input.GetRun() ? stats.current.runningTopSpeed : stats.current.topSpeed;
++
++        var turningDrag = stats.current.turningDrag;
++        var acceleration = stats.current.acceleration;
++        var finalAcceleration = acceleration;
++        var topSpeed = stats.current.topSpeed;
++
++        Accelerate(direction, turningDrag, finalAcceleration, topSpeed);
++    }
++
+ }
+diff --git a/Assets/PLAYER TWO/Platformer Project/Scripts/Player/PlayerInputManager.cs b/Assets/PLAYER TWO/Platformer Project/Scripts/Player/PlayerInputManager.cs
+index 9a81127..f2aab68 100644
+--- a/Assets/PLAYER TWO/Platformer Project/Scripts/Player/PlayerInputManager.cs	
++++ b/Assets/PLAYER TWO/Platformer Project/Scripts/Player/PlayerInputManager.cs	
+@@ -9,11 +9,14 @@ public class PlayerInputManager :MonoBehaviour
+ 
+     protected InputAction m_movement;
+ 
++    protected Camera m_camera;
++
+     protected virtual void Awake() => CacheActions();
+ 
+     protected virtual void Start()
+     {
+         actions.Enable();
++        m_camera = Camera.main;
+     }
+ 
+     protected virtual void Onable() => actions?.Enable();
+@@ -42,4 +45,16 @@ public class PlayerInputManager :MonoBehaviour
+     }
+ 
+     protected float RemapToDeadZone(float value, float deadzone) => (value - (value > 0 ? -deadzone : deadzone)) / (1 - deadzone);
++
++    public virtual Vector3 GetMovementCameraDirection()
++    {
++        var direction = GetMovementDirection();
++        if(direction.sqrMagnitude > 0)
++        {
++            var rotation = Quaternion.AngleAxis(m_camera.transform.eulerAngles.y, Vector3.up);
++            direction = rotation * direction;
++            direction = direction.normalized;
++        }
++        return direction;
++    }
+ }
+diff --git a/Assets/PLAYER TWO/Platformer Project/Scripts/Player/PlayerStats.cs b/Assets/PLAYER TWO/Platformer Project/Scripts/Player/PlayerStats.cs
+new file mode 100644
+index 0000000..680c194
+--- /dev/null
++++ b/Assets/PLAYER TWO/Platformer Project/Scripts/Player/PlayerStats.cs	
+@@ -0,0 +1,18 @@
++﻿using UnityEngine;
++
++public class PlayerStats : EntityStats<PlayerStats>
++{
++    //==============================【运动属性】==============================//
++    [Header("Motion Stats")]
++    public bool applySlopeFactor = true;   // 是否考虑坡度因子
++    public float acceleration = 13f;       // 加速度
++    public float deceleration = 28f;       // 减速度
++    public float friction = 28f;           // 地面摩擦力
++    public float slopeFriction = 18f;      // 坡面摩擦力
++    public float topSpeed = 6f;            // 最高速度
++    public float turningDrag = 28f;        // 转向时的阻力
++    public float airAcceleration = 32f;    // 空中加速度
++    public float brakeThreshold = -0.8f;   // 刹车判定阈值
++    public float slopeUpwardForce = 25f;   // 上坡时的额外推力
++    public float slopeDownwardForce = 28f; // 下坡时的额外推力
++}
+\ No newline at end of file
+diff --git a/Assets/PLAYER TWO/Platformer Project/Scripts/Player/PlayerStats.cs.meta b/Assets/PLAYER TWO/Platformer Project/Scripts/Player/PlayerStats.cs.meta
+new file mode 100644
+index 0000000..d9375f7
+--- /dev/null
++++ b/Assets/PLAYER TWO/Platformer Project/Scripts/Player/PlayerStats.cs.meta	
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: e8d0baabd000cc449ab566e69559b0c0
+\ No newline at end of file
+diff --git a/Assets/PLAYER TWO/Platformer Project/Scripts/Player/PlayerStatsManager.cs b/Assets/PLAYER TWO/Platformer Project/Scripts/Player/PlayerStatsManager.cs
+new file mode 100644
+index 0000000..c438036
+--- /dev/null
++++ b/Assets/PLAYER TWO/Platformer Project/Scripts/Player/PlayerStatsManager.cs	
+@@ -0,0 +1 @@
++﻿public class PlayerStatsManager : EntityStatsManager<PlayerStats> { }
+\ No newline at end of file
+diff --git a/Assets/PLAYER TWO/Platformer Project/Scripts/Player/PlayerStatsManager.cs.meta b/Assets/PLAYER TWO/Platformer Project/Scripts/Player/PlayerStatsManager.cs.meta
+new file mode 100644
+index 0000000..9916a96
+--- /dev/null
++++ b/Assets/PLAYER TWO/Platformer Project/Scripts/Player/PlayerStatsManager.cs.meta	
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: 82ed72aae805a7d418039f0ddba0a3ba
+\ No newline at end of file
+diff --git a/Assets/PLAYER TWO/Platformer Project/Scripts/Player/States/IdleState.cs b/Assets/PLAYER TWO/Platformer Project/Scripts/Player/States/IdleState.cs
+index 8722303..de22146 100644
+--- a/Assets/PLAYER TWO/Platformer Project/Scripts/Player/States/IdleState.cs	
++++ b/Assets/PLAYER TWO/Platformer Project/Scripts/Player/States/IdleState.cs	
+@@ -20,6 +20,10 @@ public class IdleState : PlayerState
+     protected override void OnStep(Player player)
+     {
+         var inputDireaction = player.input.GetMovementDirection();
+-        Debug.Log(inputDireaction);
++
++        if(inputDireaction.sqrMagnitude > 0 || player.lateralvelocity.sqrMagnitude > 0) 
++        {
++            player.states.Change<WalkState>();
++        }
+     }
+ }
+diff --git a/Assets/PLAYER TWO/Platformer Project/Scripts/Player/States/WalkState.cs b/Assets/PLAYER TWO/Platformer Project/Scripts/Player/States/WalkState.cs
+index b85ece5..a8c81aa 100644
+--- a/Assets/PLAYER TWO/Platformer Project/Scripts/Player/States/WalkState.cs	
++++ b/Assets/PLAYER TWO/Platformer Project/Scripts/Player/States/WalkState.cs	
+@@ -2,23 +2,34 @@
+ 
+ public class WalkState : PlayerState
+ {
+-    protected override void OnContact(Player entity, Collider other)
++    protected override void OnContact(Player player, Collider other)
+     {
+         
+     }
+ 
+-    protected override void OnEnter(Player entity)
++    protected override void OnEnter(Player player)
+     {
+         
+     }
+ 
+-    protected override void OnExit(Player entity)
++    protected override void OnExit(Player player)
+     {
+         
+     }
+ 
+-    protected override void OnStep(Player entity)
++    protected override void OnStep(Player player)
+     {
+-        
++        var inputDirection = player.input.GetMovementCameraDirection();
++
++        if(inputDirection.sqrMagnitude > 0 )
++        {
++            var dot = Vector3.Dot(inputDirection, player.lateralvelocity);
++
++            if(dot >= player.stats.current.brakeThreshold)
++            {
++                player.Accelerate(inputDirection);
++                Debug.Log("move");
++            }
++        }
+     }
+ }

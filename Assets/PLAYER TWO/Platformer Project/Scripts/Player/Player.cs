@@ -32,4 +32,6 @@ public class Player : Entity<Player>
         Accelerate(direction, turningDrag, finalAcceleration, topSpeed);
     }
 
+    public virtual void FaceDirectionSmooth(Vector3 direction) => FaceDirection(direction, stats.current.rotationSpeed);
+
 }
