@@ -58,8 +58,7 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
     public virtual void FaceDirection(Vector3 direction, float degreesPersecond)
     {
         if (direction != Vector3.zero)
-        {
-            Debug.Log("change");
+        {           
             var rotation = transform.rotation;
             var rotationDelta = degreesPersecond * Time.deltaTime;
             var target = Quaternion.LookRotation(direction, Vector3.up);
