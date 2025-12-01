@@ -8,8 +8,11 @@ public class PlayerInputManager :MonoBehaviour
     protected float m_movementDirectionUnlockTime;
 
     protected InputAction m_movement;
+    protected InputAction m_look;
 
     protected Camera m_camera;
+
+    protected const string k_mouseDeviceName = "Mouse";  
 
     protected virtual void Awake() => CacheActions();
 
@@ -19,13 +22,32 @@ public class PlayerInputManager :MonoBehaviour
         m_camera = Camera.main;
     }
 
-    protected virtual void Onable() => actions?.Enable();
+    protected virtual void OnEnable() => actions?.Enable();
 
     protected virtual void OnDisable() => actions?.Disable();
 
     protected virtual void CacheActions()
     {
         m_movement = actions["Movement"];
+        m_look = actions["Look"];
+    }
+
+    public virtual Vector3 GetLookDirection()
+    {
+        var value = m_look.ReadValue<Vector2>();
+
+        if (IsLookingWithMouse())
+        {
+            return new Vector3(value.x, 0, value.y);
+        }
+
+        return GetAxisWithCrossDeadZone(value);
+    }
+
+    public virtual bool IsLookingWithMouse()
+    {
+        if(m_look.activeControl == null) return false;
+        return m_look.activeControl.device.name.Equals(k_mouseDeviceName);
     }
 
     public virtual Vector3 GetMovementDirection()

@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
-public abstract class EntityBase : MonoBehaviour { }
+public abstract class EntityBase : MonoBehaviour { 
+    public Vector3 unsizedPosition => transform.position;
+    public bool isGrounded { get; protected set; } = true;
+}
 public abstract class Entity<T> :EntityBase where T :Entity<T>
 {
     public EntityStateManager<T> states {  get; private set; }
