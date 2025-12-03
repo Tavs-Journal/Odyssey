@@ -1,0 +1,319 @@
+diff --git a/Assets/PLAYER TWO/Platformer Project/Examples/Scenes/TestLevelScene.unity b/Assets/PLAYER TWO/Platformer Project/Examples/Scenes/TestLevelScene.unity
+index a69473f..6d20352 100644
+--- a/Assets/PLAYER TWO/Platformer Project/Examples/Scenes/TestLevelScene.unity	
++++ b/Assets/PLAYER TWO/Platformer Project/Examples/Scenes/TestLevelScene.unity	
+@@ -86432,6 +86432,31 @@ Transform:
+     type: 3}
+   m_PrefabInstance: {fileID: 160748363}
+   m_PrefabAsset: {fileID: 0}
++--- !u!1 &1397878592 stripped
++GameObject:
++  m_CorrespondingSourceObject: {fileID: 60159623378250527, guid: 564bdb7014e760c43afd895061f62b70,
++    type: 3}
++  m_PrefabInstance: {fileID: 4843316740302379983}
++  m_PrefabAsset: {fileID: 0}
++--- !u!114 &1397878597
++MonoBehaviour:
++  m_ObjectHideFlags: 0
++  m_CorrespondingSourceObject: {fileID: 0}
++  m_PrefabInstance: {fileID: 0}
++  m_PrefabAsset: {fileID: 0}
++  m_GameObject: {fileID: 1397878592}
++  m_Enabled: 1
++  m_EditorHideFlags: 0
++  m_Script: {fileID: 11500000, guid: c5e280355a4a9854ea355b1e54da04b7, type: 3}
++  m_Name: 
++  m_EditorClassIdentifier: 
++  player: {fileID: 0}
++  maxDistance: 15
++  initialAngel: 20
++  heightOffset: 1
++  canOrbit: 1
++  canOrbitWithVelocity: 1
++  orbitVelocityMultiplier: 5
+ --- !u!1001 &1399334750
+ PrefabInstance:
+   m_ObjectHideFlags: 0
+@@ -133154,10 +133179,15 @@ PrefabInstance:
+       propertyPath: m_Priority
+       value: 10
+       objectReference: {fileID: 0}
+-    m_RemovedComponents: []
++    m_RemovedComponents:
++    - {fileID: 4816756411855993584, guid: 564bdb7014e760c43afd895061f62b70, type: 3}
+     m_RemovedGameObjects: []
+     m_AddedGameObjects: []
+-    m_AddedComponents: []
++    m_AddedComponents:
++    - targetCorrespondingSourceObject: {fileID: 60159623378250527, guid: 564bdb7014e760c43afd895061f62b70,
++        type: 3}
++      insertIndex: 2
++      addedObject: {fileID: 1397878597}
+   m_SourcePrefab: {fileID: 100100000, guid: 564bdb7014e760c43afd895061f62b70, type: 3}
+ --- !u!1001 &5292645256339478382
+ PrefabInstance:
+diff --git a/Assets/PLAYER TWO/Platformer Project/Scripts/Entity/Entity.cs b/Assets/PLAYER TWO/Platformer Project/Scripts/Entity/Entity.cs
+index cdc8e04..a2077dc 100644
+--- a/Assets/PLAYER TWO/Platformer Project/Scripts/Entity/Entity.cs	
++++ b/Assets/PLAYER TWO/Platformer Project/Scripts/Entity/Entity.cs	
+@@ -3,7 +3,10 @@ using System.Collections.Generic;
+ using Unity.Mathematics;
+ using UnityEngine;
+ 
+-public abstract class EntityBase : MonoBehaviour { }
++public abstract class EntityBase : MonoBehaviour { 
++    public Vector3 unsizedPosition => transform.position;
++    public bool isGrounded { get; protected set; } = true;
++}
+ public abstract class Entity<T> :EntityBase where T :Entity<T>
+ {
+     public EntityStateManager<T> states {  get; private set; }
+@@ -58,8 +61,7 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
+     public virtual void FaceDirection(Vector3 direction, float degreesPersecond)
+     {
+         if (direction != Vector3.zero)
+-        {
+-            Debug.Log("change");
++        {           
+             var rotation = transform.rotation;
+             var rotationDelta = degreesPersecond * Time.deltaTime;
+             var target = Quaternion.LookRotation(direction, Vector3.up);
+diff --git a/Assets/PLAYER TWO/Platformer Project/Scripts/Player/PlayerCamera.cs b/Assets/PLAYER TWO/Platformer Project/Scripts/Player/PlayerCamera.cs
+new file mode 100644
+index 0000000..bf2cec9
+--- /dev/null
++++ b/Assets/PLAYER TWO/Platformer Project/Scripts/Player/PlayerCamera.cs	
+@@ -0,0 +1,172 @@
++﻿using UnityEngine;
++using Cinemachine;
++using UnityEditor.SceneManagement;
++using UnityEngine.Rendering;
++using Unity.VisualScripting;
++[RequireComponent(typeof(CinemachineVirtualCamera))]
++[AddComponentMenu("PLAYER TWO/Platformer Project/Player/Player Camera")]
++public class PlayerCamera : MonoBehaviour
++{
++
++    [Header("Camera Settings")]
++    public Player player;
++    public float maxDistance = 15f;
++    public float initialAngel = 20f;
++    public float heightOffset = 1f;
++
++    [Header("Orbit Settings")]
++    public bool canOrbit = true;
++    public bool canOrbitWithVelocity = true;
++    public float orbitVelocityMultiplier = 5;
++
++    [Header("Following Setting")]
++    public float verticalUpDeadZone = 0.15f;
++    public float verticalDownDeadZone = 0.15f;
++    public float verticalAirUpDeadZone = 4f;
++    public float verticalAirDownDeadZone = 0;
++    public float maxVerticalSpeed = 10f;
++    public float maxAirVerticalSpeed = 100f;
++
++    [Range(0, 90)]
++    public float verticalMaxRotation = 80;
++
++    [Range(-90, 0)]
++    public float verticalMinRotation = -20;
++
++    protected CinemachineVirtualCamera m_camera;
++    protected Cinemachine3rdPersonFollow m_cameraBody;
++    protected CinemachineBrain m_brain;
++
++    protected float m_cameraDistance;
++    protected float m_cameraTargetYaw;
++    protected float m_cameraTargetPitch;
++    protected Vector3 m_cameraTargetPosition;
++
++    protected Transform m_target;
++
++    protected string k_targetName = "Player Follower Camera Target"; 
++
++    protected virtual void Start()
++    {
++        InitializeComponents();
++        InitializeFollower();
++        InitializeCamera();
++    }
++
++    protected virtual void InitializeComponents()
++    {
++        if (!player)
++        {
++            player = FindObjectOfType<Player>();
++        }
++        m_camera = GetComponent<CinemachineVirtualCamera>();
++        m_cameraBody = m_camera.AddCinemachineComponent<Cinemachine3rdPersonFollow>();
++        m_brain = Camera.main.GetComponent<CinemachineBrain>();
++    }
++
++    protected virtual void InitializeFollower()
++    {
++        m_target = new GameObject(k_targetName).transform;
++        m_target.position = player.transform.position;
++    }
++
++    protected virtual void InitializeCamera()
++    {
++        m_camera.Follow = m_target.transform;
++        m_camera.LookAt = player.transform;
++
++        Reset();
++    }
++
++    public virtual void Reset()
++    {
++        m_cameraDistance = maxDistance;
++        m_cameraTargetYaw = player.transform.rotation.eulerAngles.y;
++        m_cameraTargetPitch = initialAngel;
++        m_cameraTargetPosition = player.unsizedPosition + Vector3.up * heightOffset;
++        MoveTarget();   
++        m_brain.ManualUpdate();
++    }
++    protected virtual void MoveTarget()
++    {
++        m_target.position = m_cameraTargetPosition;
++        m_target.rotation = Quaternion.Euler(m_cameraTargetPitch, m_cameraTargetYaw, 0.0f);
++        m_cameraBody.CameraDistance = m_cameraDistance;
++    }
++
++    protected virtual bool VerticalFollowingStates()
++    {
++        return true;
++    }
++
++    protected virtual void HandleOrbit()
++    {
++        if (canOrbit)
++        {
++            var direction = player.input.GetLookDirection();
++            if(direction.sqrMagnitude > 0)
++            {
++                var usingMouse = player.input.IsLookingWithMouse();
++                float deltaTimeMultiplier = usingMouse ? Time.timeScale : Time.deltaTime;
++                m_cameraTargetYaw += direction.x * deltaTimeMultiplier;
++                m_cameraTargetPitch -= direction.z * deltaTimeMultiplier;
++                m_cameraTargetPitch = ClampAngle(m_cameraTargetPitch, verticalMinRotation, verticalMaxRotation);
++            }
++        }
++    }
++
++    protected virtual void HandleVelocityOrbit()
++    {
++        if(canOrbitWithVelocity && player.isGrounded)
++        {
++            var localVelocity = m_target.InverseTransformVector(player.velocity);
++            m_cameraTargetYaw += localVelocity.x * orbitVelocityMultiplier * Time.deltaTime;
++        }
++    }
++
++    protected virtual void HandleOffSet()
++    {
++        var target = player.unsizedPosition + Vector3.up * heightOffset;
++        var previousPosition = m_cameraTargetPosition;
++        var targetHeight = previousPosition.y;
++        if(player.isGrounded || VerticalFollowingStates())
++        {
++            if(target.y > previousPosition.y + verticalUpDeadZone)
++            {
++                var offset = target.y - previousPosition.y - verticalUpDeadZone;
++                targetHeight += Mathf.Min(offset, maxVerticalSpeed * Time.deltaTime);
++            }
++            else if(target.y < previousPosition.y - verticalDownDeadZone)
++            {
++                var offset = target.y - previousPosition.y + verticalDownDeadZone;
++                targetHeight += Mathf.Max(offset, -maxVerticalSpeed * Time.deltaTime);
++            }
++            else if (target.y > previousPosition.y + verticalAirUpDeadZone)
++            {
++                var offset = target.y - previousPosition.y - verticalAirUpDeadZone;
++                targetHeight += Mathf.Min(offset, maxAirVerticalSpeed * Time.deltaTime);
++            }
++            else if (target.y < previousPosition.y - verticalAirDownDeadZone)
++            {
++                var offset = target.y - previousPosition.y + verticalAirDownDeadZone;
++                targetHeight += Mathf.Max(offset, -maxAirVerticalSpeed * Time.deltaTime);
++            }
++            m_cameraTargetPosition = new Vector3(target.x, targetHeight, target.z);
++        }
++    }
++
++    protected virtual float ClampAngle(float angle, float min, float max)
++    {
++        if (angle < 360) angle += 360;
++        if (angle > 360) angle -= 360;
++        return Mathf.Clamp(angle, min, max);
++    }
++
++    protected virtual void LateUpdate()
++    {
++        MoveTarget();
++        HandleOrbit();
++        HandleVelocityOrbit();
++        HandleOffSet();
++    }
++}
+\ No newline at end of file
+diff --git a/Assets/PLAYER TWO/Platformer Project/Scripts/Player/PlayerCamera.cs.meta b/Assets/PLAYER TWO/Platformer Project/Scripts/Player/PlayerCamera.cs.meta
+new file mode 100644
+index 0000000..4e8ef2a
+--- /dev/null
++++ b/Assets/PLAYER TWO/Platformer Project/Scripts/Player/PlayerCamera.cs.meta	
+@@ -0,0 +1,2 @@
++fileFormatVersion: 2
++guid: c5e280355a4a9854ea355b1e54da04b7
+\ No newline at end of file
+diff --git a/Assets/PLAYER TWO/Platformer Project/Scripts/Player/PlayerInputManager.cs b/Assets/PLAYER TWO/Platformer Project/Scripts/Player/PlayerInputManager.cs
+index f2aab68..77a0d67 100644
+--- a/Assets/PLAYER TWO/Platformer Project/Scripts/Player/PlayerInputManager.cs	
++++ b/Assets/PLAYER TWO/Platformer Project/Scripts/Player/PlayerInputManager.cs	
+@@ -8,9 +8,12 @@ public class PlayerInputManager :MonoBehaviour
+     protected float m_movementDirectionUnlockTime;
+ 
+     protected InputAction m_movement;
++    protected InputAction m_look;
+ 
+     protected Camera m_camera;
+ 
++    protected const string k_mouseDeviceName = "Mouse";  
++
+     protected virtual void Awake() => CacheActions();
+ 
+     protected virtual void Start()
+@@ -19,13 +22,32 @@ public class PlayerInputManager :MonoBehaviour
+         m_camera = Camera.main;
+     }
+ 
+-    protected virtual void Onable() => actions?.Enable();
++    protected virtual void OnEnable() => actions?.Enable();
+ 
+     protected virtual void OnDisable() => actions?.Disable();
+ 
+     protected virtual void CacheActions()
+     {
+         m_movement = actions["Movement"];
++        m_look = actions["Look"];
++    }
++
++    public virtual Vector3 GetLookDirection()
++    {
++        var value = m_look.ReadValue<Vector2>();
++
++        if (IsLookingWithMouse())
++        {
++            return new Vector3(value.x, 0, value.y);
++        }
++
++        return GetAxisWithCrossDeadZone(value);
++    }
++
++    public virtual bool IsLookingWithMouse()
++    {
++        if(m_look.activeControl == null) return false;
++        return m_look.activeControl.device.name.Equals(k_mouseDeviceName);
+     }
+ 
+     public virtual Vector3 GetMovementDirection()

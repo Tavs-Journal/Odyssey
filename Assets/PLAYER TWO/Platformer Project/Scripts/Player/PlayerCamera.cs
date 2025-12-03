@@ -7,9 +7,8 @@ using Unity.VisualScripting;
 [AddComponentMenu("PLAYER TWO/Platformer Project/Player/Player Camera")]
 public class PlayerCamera : MonoBehaviour
 {
-
     [Header("Camera Settings")]
-    public Player player;
+    public Player player;   
     public float maxDistance = 15f;
     public float initialAngel = 20f;
     public float heightOffset = 1f;
@@ -163,10 +162,10 @@ public class PlayerCamera : MonoBehaviour
     }
 
     protected virtual void LateUpdate()
-    {
-        MoveTarget();
+    {   
         HandleOrbit();
         HandleVelocityOrbit();
         HandleOffSet();
+        MoveTarget();
     }
 }
