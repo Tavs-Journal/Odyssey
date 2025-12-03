@@ -7,6 +7,10 @@ public abstract class EntityBase : MonoBehaviour {
     public Vector3 unsizedPosition => transform.position;
     public bool isGrounded { get; protected set; } = true;
 
+    public CharacterController controller {  get; protected set; }
+
+    public float originalHeight {  get; protected set; }
+
     public virtual bool OnSlopingGround()
     {
         return false;
@@ -38,6 +42,19 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
     {
         get { return new Vector3(0, velocity.y, 0); }
         set { velocity = new Vector3(velocity.x, value.y, velocity.z); }
+    }
+
+    protected virtual void InitializeController()
+    {
+        controller = GetComponent<CharacterController>();
+        if (!controller)
+        {
+            controller = gameObject.AddComponent<CharacterController>();
+        }
+
+        controller.skinWidth = 0.005f;
+        controller.minMoveDistance = 0;
+        originalHeight = controller.height;
     }
 
     protected virtual void InitializeStateManager() => states = GetComponent<EntityStateManager<T>>();
@@ -82,6 +99,11 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
 
     protected virtual void HandleController()
     {
+        if (controller.enabled)
+        {
+            controller.Move(velocity *  Time.deltaTime);
+            return;
+        }
         transform.position += velocity * Time.deltaTime;
     }
     protected virtual void HandleState() => states.Step();
@@ -89,6 +111,7 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
     protected virtual void Awake()
     {
         InitializeStateManager();
+        InitializeController();
     }
     
     protected virtual void Update()
