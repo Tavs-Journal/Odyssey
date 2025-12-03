@@ -17,6 +17,9 @@ public abstract class EntityStateManager<T> : EntityStateManager where T : Entit
 
     public EntityState<T> last { get; private set; }
 
+    public int index => m_list.IndexOf(current);
+    public int lastIndex => m_list.IndexOf(last);
+
     public T entity {  get; private set; }
 
     protected virtual void Start()
