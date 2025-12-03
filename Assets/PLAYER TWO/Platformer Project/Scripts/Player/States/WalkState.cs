@@ -30,6 +30,18 @@ public class WalkState : PlayerState
                 player.Accelerate(inputDirection);
                 player.FaceDirectionSmooth(player.lateralvelocity);
             }
+            else
+            {
+                player.states.Change<BrakePlayerState>();
+            }
+        }
+        else
+        {
+            player.Friction();
+            if (player.lateralvelocity.sqrMagnitude <= 0)
+            {
+                player.states.Change<IdleState>();
+            }                
         }
     }
 }

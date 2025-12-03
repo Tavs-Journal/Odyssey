@@ -6,6 +6,11 @@ using UnityEngine;
 public abstract class EntityBase : MonoBehaviour { 
     public Vector3 unsizedPosition => transform.position;
     public bool isGrounded { get; protected set; } = true;
+
+    public virtual bool OnSlopingGround()
+    {
+        return false;
+    }
 }
 public abstract class Entity<T> :EntityBase where T :Entity<T>
 {
@@ -67,6 +72,12 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
             var target = Quaternion.LookRotation(direction, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(rotation, target, rotationDelta); 
         }
+    }
+
+    public virtual void Decelerate(float deceleration)
+    {
+        var delta = deceleration * decelerationMultiplier * Time.deltaTime;
+        lateralvelocity = Vector3.MoveTowards(lateralvelocity, Vector3.zero, delta);
     }
 
     protected virtual void HandleController()

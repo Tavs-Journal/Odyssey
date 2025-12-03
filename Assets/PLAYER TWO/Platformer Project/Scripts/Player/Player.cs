@@ -32,6 +32,16 @@ public class Player : Entity<Player>
         Accelerate(direction, turningDrag, finalAcceleration, topSpeed);
     }
 
+    public virtual void Decelerate() => Decelerate(stats.current.deceleration);
+
+    public virtual void Friction()
+    {
+        if (OnSlopingGround())
+            Decelerate(stats.current.slopeFriction);
+        else 
+            Decelerate(stats.current.friction);
+    }
+
     public virtual void FaceDirectionSmooth(Vector3 direction) => FaceDirection(direction, stats.current.rotationSpeed);
 
 }
