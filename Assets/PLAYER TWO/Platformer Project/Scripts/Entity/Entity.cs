@@ -11,6 +11,8 @@ public abstract class EntityBase : MonoBehaviour {
 
     public float originalHeight {  get; protected set; }
 
+    public float lastGroundTime { get; protected set; }
+
     public virtual bool OnSlopingGround()
     {
         return false;

@@ -21,6 +21,8 @@ public class BrakePlayerState : PlayerState
     {
         player.Decelerate();
 
+        player.Jump();
+
         if(player.lateralvelocity.sqrMagnitude == 0)
         {
             player.states.Change<IdleState>();

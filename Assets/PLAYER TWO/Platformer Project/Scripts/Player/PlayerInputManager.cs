@@ -9,10 +9,14 @@ public class PlayerInputManager :MonoBehaviour
 
     protected InputAction m_movement;
     protected InputAction m_look;
+    protected InputAction m_jump;
 
     protected Camera m_camera;
 
-    protected const string k_mouseDeviceName = "Mouse";  
+    protected const string k_mouseDeviceName = "Mouse";
+
+    protected float? m_lastJumpTime;
+    protected const float k_jumpBuffer = 0.15f;
 
     protected virtual void Awake() => CacheActions();
 
@@ -20,6 +24,14 @@ public class PlayerInputManager :MonoBehaviour
     {
         actions.Enable();
         m_camera = Camera.main;
+    }
+
+    protected virtual void Update()
+    {
+        if (m_jump.WasPressedThisFrame())
+        {
+            m_lastJumpTime = Time.time;
+        }
     }
 
     protected virtual void OnEnable() => actions?.Enable();
@@ -30,6 +42,7 @@ public class PlayerInputManager :MonoBehaviour
     {
         m_movement = actions["Movement"];
         m_look = actions["Look"];
+        m_jump = actions["Jump"];
     }
 
     public virtual Vector3 GetLookDirection()
@@ -79,4 +92,16 @@ public class PlayerInputManager :MonoBehaviour
         }
         return direction;
     }
+
+    public virtual bool GetJumpDown()
+    {
+        if(m_lastJumpTime != null &&
+            Time.time -  m_lastJumpTime < k_jumpBuffer)
+        {
+            m_lastJumpTime = null;
+            return true;
+        }
+        return false;
+    }
+    public virtual bool GetJumpUp() => m_jump.WasReleasedThisFrame();
 }

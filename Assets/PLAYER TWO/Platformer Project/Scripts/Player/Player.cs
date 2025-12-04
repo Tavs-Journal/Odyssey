@@ -2,9 +2,13 @@
 
 public class Player : Entity<Player>
 {
+    public PlayerEvents playerevents;
+
     public PlayerInputManager input {  get; protected set; }
 
     public PlayerStatsManager stats { get; protected set; }
+
+    public int JumpCounter { get; protected set; }
 
     protected override void Awake()
     {
@@ -53,6 +57,31 @@ public class Player : Entity<Player>
             speed = Mathf.Max(speed, -stats.current.gravityTopSpeed);
             verticalVelocity = new Vector3(0, speed, 0);
         }
+    }
+
+    public virtual void Jump()
+    {
+        isGrounded = true;      
+        var canMultiJump = (JumpCounter > 0) && (JumpCounter < stats.current.multiJumps);
+        var canCoyoteJump = (JumpCounter == 0) && (Time.deltaTime < lastGroundTime + stats.current.coyoteJumpThreshold);
+        if (canMultiJump || canCoyoteJump || isGrounded) 
+        {
+            if (input.GetJumpDown())
+            {
+                Jump(stats.current.maxJumpHeight);
+            }
+        }
+        if (input.GetJumpUp() && JumpCounter > 0 && verticalVelocity.y > stats.current.maxJumpHeight)
+        {
+            verticalVelocity = Vector3.up * stats.current.minJumpHeight;
+        }
+    }
+    public virtual void Jump(float height)
+    {
+        JumpCounter++;
+        verticalVelocity = Vector3.up * height;
+        states.Change<FallPlayerState>();
+        playerevents.OnJump?.Invoke();
     }
     public virtual void FaceDirectionSmooth(Vector3 direction) => FaceDirection(direction, stats.current.rotationSpeed);
 }
