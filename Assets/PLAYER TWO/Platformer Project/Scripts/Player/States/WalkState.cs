@@ -20,12 +20,13 @@ public class WalkState : PlayerState
     protected override void OnStep(Player player)
     {
         player.Gravity();
-
+        player.SnapToGround();
         player.Jump();
+        player.Fall();
 
         var inputDirection = player.input.GetMovementCameraDirection();
 
-        if(inputDirection.sqrMagnitude > 0 )
+        if(inputDirection.sqrMagnitude > 0)
         {
             var dot = Vector3.Dot(inputDirection, player.lateralvelocity);
 

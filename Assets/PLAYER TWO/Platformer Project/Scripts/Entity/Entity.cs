@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class EntityBase : MonoBehaviour { 
+
+    public EntityEvents entityEvents;
     public Vector3 unsizedPosition => transform.position;
     public bool isGrounded { get; protected set; } = true;
+    public readonly float m_groundOffSet = 0.1f;
 
     public CharacterController controller {  get; protected set; }
 
@@ -13,9 +17,35 @@ public abstract class EntityBase : MonoBehaviour {
 
     public float lastGroundTime { get; protected set; }
 
+    public float groundAngel { get; protected set; }
+
+    public RaycastHit groundHit;
+
+    public Vector3 groundNormal {  get; protected set; }
+
+    public Vector3 localSlopeDirection {  get; protected set; }
+
+    public Vector3 position => transform.position + center;
+
+    public Vector3 center => controller.center;
+    public float height => controller.height;
+    public float radius => controller.radius;
+
+    public Vector3 stepPosition => position - transform.up * (height * 0.5f - controller.stepOffset);
+
+    public virtual bool IsPointUnderStep(Vector3 point) => stepPosition.y > point.y;     
+
     public virtual bool OnSlopingGround()
     {
         return false;
+    }
+
+    public virtual bool SphereCast(Vector3 direction, float distance,
+        out RaycastHit hit, int layer = Physics.DefaultRaycastLayers, 
+        QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.Ignore)
+    {
+        var castDistance = Mathf.Abs(distance - radius);
+        return Physics.SphereCast(position, radius, direction, out hit, castDistance, layer, queryTriggerInteraction);
     }
 }
 public abstract class Entity<T> :EntityBase where T :Entity<T>
@@ -99,6 +129,75 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
         lateralvelocity = Vector3.MoveTowards(lateralvelocity, Vector3.zero, delta);
     }
 
+    protected virtual bool EvaluateLanding(RaycastHit hit)
+    {
+        return IsPointUnderStep(hit.point) && Vector3.Angle(hit.normal, Vector3.up) < controller.slopeLimit;
+    }
+
+    protected virtual void EnterGround(RaycastHit hit)
+    {
+        if (!isGrounded)
+        {
+            groundHit = hit;
+            isGrounded = true;
+            entityEvents.OnGroundEnter?.Invoke();
+        }
+    }
+
+    protected virtual void ExitGround(RaycastHit hit)
+    {
+        if (isGrounded)
+        {
+            isGrounded = false;
+            transform.parent = null;
+            lastGroundTime = Time.time;
+            verticalVelocity = Vector3.Max(verticalVelocity, Vector3.zero);
+            entityEvents.OnGroundExit?.Invoke();
+        }
+    }
+
+    public virtual void SnapToGround(float force)
+    {
+        if(isGrounded && (verticalVelocity.y) <= 0)
+        {
+            verticalVelocity = Vector3.down * force;
+        }
+    }
+
+    protected virtual void UpdateGround(RaycastHit hit)
+    {
+        if (isGrounded)
+        {
+            groundHit = hit;
+            groundNormal = groundHit.normal;
+            groundAngel = Vector3.Angle(Vector3.up, groundNormal);
+            localSlopeDirection = new Vector3(groundNormal.x, 0, groundNormal.z);
+            transform.parent = hit.collider.CompareTag(GameTags.Platform) ? hit.transform : null;
+        }
+    }
+
+    protected virtual void HandleGround()
+    {
+        var distance = (height * 0.5f) + m_groundOffSet;
+        if(SphereCast(Vector3.down, distance, out var hit) && verticalVelocity.y <= 0)
+        {
+            if (!isGrounded)
+            {
+                if (EvaluateLanding(hit))
+                {
+                    EnterGround(hit);
+                }
+            }
+            else if (IsPointUnderStep(hit.point)){
+                UpdateGround(hit);
+            }
+        }
+        else
+        {
+            ExitGround(hit);
+        }      
+    }
+
     protected virtual void HandleController()
     {
         if (controller.enabled)
@@ -118,7 +217,11 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
     
     protected virtual void Update()
     {
-        HandleState();
-        HandleController();
+        if (controller.enabled)
+        {
+            HandleState();
+            HandleController();
+            HandleGround();
+        }
     }
 }

@@ -20,8 +20,9 @@ public class IdleState : PlayerState
     protected override void OnStep(Player player)
     {
         player.Gravity();
-
+        player.SnapToGround();
         player.Jump();
+        player.Fall();
         var inputDireaction = player.input.GetMovementDirection();
 
         if(inputDireaction.sqrMagnitude > 0 || player.lateralvelocity.sqrMagnitude > 0) 

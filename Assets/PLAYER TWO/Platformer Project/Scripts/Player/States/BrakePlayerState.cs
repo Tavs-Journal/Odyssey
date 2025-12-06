@@ -20,8 +20,9 @@ public class BrakePlayerState : PlayerState
     protected override void OnStep(Player player)
     {
         player.Decelerate();
-
+        player.SnapToGround();
         player.Jump();
+        player.Fall();
 
         if(player.lateralvelocity.sqrMagnitude == 0)
         {

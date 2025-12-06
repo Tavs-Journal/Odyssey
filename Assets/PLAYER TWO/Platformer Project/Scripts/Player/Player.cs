@@ -15,6 +15,7 @@ public class Player : Entity<Player>
         base.Awake();
         InitializeInput();
         InitailizeStats();
+        entityEvents.OnGroundEnter.AddListener(() => { ResetJumps(); });
     }
 
     protected virtual void InitializeInput() => input = GetComponent<PlayerInputManager>();
@@ -48,7 +49,6 @@ public class Player : Entity<Player>
 
     public virtual void Gravity()
     {
-        isGrounded = false;
         if(!isGrounded && verticalVelocity.y > -stats.current.gravityTopSpeed)
         {
             var speed = verticalVelocity.y;
@@ -59,9 +59,18 @@ public class Player : Entity<Player>
         }
     }
 
-    public virtual void Jump()
+    public virtual void AccelerateToInputDirection()
     {
-        isGrounded = true;      
+        var inputDirection = input.GetMovementCameraDirection();
+        Accelerate(inputDirection);
+    }
+
+    public virtual void SnapToGround() => SnapToGround(stats.current.snapForce);
+
+    public virtual void ResetJumps() => JumpCounter = 0;
+
+    public virtual void Jump()
+    {    
         var canMultiJump = (JumpCounter > 0) && (JumpCounter < stats.current.multiJumps);
         var canCoyoteJump = (JumpCounter == 0) && (Time.deltaTime < lastGroundTime + stats.current.coyoteJumpThreshold);
         if (canMultiJump || canCoyoteJump || isGrounded) 
@@ -76,6 +85,15 @@ public class Player : Entity<Player>
             verticalVelocity = Vector3.up * stats.current.minJumpHeight;
         }
     }
+
+    public virtual void Fall()
+    {
+        if (!isGrounded)
+        {
+            states.Change<FallPlayerState>();
+        }
+    }
+
     public virtual void Jump(float height)
     {
         JumpCounter++;
