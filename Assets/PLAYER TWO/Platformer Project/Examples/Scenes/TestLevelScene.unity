@@ -34437,6 +34437,7 @@ MonoBehaviour:
   - WalkState
   - BrakePlayerState
   - FallPlayerState
+  - HurtPlayerState
 --- !u!114 &583133415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34449,8 +34450,72 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a5f2762f95532841b474eff50f960b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entityEvents:
+    OnGroundEnter:
+      m_PersistentCalls:
+        m_Calls: []
+    OnGroundExit:
+      m_PersistentCalls:
+        m_Calls: []
+    OnRailsEnter:
+      m_PersistentCalls:
+        m_Calls: []
+    OnRailsExit:
+      m_PersistentCalls:
+        m_Calls: []
   playerevents:
     OnJump:
+      m_PersistentCalls:
+        m_Calls: []
+    OnHurt:
+      m_PersistentCalls:
+        m_Calls: []
+    OnDie:
+      m_PersistentCalls:
+        m_Calls: []
+    OnSpin:
+      m_PersistentCalls:
+        m_Calls: []
+    OnPickUp:
+      m_PersistentCalls:
+        m_Calls: []
+    OnThrow:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStompStarted:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStompFalling:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStompLanding:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStompEnding:
+      m_PersistentCalls:
+        m_Calls: []
+    OnLedgeGrabbed:
+      m_PersistentCalls:
+        m_Calls: []
+    OnLedgeClimbing:
+      m_PersistentCalls:
+        m_Calls: []
+    OnAirDrive:
+      m_PersistentCalls:
+        m_Calls: []
+    OnBackflip:
+      m_PersistentCalls:
+        m_Calls: []
+    OnGlidingStart:
+      m_PersistentCalls:
+        m_Calls: []
+    OnGlidingStop:
+      m_PersistentCalls:
+        m_Calls: []
+    OnDashStarted:
+      m_PersistentCalls:
+        m_Calls: []
+    OnDashEnded:
       m_PersistentCalls:
         m_Calls: []
 --- !u!114 &583133416
@@ -34508,6 +34573,28 @@ MonoBehaviour:
   isHoldingName: Is Holding
   onStateChangedName: On State Changed
   animator: {fileID: 410218393}
+--- !u!114 &583133421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 583133413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f8b6c56526aa343b65daf0470ed44b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  intail: 3
+  max: 3
+  coolDown: 1
+  onChange:
+    m_PersistentCalls:
+      m_Calls: []
+  onDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  m_currentHealth: 3
 --- !u!4 &583747742 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2153768078682293615, guid: b28f9319f6e967d4fbdbd49d12fe14fd,
@@ -47546,10 +47633,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spikes
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5746718380372093303, guid: 85866ea8016e5ed46a5649a0d9d8ee16, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5746718380372093302, guid: 85866ea8016e5ed46a5649a0d9d8ee16,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1341231426}
   m_SourcePrefab: {fileID: 100100000, guid: 85866ea8016e5ed46a5649a0d9d8ee16, type: 3}
 --- !u!1 &794803557 stripped
 GameObject:
@@ -82678,6 +82770,27 @@ MonoBehaviour:
       Door: {fileID: 0}
       DoorActivationMode: 0
     _jumpObstacleSound: {fileID: 0}
+--- !u!1 &1341231423 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5746718380372093302, guid: 85866ea8016e5ed46a5649a0d9d8ee16,
+    type: 3}
+  m_PrefabInstance: {fileID: 794165620}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1341231426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1341231423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a307de53940458a47b5a7e6720205cb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSolid: 0
+  damageOnlyFromAbove: 0
+  damage: 1
 --- !u!1001 &1341331509
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -91010,6 +91123,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 583133414}
+    - targetCorrespondingSourceObject: {fileID: 6650432633027884458, guid: eb0f77ac3ce65a04db54ff55e59b0815,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 583133421}
     - targetCorrespondingSourceObject: {fileID: 6650432633027884458, guid: eb0f77ac3ce65a04db54ff55e59b0815,
         type: 3}
       insertIndex: -1

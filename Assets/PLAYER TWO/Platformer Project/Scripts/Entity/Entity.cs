@@ -35,9 +35,20 @@ public abstract class EntityBase : MonoBehaviour {
 
     public virtual bool IsPointUnderStep(Vector3 point) => stepPosition.y > point.y;     
 
+    public virtual void ApplyDamage(int damage, Vector3 origin) { }
+
     public virtual bool OnSlopingGround()
     {
         return false;
+    }
+
+    public virtual void FaceDirection(Vector3 direction)
+    {
+        if(direction.sqrMagnitude > 0)
+        {
+            var rotation = Quaternion.LookRotation(direction, Vector3.up);
+            transform.rotation = rotation;
+        }
     }
 
     public virtual bool SphereCast(Vector3 direction, float distance,

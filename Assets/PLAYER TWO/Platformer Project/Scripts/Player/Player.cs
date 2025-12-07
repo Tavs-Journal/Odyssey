@@ -10,17 +10,27 @@ public class Player : Entity<Player>
 
     public int JumpCounter { get; protected set; }
 
+    public bool onWater {  get; protected set; }
+
+    public Health health { get; protected set; }
+
     protected override void Awake()
     {
         base.Awake();
         InitializeInput();
-        InitailizeStats();
+        InitializeStats();
+        InitialHealth();
+        InitialTag();
         entityEvents.OnGroundEnter.AddListener(() => { ResetJumps(); });
     }
 
+    protected virtual void InitialTag() => tag = GameTags.Player;
+
+    protected virtual void InitialHealth() => health = GetComponent<Health>();  
+
     protected virtual void InitializeInput() => input = GetComponent<PlayerInputManager>();
 
-    protected virtual void InitailizeStats() => stats = GetComponent<PlayerStatsManager>();
+    protected virtual void InitializeStats() => stats = GetComponent<PlayerStatsManager>();
 
     public virtual void Accelerate(Vector3 direction)
     {
@@ -100,6 +110,30 @@ public class Player : Entity<Player>
         verticalVelocity = Vector3.up * height;
         states.Change<FallPlayerState>();
         playerevents.OnJump?.Invoke();
+    }
+
+    public override void ApplyDamage(int damage, Vector3 origin)
+    {
+         if(!health.IsEmpty && !health.recovering)
+        {
+            health.Damage(damage);
+            var damageDir = origin - transform.position;
+            damageDir.y = 0;
+            damageDir.Normalize();
+            FaceDirection(damageDir);
+            lateralvelocity = -transform.forward * stats.current.hurtBackwardsForce;
+            if (!onWater)
+            {
+                verticalVelocity = Vector3.up * stats.current.hurtUpwardForce;
+                states.Change<HurtPlayerState>();
+            }
+            playerevents.OnHurt?.Invoke();
+            if (health.IsEmpty)
+            {
+                
+            }
+        }
+
     }
     public virtual void FaceDirectionSmooth(Vector3 direction) => FaceDirection(direction, stats.current.rotationSpeed);
 }

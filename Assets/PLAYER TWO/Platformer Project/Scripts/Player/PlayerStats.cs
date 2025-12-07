@@ -32,4 +32,9 @@ public class PlayerStats : EntityStats<PlayerStats>
     public float coyoteJumpThreshold = 0.15f;  // 土狼跳判定时间（离地后还能跳的时间窗口）
     public float maxJumpHeight = 17f;          // 最大跳跃高度
     public float minJumpHeight = 10f;          // 最小跳跃高度（轻按跳）
+
+    //==============================【受伤反应】==============================//
+    [Header("Hurt Stats")]
+    public float hurtUpwardForce = 10f;        // 受伤时向上的力
+    public float hurtBackwardsForce = 5f;      // 受伤时向后的力
 }
