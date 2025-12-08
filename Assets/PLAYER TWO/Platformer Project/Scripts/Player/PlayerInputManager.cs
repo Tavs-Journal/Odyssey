@@ -10,6 +10,7 @@ public class PlayerInputManager :MonoBehaviour
     protected InputAction m_movement;
     protected InputAction m_look;
     protected InputAction m_jump;
+    protected InputAction m_crouch;
 
     protected Camera m_camera;
 
@@ -43,6 +44,7 @@ public class PlayerInputManager :MonoBehaviour
         m_movement = actions["Movement"];
         m_look = actions["Look"];
         m_jump = actions["Jump"];
+        m_crouch = actions["Crouch"];
     }
 
     public virtual Vector3 GetLookDirection()
@@ -104,4 +106,5 @@ public class PlayerInputManager :MonoBehaviour
         return false;
     }
     public virtual bool GetJumpUp() => m_jump.WasReleasedThisFrame();
+    public virtual bool GetCrouchAndCraw() => m_crouch.IsPressed();
 }

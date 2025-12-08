@@ -51,12 +51,25 @@ public abstract class EntityBase : MonoBehaviour {
         }
     }
 
+    public virtual bool SphereCast(Vector3 direction, float distance, int layer = Physics.DefaultRaycastLayers, 
+        QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.Ignore)
+    {
+        return SphereCast(direction, distance, out _, layer, queryTriggerInteraction);
+    }
+
     public virtual bool SphereCast(Vector3 direction, float distance,
         out RaycastHit hit, int layer = Physics.DefaultRaycastLayers, 
         QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.Ignore)
     {
         var castDistance = Mathf.Abs(distance - radius);
         return Physics.SphereCast(position, radius, direction, out hit, castDistance, layer, queryTriggerInteraction);
+    }
+
+    public virtual void ReSizeCollider(float height)
+    {
+        var delta = height - this.height;
+        controller.height = height;
+        controller.center += Vector3.up * delta * 0.5f;
     }
 }
 public abstract class Entity<T> :EntityBase where T :Entity<T>

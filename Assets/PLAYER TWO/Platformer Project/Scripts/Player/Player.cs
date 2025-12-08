@@ -14,6 +14,8 @@ public class Player : Entity<Player>
 
     public Health health { get; protected set; }
 
+    public bool holding { get; protected set; }
+
     protected override void Awake()
     {
         base.Awake();
@@ -135,5 +137,7 @@ public class Player : Entity<Player>
         }
 
     }
+    public virtual bool canStandUp => !SphereCast(Vector3.up, originalHeight);
+    
     public virtual void FaceDirectionSmooth(Vector3 direction) => FaceDirection(direction, stats.current.rotationSpeed);
 }

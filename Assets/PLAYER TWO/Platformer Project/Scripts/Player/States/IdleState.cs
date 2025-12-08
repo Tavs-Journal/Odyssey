@@ -29,5 +29,9 @@ public class IdleState : PlayerState
         {
             player.states.Change<WalkState>();
         }
+        else if (player.input.GetCrouchAndCraw())
+        {
+            player.states.Change<CrouchPlayerState>();
+        }
     }
 }

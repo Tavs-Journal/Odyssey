@@ -48,5 +48,10 @@ public class WalkState : PlayerState
                 player.states.Change<IdleState>();
             }                
         }
+
+        if (player.input.GetCrouchAndCraw())
+        {
+            player.states.Change<CrouchPlayerState>();
+        }
     }
 }
