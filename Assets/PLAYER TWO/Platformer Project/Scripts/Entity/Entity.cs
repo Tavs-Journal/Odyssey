@@ -136,6 +136,14 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
         lateralvelocity = velocity + turningVelocity;
     }
 
+    public virtual void Gravity(float gravity)
+    {
+        if (!isGrounded)
+        {
+            verticalVelocity += Vector3.down * gravity * gravityMultiplier * Time.deltaTime;
+        }
+    }
+
     public virtual void FaceDirection(Vector3 direction, float degreesPersecond)
     {
         if (direction != Vector3.zero)

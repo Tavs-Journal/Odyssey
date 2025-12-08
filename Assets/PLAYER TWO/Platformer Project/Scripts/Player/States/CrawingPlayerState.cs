@@ -29,7 +29,7 @@ public class CrawingPlayerState : PlayerState
         {
             if(inputDirection.sqrMagnitude > 0)
             {
-                player.CrawingAccelerate(inputDirection);
+                player.CrawlingAccelerate(inputDirection);
                 player.FaceDirectionSmooth(player.lateralvelocity);
             }
             else

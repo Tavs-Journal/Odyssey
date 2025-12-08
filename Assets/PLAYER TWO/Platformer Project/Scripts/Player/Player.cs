@@ -49,7 +49,13 @@ public class Player : Entity<Player>
         Accelerate(direction, turningDrag, finalAcceleration, topSpeed);
     }
 
-    public virtual void CrawingAccelerate(Vector3 direction) =>
+    public virtual void BackFlipAccelerate()
+    {
+        var direction = input.GetMovementCameraDirection();
+        Accelerate(direction, stats.current.backflipTurningDrag, stats.current.backflipAirAcceleration, stats.current.backflipTopSpeed);
+    }
+
+    public virtual void CrawlingAccelerate(Vector3 direction) =>
         Accelerate(direction, stats.current.crawlingTurningSpeed, stats.current.crawlingAcceleration, stats.current.crawlingTopSpeed);
 
     public virtual void Decelerate() => Decelerate(stats.current.deceleration);
@@ -81,6 +87,8 @@ public class Player : Entity<Player>
     }
 
     public virtual void SnapToGround() => SnapToGround(stats.current.snapForce);
+
+    public virtual void SetJumps(int amount) => JumpCounter = amount;
 
     public virtual void ResetJumps() => JumpCounter = 0;
 
@@ -138,7 +146,17 @@ public class Player : Entity<Player>
                 
             }
         }
+    }
 
+    public virtual void Backflip(float force)
+    {
+        if(stats.current.canBackflip && !holding)
+        {
+            verticalVelocity = Vector3.up * stats.current.backflipJumpHeight;
+            lateralvelocity = -transform.forward * force;
+            states.Change<BackFlipPlayerState>();
+            playerevents.OnBackflip?.Invoke();
+        }
     }
     public virtual bool canStandUp => !SphereCast(Vector3.up, originalHeight);
     

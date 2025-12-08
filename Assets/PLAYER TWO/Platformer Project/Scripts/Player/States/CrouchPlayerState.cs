@@ -36,7 +36,7 @@ public class CrouchPlayerState : PlayerState
             }
             else if (player.input.GetJumpDown())
             {
-                
+               player.Backflip(player.stats.current.backflipBackwardTurnForce);
             }
         }
         else
