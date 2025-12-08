@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-public class CrouchPlayerState : PlayerState
+public class CrawingPlayerState : PlayerState
 {
     protected override void OnContact(Player player, Collider other)
     {
@@ -20,28 +20,26 @@ public class CrouchPlayerState : PlayerState
     {
         player.Gravity();
         player.SnapToGround();
+        player.Jump();
         player.Fall();
-        player.Decelerate(player.stats.current.crouchFriction);
 
-        var inputDirection = player.input.GetMovementDirection();
+        var inputDirection = player.input.GetMovementCameraDirection();
 
         if(player.input.GetCrouchAndCraw() || !player.canStandUp)
         {
-            if(inputDirection.sqrMagnitude > 0 && !player.holding)
+            if(inputDirection.sqrMagnitude > 0)
             {
-                if(player.lateralvelocity.sqrMagnitude == 0)
-                {
-                    player.states.Change<CrawingPlayerState>();
-                }
+                player.CrawingAccelerate(inputDirection);
+                player.FaceDirectionSmooth(player.lateralvelocity);
             }
-            else if (player.input.GetJumpDown())
+            else
             {
-                
+                player.Decelerate(player.stats.current.crawlingFriction);
             }
         }
         else
         {
-            player.states.Change<IdleState>();
+            player.states.Change<IdleState>(); 
         }
     }
 }

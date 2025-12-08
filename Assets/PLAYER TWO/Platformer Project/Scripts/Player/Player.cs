@@ -49,6 +49,9 @@ public class Player : Entity<Player>
         Accelerate(direction, turningDrag, finalAcceleration, topSpeed);
     }
 
+    public virtual void CrawingAccelerate(Vector3 direction) =>
+        Accelerate(direction, stats.current.crawlingTurningSpeed, stats.current.crawlingAcceleration, stats.current.crawlingTopSpeed);
+
     public virtual void Decelerate() => Decelerate(stats.current.deceleration);
 
     public virtual void Friction()

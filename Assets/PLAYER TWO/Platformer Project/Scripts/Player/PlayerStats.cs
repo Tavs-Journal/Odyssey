@@ -42,4 +42,11 @@ public class PlayerStats : EntityStats<PlayerStats>
     [Header("Crouch Stats")]
     public float crouchHeight = 1f;            // 下蹲时角色高度
     public float crouchFriction = 10f;         // 下蹲时摩擦力
+
+    //==============================【匍匐爬行】==============================//
+    [Header("Crawling Stats")]
+    public float crawlingAcceleration = 8f;    // 爬行加速度
+    public float crawlingFriction = 32f;       // 爬行摩擦力
+    public float crawlingTopSpeed = 2.5f;      // 爬行最高速度
+    public float crawlingTurningSpeed = 3f;    // 爬行转向速度
 }
