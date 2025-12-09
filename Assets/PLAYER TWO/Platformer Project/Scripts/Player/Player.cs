@@ -8,7 +8,11 @@ public class Player : Entity<Player>
 
     public PlayerStatsManager stats { get; protected set; }
 
-    public int JumpCounter { get; protected set; }
+    public int jumpCounter { get; protected set; }
+
+    public int airDashCounter { get; protected set; }
+
+    public float lastDashTime { get; protected set; }
 
     public bool onWater {  get; protected set; }
 
@@ -23,7 +27,11 @@ public class Player : Entity<Player>
         InitializeStats();
         InitialHealth();
         InitialTag();
-        entityEvents.OnGroundEnter.AddListener(() => { ResetJumps(); });
+        entityEvents.OnGroundEnter.AddListener(() => 
+        { 
+            ResetJumps(); 
+            ResetAirDash();
+        });
     }
 
     protected virtual void InitialTag() => tag = GameTags.Player;
@@ -88,14 +96,16 @@ public class Player : Entity<Player>
 
     public virtual void SnapToGround() => SnapToGround(stats.current.snapForce);
 
-    public virtual void SetJumps(int amount) => JumpCounter = amount;
+    public virtual void SetJumps(int amount) => jumpCounter = amount;
 
-    public virtual void ResetJumps() => JumpCounter = 0;
+    public virtual void ResetJumps() => jumpCounter = 0;
+
+    public virtual void ResetAirDash() => airDashCounter = 0;
 
     public virtual void Jump()
     {    
-        var canMultiJump = (JumpCounter > 0) && (JumpCounter < stats.current.multiJumps);
-        var canCoyoteJump = (JumpCounter == 0) && (Time.deltaTime < lastGroundTime + stats.current.coyoteJumpThreshold);
+        var canMultiJump = (jumpCounter > 0) && (jumpCounter < stats.current.multiJumps);
+        var canCoyoteJump = (jumpCounter == 0) && (Time.deltaTime < lastGroundTime + stats.current.coyoteJumpThreshold);
         if (canMultiJump || canCoyoteJump || isGrounded) 
         {
             if (input.GetJumpDown())
@@ -103,7 +113,7 @@ public class Player : Entity<Player>
                 Jump(stats.current.maxJumpHeight);
             }
         }
-        if (input.GetJumpUp() && JumpCounter > 0 && verticalVelocity.y > stats.current.maxJumpHeight)
+        if (input.GetJumpUp() && jumpCounter > 0 && verticalVelocity.y > stats.current.maxJumpHeight)
         {
             verticalVelocity = Vector3.up * stats.current.minJumpHeight;
         }
@@ -119,7 +129,7 @@ public class Player : Entity<Player>
 
     public virtual void Jump(float height)
     {
-        JumpCounter++;
+        jumpCounter++;
         verticalVelocity = Vector3.up * height;
         states.Change<FallPlayerState>();
         playerevents.OnJump?.Invoke();
@@ -148,6 +158,20 @@ public class Player : Entity<Player>
         }
     }
 
+    public virtual void Dash()
+    {
+        var canAirdash = stats.current.canAirDash && !isGrounded &&
+                         airDashCounter < stats.current.allowedAirDashes;
+        var canGroundDash = stats.current.canGroundDash && isGrounded && 
+                            Time.time - lastDashTime > stats.current.groundDashCoolDown;
+        if(input.GetDashDown() && (canAirdash || canGroundDash))
+        {
+            if (!isGrounded) airDashCounter++;
+            lastDashTime = Time.time;
+            states.Change<DashPlayerState>();
+        }                     
+    }
+
     public virtual void Backflip(float force)
     {
         if(stats.current.canBackflip && !holding)
@@ -158,6 +182,7 @@ public class Player : Entity<Player>
             playerevents.OnBackflip?.Invoke();
         }
     }
+
     public virtual bool canStandUp => !SphereCast(Vector3.up, originalHeight);
     
     public virtual void FaceDirectionSmooth(Vector3 direction) => FaceDirection(direction, stats.current.rotationSpeed);

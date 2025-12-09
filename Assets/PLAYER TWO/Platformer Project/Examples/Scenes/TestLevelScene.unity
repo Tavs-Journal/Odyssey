@@ -34438,6 +34438,18 @@ MonoBehaviour:
   - BrakePlayerState
   - FallPlayerState
   - HurtPlayerState
+  - IdleState
+  - IdleState
+  - IdleState
+  - IdleState
+  - CrouchPlayerState
+  - CrawingPlayerState
+  - IdleState
+  - IdleState
+  - IdleState
+  - IdleState
+  - IdleState
+  - BackFlipPlayerState
 --- !u!114 &583133415
 MonoBehaviour:
   m_ObjectHideFlags: 0
