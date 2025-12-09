@@ -22,6 +22,7 @@ public class WalkState : PlayerState
         player.Gravity();
         player.SnapToGround();
         player.Jump();
+        player.SpinAttack();
         player.Dash();
         player.Fall();
 

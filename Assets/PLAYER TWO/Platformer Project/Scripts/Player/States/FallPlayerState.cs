@@ -24,6 +24,7 @@ public class FallPlayerState : PlayerState
         player.Jump();
         player.Dash();
         player.StomAttack();
+        player.SpinAttack();
         player.AccelerateToInputDirection();
         if (player.isGrounded)
         {

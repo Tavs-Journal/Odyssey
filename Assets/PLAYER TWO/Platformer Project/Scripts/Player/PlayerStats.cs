@@ -78,4 +78,12 @@ public class PlayerStats : EntityStats<PlayerStats>
     public float stompAirTime = 0.8f;          // 空中踩踏时间
     public float stompGroundTime = 0.5f;       // 落地后的硬直时间
     public float stompGroundLeapHeight = 10f;  // 踩踏落地后的反弹高度
+
+    //==============================【旋转攻击】==============================//
+    [Header("Spin Stats")]
+    public bool canSpin = true;                // 是否可以旋转攻击
+    public bool canAirSpin = true;             // 是否可以空中旋转攻击
+    public float spinDuration = 0.5f;          // 旋转攻击持续时间
+    public float airSpinUpwardForce = 10f;     // 空中旋转攻击时的上升力
+    public int allowedAirSpins = 1;            // 允许的空中旋转次数
 }

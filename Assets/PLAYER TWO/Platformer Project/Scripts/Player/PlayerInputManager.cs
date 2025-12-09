@@ -13,6 +13,7 @@ public class PlayerInputManager :MonoBehaviour
     protected InputAction m_crouch;
     protected InputAction m_dash;
     protected InputAction m_stomp;
+    protected InputAction m_spin;
 
     protected Camera m_camera;
 
@@ -49,6 +50,7 @@ public class PlayerInputManager :MonoBehaviour
         m_crouch = actions["Crouch"];
         m_dash = actions["Dash"];
         m_stomp = actions["Stomp"];
+        m_spin = actions["Spin"];
     }
 
     public virtual Vector3 GetLookDirection()
@@ -117,6 +119,7 @@ public class PlayerInputManager :MonoBehaviour
 
     public virtual bool GetStompDown() => m_stomp.WasPressedThisFrame();
     public virtual bool GetDashDown() => m_dash.WasPressedThisFrame();
+    public virtual bool GetSpinDown() => m_spin.WasPressedThisFrame();
     public virtual bool GetJumpUp() => m_jump.WasReleasedThisFrame();
     public virtual bool GetCrouchAndCraw() => m_crouch.IsPressed();
 }

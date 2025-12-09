@@ -16,7 +16,7 @@ public class StompPlayerState : PlayerState
     {
         m_falling = m_landing = false;
         m_airTimer = m_groundTimer = 0;
-        player.velocity = Vector3.zero;
+        player.velocity = Vector3.zero; 
         player.playerevents.OnStompStarted?.Invoke();
     }
 
