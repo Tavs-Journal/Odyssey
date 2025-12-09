@@ -32,5 +32,9 @@ public class BackFlipPlayerState : PlayerState
             player.lateralvelocity = Vector3.zero;
             player.states.Change<IdleState>();
         }   
+        else if(player.verticalVelocity.y < 0)
+        {
+            player.StomAttack();    
+        }
     }
 }

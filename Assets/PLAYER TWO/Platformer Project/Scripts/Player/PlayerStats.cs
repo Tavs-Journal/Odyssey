@@ -70,4 +70,12 @@ public class PlayerStats : EntityStats<PlayerStats>
     public float dashDuration = 0.3f;          // 冲刺持续时间
     public float groundDashCoolDown = 0.5f;    // 地面冲刺冷却时间
     public float allowedAirDashes = 1;         // 允许的空中冲刺次数
+
+    //==============================【踩踏攻击】==============================//
+    [Header("Stomp Attack Stats")]
+    public bool canStompAttack = true;         // 是否能进行踩踏攻击
+    public float stompDownwardForce = 20f;     // 踩踏时向下的力
+    public float stompAirTime = 0.8f;          // 空中踩踏时间
+    public float stompGroundTime = 0.5f;       // 落地后的硬直时间
+    public float stompGroundLeapHeight = 10f;  // 踩踏落地后的反弹高度
 }

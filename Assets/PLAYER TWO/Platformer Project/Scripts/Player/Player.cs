@@ -172,6 +172,14 @@ public class Player : Entity<Player>
         }                     
     }
 
+    public virtual void StomAttack()
+    {
+        if(!isGrounded && stats.current.canStompAttack && input.GetStompDown())
+        {
+            states.Change<StompPlayerState>();
+        }
+    }
+
     public virtual void Backflip(float force)
     {
         if(stats.current.canBackflip && !holding)
