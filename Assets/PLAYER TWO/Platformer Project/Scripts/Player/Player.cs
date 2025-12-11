@@ -22,6 +22,10 @@ public class Player : Entity<Player>
 
     public bool holding { get; protected set; }
 
+    protected const float k_waterExitOffSet = 0.25f;
+
+    public Collider water {  get; protected set; }
+
     protected override void Awake()
     {
         base.Awake();
@@ -68,6 +72,9 @@ public class Player : Entity<Player>
 
     public virtual void CrawlingAccelerate(Vector3 direction) =>
         Accelerate(direction, stats.current.crawlingTurningSpeed, stats.current.crawlingAcceleration, stats.current.crawlingTopSpeed);
+
+    public virtual void WaterAccelerate(Vector3 direction) =>
+        Accelerate(direction, stats.current.waterTurningDrag, stats.current.swimAcceleration, stats.current.swimTopSpeed);
 
     public virtual void Decelerate() => Decelerate(stats.current.deceleration);
 
@@ -219,7 +226,42 @@ public class Player : Entity<Player>
         }
     }
 
+    protected virtual void EnterWater(Collider water)
+    {
+        if (!onWater && !health.IsEmpty)
+        {
+            onWater = true;
+            this.water = water;
+            states.Change<SwimPlayerState>();
+        }
+    }
+
+    protected virtual void ExitWater()
+    {
+        onWater = false;
+    }
+
+    protected virtual void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag(GameTags.VolumeWater))
+        {
+            if (!onWater && other.bounds.Contains(unsizedPosition))
+            {
+                EnterWater(other);
+            }
+            else if (onWater)
+            {
+                var exitPoint = position + Vector3.down * k_waterExitOffSet;
+                if (!other.bounds.Contains(exitPoint))
+                {
+                    ExitWater();
+                }
+            }
+        }
+    }
+
     public virtual bool canStandUp => !SphereCast(Vector3.up, originalHeight);
     
     public virtual void FaceDirectionSmooth(Vector3 direction) => FaceDirection(direction, stats.current.rotationSpeed);
+    public virtual void WaterFaceDirection(Vector3 direction) => FaceDirection(direction, stats.current.waterRotationSpeed);
 }

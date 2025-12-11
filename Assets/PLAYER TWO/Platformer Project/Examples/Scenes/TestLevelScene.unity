@@ -7431,6 +7431,32 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49b5b2fb205eb884e905eb687e372004, type: 3}
+--- !u!1 &114649606 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7103543676289522692, guid: eb0f77ac3ce65a04db54ff55e59b0815,
+    type: 3}
+  m_PrefabInstance: {fileID: 1479944703}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &114649608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 114649606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 239d390cbfcc3cc439166a1bce7c3dab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  breakObjects: 1
+  damage: 1
+  rebound: 0
+  ReboundMinForce: 10
+  ReboundMaxForce: 25
+  pushBack: 0
+  pushBackMinMagnitude: 5
+  pushBackMaxMagnitude: 10
 --- !u!1001 &115252306
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34445,7 +34471,7 @@ MonoBehaviour:
   - CrouchPlayerState
   - CrawingPlayerState
   - SpinPlayerState
-  - IdleState
+  - AirDivePlayerState
   - StompPlayerState
   - IdleState
   - IdleState
@@ -34478,7 +34504,7 @@ MonoBehaviour:
     OnRailsExit:
       m_PersistentCalls:
         m_Calls: []
-  playerevents:
+  playerEvents:
     OnJump:
       m_PersistentCalls:
         m_Calls: []
@@ -34515,7 +34541,7 @@ MonoBehaviour:
     OnLedgeClimbing:
       m_PersistentCalls:
         m_Calls: []
-    OnAirDrive:
+    OnAirDive:
       m_PersistentCalls:
         m_Calls: []
     OnBackflip:
@@ -61698,6 +61724,32 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2db4d6e9c2d679e48b0f8f094e246fb8, type: 3}
+--- !u!1 &1022239765 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3412474596665875111, guid: 0a20ae9159e36a0409eefaf35cbb5b18,
+    type: 3}
+  m_PrefabInstance: {fileID: 1258969950}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1022239772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1022239765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 420449953ac70c2489248a89c1d0bb0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onExit:
+    m_PersistentCalls:
+      m_Calls: []
+  enterclip: {fileID: 8300000, guid: d054d36892d86444d998d48d52ebf5fd, type: 3}
+  exitclip: {fileID: 8300000, guid: 2d25a7387036df94c98c381b35d5a05f, type: 3}
 --- !u!1 &1022297005
 GameObject:
   m_ObjectHideFlags: 0
@@ -76582,10 +76634,15 @@ PrefabInstance:
       propertyPath: blendDistance
       value: 0.5
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2239036366471371937, guid: 0a20ae9159e36a0409eefaf35cbb5b18, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3412474596665875111, guid: 0a20ae9159e36a0409eefaf35cbb5b18,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1022239772}
   m_SourcePrefab: {fileID: 100100000, guid: 0a20ae9159e36a0409eefaf35cbb5b18, type: 3}
 --- !u!4 &1259361178 stripped
 Transform:
@@ -91155,6 +91212,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 583133419}
+    - targetCorrespondingSourceObject: {fileID: 7103543676289522692, guid: eb0f77ac3ce65a04db54ff55e59b0815,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 114649608}
   m_SourcePrefab: {fileID: 100100000, guid: eb0f77ac3ce65a04db54ff55e59b0815, type: 3}
 --- !u!1 &1479958866
 GameObject:

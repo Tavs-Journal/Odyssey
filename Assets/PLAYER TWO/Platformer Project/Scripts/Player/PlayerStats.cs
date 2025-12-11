@@ -98,4 +98,16 @@ public class PlayerStats : EntityStats<PlayerStats>
     public float airDiveSlopeDownwardForce = 40f;// 下坡时的额外推力
     public float airDiveGroundLeapHeight = 10f;// 俯冲落地后的跳跃高度
     public float airDiveRotationSpeed = 45f;   // 俯冲旋转速度
+
+    //==============================【游泳】==============================//
+    [Header("Swimming Stats")]
+    public float waterConversion = 0.35f;      // 水中移动系数
+    public float waterRotationSpeed = 360f;    // 水中旋转速度
+    public float waterUpwardsForce = 8f;       // 浮力
+    public float waterJumpHeight = 15f;        // 水中跳高度
+    public float waterTurningDrag = 2.5f;      // 水中转向阻力
+    public float swimAcceleration = 4f;        // 游泳加速度
+    public float swimDeceleration = 3f;        // 游泳减速度
+    public float swimTopSpeed = 4f;            // 游泳最高速度
+    public float swimDiveForce = 15f;          // 潜水下潜力
 }

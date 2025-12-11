@@ -15,6 +15,7 @@ public class PlayerInputManager :MonoBehaviour
     protected InputAction m_stomp;
     protected InputAction m_spin;
     protected InputAction m_airDive;
+    protected InputAction m_dive;
 
     protected Camera m_camera;
 
@@ -53,6 +54,7 @@ public class PlayerInputManager :MonoBehaviour
         m_stomp = actions["Stomp"];
         m_spin = actions["Spin"];
         m_airDive = actions["AirDive"];
+        m_dive = actions["Dive"];
     }
 
     public virtual Vector3 GetLookDirection()
@@ -125,4 +127,5 @@ public class PlayerInputManager :MonoBehaviour
     public virtual bool GetAirDiveDown() => m_airDive.WasPressedThisFrame();
     public virtual bool GetJumpUp() => m_jump.WasReleasedThisFrame();
     public virtual bool GetCrouchAndCraw() => m_crouch.IsPressed();
+    public virtual bool GetDive() => m_dive.IsPressed();
 }

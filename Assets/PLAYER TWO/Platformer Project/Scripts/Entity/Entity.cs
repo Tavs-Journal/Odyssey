@@ -7,7 +7,7 @@ using UnityEngine;
 public abstract class EntityBase : MonoBehaviour { 
 
     public EntityEvents entityEvents;
-    public Vector3 unsizedPosition => transform.position;
+    public Vector3 unsizedPosition => position - transform.up * height * 0.5f + transform.up * originalHeight * 0.5f;
     public bool isGrounded { get; protected set; } = true;
     public readonly float m_groundOffSet = 0.1f;
 
