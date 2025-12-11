@@ -29,7 +29,7 @@ public class PlayerEvents
 
     public UnityEvent OnLedgeClimbing;
 
-    public UnityEvent OnAirDrive;
+    public UnityEvent OnAirDive;
 
     public UnityEvent OnBackflip;
 

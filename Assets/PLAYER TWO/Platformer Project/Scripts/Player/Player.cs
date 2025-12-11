@@ -2,7 +2,7 @@
 
 public class Player : Entity<Player>
 {
-    public PlayerEvents playerevents;
+    public PlayerEvents playerEvents;
 
     public PlayerInputManager input {  get; protected set; }
 
@@ -137,7 +137,7 @@ public class Player : Entity<Player>
         jumpCounter++;
         verticalVelocity = Vector3.up * height;
         states.Change<FallPlayerState>();
-        playerevents.OnJump?.Invoke();
+        playerEvents.OnJump?.Invoke();
     }
 
     public override void ApplyDamage(int damage, Vector3 origin)
@@ -155,7 +155,7 @@ public class Player : Entity<Player>
                 verticalVelocity = Vector3.up * stats.current.hurtUpwardForce;
                 states.Change<HurtPlayerState>();
             }
-            playerevents.OnHurt?.Invoke();
+            playerEvents.OnHurt?.Invoke();
             if (health.IsEmpty)
             {
                 
@@ -187,7 +187,7 @@ public class Player : Entity<Player>
                 airSpinCounter++;
             }
             states.Change<SpinPlayerState>();
-            playerevents.OnSpin?.Invoke();
+            playerEvents.OnSpin?.Invoke();
         }
     }
 
@@ -206,7 +206,7 @@ public class Player : Entity<Player>
             verticalVelocity = Vector3.up * stats.current.backflipJumpHeight;
             lateralvelocity = -transform.forward * force;
             states.Change<BackFlipPlayerState>();
-            playerevents.OnBackflip?.Invoke();
+            playerEvents.OnBackflip?.Invoke();
         }
     }
 

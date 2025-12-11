@@ -34444,12 +34444,15 @@ MonoBehaviour:
   - IdleState
   - CrouchPlayerState
   - CrawingPlayerState
+  - SpinPlayerState
   - IdleState
-  - IdleState
-  - IdleState
+  - StompPlayerState
   - IdleState
   - IdleState
   - BackFlipPlayerState
+  - IdleState
+  - DashPlayerState
+  - IdleState
 --- !u!114 &583133415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -91118,6 +91121,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7955624928045367239, guid: eb0f77ac3ce65a04db54ff55e59b0815,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

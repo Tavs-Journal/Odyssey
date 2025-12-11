@@ -10,13 +10,13 @@ public class DashPlayerState : PlayerState
     {
         player.verticalVelocity = Vector3.zero;
         player.lateralvelocity = player.transform.forward * player.stats.current.dashForce;
-        player.playerevents.OnDashStarted?.Invoke();
+        player.playerEvents.OnDashStarted?.Invoke();
     }
 
     protected override void OnExit(Player player)
     {
         player.lateralvelocity = Vector3.ClampMagnitude(player.lateralvelocity, player.stats.current.topSpeed);
-        player.playerevents.OnDashEnded?.Invoke();
+        player.playerEvents.OnDashEnded?.Invoke();
     }
 
     protected override void OnStep(Player player)

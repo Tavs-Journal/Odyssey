@@ -13,6 +13,20 @@ public abstract class EntityBase : MonoBehaviour {
 
     public CharacterController controller {  get; protected set; }
 
+    public Vector3 velocity { get; set; }
+
+    public Vector3 lateralvelocity
+    {
+        get { return new Vector3(velocity.x, 0, velocity.z); }
+        set { velocity = new Vector3(value.x, velocity.y, value.z); }
+    }
+
+    public Vector3 verticalVelocity
+    {
+        get { return new Vector3(0, velocity.y, 0); }
+        set { velocity = new Vector3(velocity.x, value.y, velocity.z); }
+    }
+
     public float originalHeight {  get; protected set; }
 
     public float lastGroundTime { get; protected set; }
@@ -76,8 +90,6 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
 {
     public EntityStateManager<T> states {  get; private set; }
 
-    public Vector3 velocity { get; set; }
-
     public float accelerationMultiplier { get; set; } = 1f;
 
     public float gravityMultiplier { get; set; } = 1f;
@@ -87,18 +99,6 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
     public float turningDragMultiplier {  get; set; } = 1f;
 
     public float decelerationMultiplier { get; set; } = 1f;
-
-    public Vector3 lateralvelocity
-    {
-        get { return new Vector3(velocity.x, 0, velocity.z); }
-        set { velocity = new Vector3(value.x, velocity.y, value.z);}
-    }
-
-    public Vector3 verticalVelocity
-    {
-        get { return new Vector3(0, velocity.y, 0); }
-        set { velocity = new Vector3(velocity.x, value.y, velocity.z); }
-    }
 
     protected virtual void InitializeController()
     {

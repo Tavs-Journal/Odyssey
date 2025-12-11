@@ -1723,6 +1723,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2612938055483780239}
   - component: {fileID: 5529601235098401600}
+  - component: {fileID: 3413410767786126705}
+  - component: {fileID: 7761812425488767876}
   m_Layer: 0
   m_Name: Heavy Stomp Hitbox
   m_TagString: Untagged
@@ -1766,6 +1768,118 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3, y: 0.5, z: 3}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3413410767786126705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5065258781701480863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 239d390cbfcc3cc439166a1bce7c3dab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  breakObjects: 1
+  damage: 2
+  rebound: 0
+  ReboundMinForce: 10
+  ReboundMaxForce: 25
+  pushBack: 0
+  pushBackMinMagnitude: 5
+  pushBackMaxMagnitude: 10
+--- !u!114 &7761812425488767876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5065258781701480863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76e5ad167a7d3984a8799f7855e673b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  events:
+    OnJump:
+      m_PersistentCalls:
+        m_Calls: []
+    OnHurt:
+      m_PersistentCalls:
+        m_Calls: []
+    OnDie:
+      m_PersistentCalls:
+        m_Calls: []
+    OnSpin:
+      m_PersistentCalls:
+        m_Calls: []
+    OnPickUp:
+      m_PersistentCalls:
+        m_Calls: []
+    OnThrow:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStompStarted:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStompFalling:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5529601235098401600}
+          m_TargetAssemblyTypeName: UnityEngine.Collider, UnityEngine
+          m_MethodName: set_enabled
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+    OnStompLanding:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStompEnding:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5529601235098401600}
+          m_TargetAssemblyTypeName: UnityEngine.Collider, UnityEngine
+          m_MethodName: set_enabled
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    OnLedgeGrabbed:
+      m_PersistentCalls:
+        m_Calls: []
+    OnLedgeClimbing:
+      m_PersistentCalls:
+        m_Calls: []
+    OnAirDive:
+      m_PersistentCalls:
+        m_Calls: []
+    OnBackflip:
+      m_PersistentCalls:
+        m_Calls: []
+    OnGlidingStart:
+      m_PersistentCalls:
+        m_Calls: []
+    OnGlidingStop:
+      m_PersistentCalls:
+        m_Calls: []
+    OnDashStarted:
+      m_PersistentCalls:
+        m_Calls: []
+    OnDashEnded:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!1 &5301077863286586920
 GameObject:
   m_ObjectHideFlags: 0
@@ -1776,6 +1890,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6075971772908888334}
   - component: {fileID: 8496094998626648712}
+  - component: {fileID: 4308794342334965969}
   m_Layer: 0
   m_Name: Stomp Hitbox
   m_TagString: Untagged
@@ -1819,6 +1934,26 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 0.5, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4308794342334965969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5301077863286586920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 239d390cbfcc3cc439166a1bce7c3dab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  breakObjects: 0
+  damage: 1
+  rebound: 1
+  ReboundMinForce: 10
+  ReboundMaxForce: 25
+  pushBack: 0
+  pushBackMinMagnitude: 5
+  pushBackMaxMagnitude: 10
 --- !u!1 &5348734117840275748
 GameObject:
   m_ObjectHideFlags: 0
@@ -2417,6 +2552,8 @@ GameObject:
   m_Component:
   - component: {fileID: 925095679377314689}
   - component: {fileID: 4360251545403807621}
+  - component: {fileID: 6703671857397190972}
+  - component: {fileID: 3119261768481103709}
   m_Layer: 0
   m_Name: Spin Hitbox
   m_TagString: Untagged
@@ -2460,6 +2597,70 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 0.5, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6703671857397190972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7103543676289522692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 239d390cbfcc3cc439166a1bce7c3dab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  breakObjects: 1
+  damage: 1
+  rebound: 0
+  ReboundMinForce: 10
+  ReboundMaxForce: 25
+  pushBack: 0
+  pushBackMinMagnitude: 5
+  pushBackMaxMagnitude: 10
+--- !u!114 &3119261768481103709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7103543676289522692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e22dc6478d7b15144b9743deb702c618, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onEnter:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4360251545403807621}
+        m_TargetAssemblyTypeName: UnityEngine.Collider, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  onExit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4360251545403807621}
+        m_TargetAssemblyTypeName: UnityEngine.Collider, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  states:
+  - SpinPlayerState
 --- !u!1 &7253796012327715477
 GameObject:
   m_ObjectHideFlags: 0
@@ -2914,7 +3115,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5062800599606034852
 Transform:
   m_ObjectHideFlags: 0

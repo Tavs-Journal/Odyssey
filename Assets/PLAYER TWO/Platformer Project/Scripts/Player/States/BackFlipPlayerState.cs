@@ -9,7 +9,7 @@ public class BackFlipPlayerState : PlayerState
     protected override void OnEnter(Player player)
     {
         player.SetJumps(1);
-        player.playerevents.OnJump?.Invoke();
+        player.playerEvents.OnJump?.Invoke();
         if (player.stats.current.canBackflip)
         {
             player.input.LockMovementDirection();
