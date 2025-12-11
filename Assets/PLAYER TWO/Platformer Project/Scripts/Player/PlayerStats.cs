@@ -86,4 +86,16 @@ public class PlayerStats : EntityStats<PlayerStats>
     public float spinDuration = 0.5f;          // 旋转攻击持续时间
     public float airSpinUpwardForce = 10f;     // 空中旋转攻击时的上升力
     public int allowedAirSpins = 1;            // 允许的空中旋转次数
+
+    //==============================【空中俯冲】==============================//
+    [Header("Air Dive Stats")]
+    public bool canAirDive = true;             // 是否能进行空中俯冲
+    public bool applyDiveSlopeFactor = true;   // 是否考虑坡度因子
+    public float airDiveForwardForce = 16f;    // 俯冲向前力
+    public float airDiveFriction = 32f;        // 俯冲摩擦力
+    public float airDiveSlopeFriction = 12f;   // 坡地摩擦
+    public float airDiveSlopeUpwardForce = 35f;// 上坡时的额外推力
+    public float airDiveSlopeDownwardForce = 40f;// 下坡时的额外推力
+    public float airDiveGroundLeapHeight = 10f;// 俯冲落地后的跳跃高度
+    public float airDiveRotationSpeed = 45f;   // 俯冲旋转速度
 }

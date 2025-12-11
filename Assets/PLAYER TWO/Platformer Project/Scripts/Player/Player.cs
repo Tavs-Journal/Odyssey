@@ -177,6 +177,15 @@ public class Player : Entity<Player>
         }                     
     }
 
+    public virtual void AirDive()
+    {
+        if(stats.current.canAirDash && !isGrounded && !holding && input.GetAirDiveDown())
+        {
+            states.Change<AirDivePlayerState>();
+            playerEvents.OnAirDive?.Invoke();
+        }
+    }
+
     public virtual void SpinAttack()
     {
         var canSpin = (isGrounded || stats.current.canAirSpin) && airSpinCounter < stats.current.allowedAirSpins;

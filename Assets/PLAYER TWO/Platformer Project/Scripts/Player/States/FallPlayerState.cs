@@ -23,8 +23,9 @@ public class FallPlayerState : PlayerState
         player.FaceDirectionSmooth(player.lateralvelocity);
         player.Jump();
         player.Dash();
+        player.AirDive();
         player.StomAttack();
-        player.SpinAttack();
+        player.SpinAttack(); 
         player.AccelerateToInputDirection();
         if (player.isGrounded)
         {

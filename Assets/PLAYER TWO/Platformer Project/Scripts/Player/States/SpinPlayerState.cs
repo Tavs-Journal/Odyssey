@@ -25,6 +25,7 @@ public class SpinPlayerState : PlayerState
         player.Gravity();
         player.SnapToGround();
         player.StomAttack();
+        player.AirDive();
         player.AccelerateToInputDirection();
 
         if(timeSinceEntered >= player.stats.current.spinDuration)
