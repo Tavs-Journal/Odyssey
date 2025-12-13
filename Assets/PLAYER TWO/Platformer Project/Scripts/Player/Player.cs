@@ -20,9 +20,13 @@ public class Player : Entity<Player>
 
     public Health health { get; protected set; }
 
+    public Transform skin;
+
     public bool holding { get; protected set; }
 
     protected const float k_waterExitOffSet = 0.25f;
+
+    public Vector3 lastWallNormal {  get; protected set; }
 
     public Collider water {  get; protected set; }
 
@@ -182,6 +186,28 @@ public class Player : Entity<Player>
             lastDashTime = Time.time;
             states.Change<DashPlayerState>();
         }                     
+    }
+
+    public virtual void DirectionalJump(Vector3 direction, float distance, float height)
+    {
+        jumpCounter++;
+        lateralvelocity = direction * distance;
+        verticalVelocity = Vector3.up * height;
+        playerEvents.OnJump?.Invoke(); 
+    }
+
+    public virtual void WallDrag(Collider other) 
+    {
+        if(stats.current.canWallDrag && !holding && velocity.y <= 0 && !other.TryGetComponent<Rigidbody>(out _))
+        {
+            if(CapsuleCast(transform.forward, 0.25f, out var hit, stats.current.wallDragLayers))
+            {
+                if (hit.collider.CompareTag(GameTags.Platform))
+                    transform.parent = hit.transform;
+                lastWallNormal = hit.normal;
+                states.Change<WallDragPlayerState>();
+            }
+        }
     }
 
     public virtual void Glide()

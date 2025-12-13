@@ -117,4 +117,14 @@ public class PlayerStats : EntityStats<PlayerStats>
     public float glidingGravity = 10f;         // 滑翔时的重力
     public float glidingMaxFallSpeed = 2f;     // 最大下落速度
     public float glidingTurningDrag = 8f;      // 转向阻力
+
+    //==============================【墙壁滑行 & 蹬墙跳】==============================//
+    [Header("Wall Drag Stats")]
+    public bool canWallDrag = true;            // 是否可以贴墙滑行
+    public bool wallJumpLockMovement = true;   // 蹬墙跳后是否锁定移动
+    public LayerMask wallDragLayers;           // 可以进行墙滑的层
+    public Vector3 wallDragSkinOffset;         // 判定偏移
+    public float wallDragGravity = 12f;        // 墙滑时的重力
+    public float wallJumpDistance = 8f;        // 蹬墙跳水平距离
+    public float wallJumpHeight = 15f;         // 蹬墙跳垂直高度
 }

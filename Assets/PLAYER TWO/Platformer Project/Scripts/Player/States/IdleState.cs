@@ -2,7 +2,7 @@
 
 public class IdleState : PlayerState
 {
-    protected override void OnContact(Player player, Collider other)
+    public override void OnContact(Player player, Collider other)
     {
         
     }

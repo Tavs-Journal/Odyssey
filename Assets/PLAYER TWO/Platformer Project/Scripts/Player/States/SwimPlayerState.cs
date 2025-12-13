@@ -2,7 +2,7 @@
 using UnityEngine;
 public class SwimPlayerState : PlayerState
 {
-    protected override void OnContact(Player player, Collider other)
+    public override void OnContact(Player player, Collider other)
     {
         
     }

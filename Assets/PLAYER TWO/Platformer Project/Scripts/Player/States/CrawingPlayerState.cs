@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 public class CrawingPlayerState : PlayerState
 {
-    protected override void OnContact(Player player, Collider other)
+    public override void OnContact(Player player, Collider other)
     {
-        
+
     }
 
     protected override void OnEnter(Player player)

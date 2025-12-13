@@ -7,7 +7,7 @@ public class StompPlayerState : PlayerState
     protected bool m_falling;
     protected bool m_landing;
 
-    protected override void OnContact(Player player, Collider other)
+    public override void OnContact(Player player, Collider other)
     {
         
     }

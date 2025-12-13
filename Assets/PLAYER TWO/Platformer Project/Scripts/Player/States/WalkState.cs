@@ -2,7 +2,7 @@
 
 public class WalkState : PlayerState
 {
-    protected override void OnContact(Player player, Collider other)
+    public override void OnContact(Player player, Collider other)
     {
         
     }

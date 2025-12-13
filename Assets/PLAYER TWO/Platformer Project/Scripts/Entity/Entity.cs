@@ -2,13 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public abstract class EntityBase : MonoBehaviour { 
 
     public EntityEvents entityEvents;
     public Vector3 unsizedPosition => position - transform.up * height * 0.5f + transform.up * originalHeight * 0.5f;
+
+    protected Collider[] m_colliders = new Collider[10];
     public bool isGrounded { get; protected set; } = true;
+
     public readonly float m_groundOffSet = 0.1f;
 
     public CharacterController controller {  get; protected set; }
@@ -63,6 +67,34 @@ public abstract class EntityBase : MonoBehaviour {
             var rotation = Quaternion.LookRotation(direction, Vector3.up);
             transform.rotation = rotation;
         }
+    }
+
+    public virtual bool CapsuleCast(Vector3 direction, float distance, int layer = Physics.DefaultRaycastLayers,
+        QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.Ignore)
+    {
+        return CapsuleCast(direction, distance, out _,  layer, queryTriggerInteraction);
+    }
+
+    public virtual bool CapsuleCast(Vector3 direction, float distance,
+        out RaycastHit hit, int layer = Physics.DefaultRaycastLayers, 
+        QueryTriggerInteraction queryTriggerInteraction = QueryTriggerInteraction.Ignore)
+    {
+        var origin = position - direction * radius + center;
+        var offset = transform.up * (height * 0.5f- radius);
+        var top = origin + offset;
+        var bottom = origin - offset;
+        return Physics.CapsuleCast(top, bottom, radius, direction,
+            out hit, distance + radius, layer, queryTriggerInteraction);
+    }
+
+    public virtual int OverlapEntity(Collider[] result, float skinOffSet = 0f)
+    {
+        var contactOffSet = skinOffSet + controller.skinWidth + Physics.defaultContactOffset;
+        var overlapRadius = radius + contactOffSet;
+        var offset = (height + contactOffSet) * 0.5f - overlapRadius;
+        var top = position + Vector3.up * offset;
+        var bottom = position + Vector3.down * offset;
+        return Physics.OverlapCapsuleNonAlloc(top, bottom, overlapRadius, result);
     }
 
     public virtual bool SphereCast(Vector3 direction, float distance, int layer = Physics.DefaultRaycastLayers, 
@@ -208,6 +240,14 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
         }
     }
 
+    protected virtual void OnContact(Collider other)
+    {
+        if (other)
+        {
+            states.OnContact(other);
+        }
+    }
+
     protected virtual void HandleGround()
     {
         var distance = (height * 0.5f) + m_groundOffSet;
@@ -228,6 +268,31 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
         {
             ExitGround(hit);
         }      
+    }
+
+    protected virtual void HandleContacts()
+    {
+        var overlaps = OverlapEntity(m_colliders);
+
+        for(int i = 0; i < overlaps; i++)
+        {
+            if (!m_colliders[i].isTrigger && m_colliders[i].transform != transform)
+            {
+                OnContact(m_colliders[i]);
+
+                var listeners = m_colliders[i].GetComponents<IEntityContact>();
+                foreach(var contact in listeners)
+                {
+                    contact.OnEntityContact((T)this);
+                }
+                //这里可以添加一个角色y方向速度大于零
+                //也就是速度上升的时候且撞到时才会触发
+                if (m_colliders[i].bounds.min.y < controller.bounds.max.y)
+                {
+                    verticalVelocity = Vector3.Min(verticalVelocity, Vector3.zero);
+                }
+            }
+        }
     }
 
     protected virtual void HandleController()
@@ -254,6 +319,7 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
             HandleState();
             HandleController();
             HandleGround();
+            HandleContacts();
         }
     }
 }

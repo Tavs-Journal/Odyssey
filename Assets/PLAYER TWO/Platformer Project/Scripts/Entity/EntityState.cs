@@ -31,7 +31,8 @@ public abstract class EntityState<T> where T : Entity<T>
     protected abstract void OnEnter(T entity);
     protected abstract void OnExit(T entity);
     protected abstract void OnStep(T entity);
-    protected abstract void OnContact(T entity, Collider other);
+    public abstract void OnContact(T entity, Collider other);
+
     public static EntityState<T> CreateFromString(string typeName)
     {
         return (EntityState<T>)System.Activator

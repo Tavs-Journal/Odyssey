@@ -37,7 +37,7 @@ public class Glide : MonoBehaviour
     {
         player.playerEvents.OnGlidingStart.AddListener(ShowGlider);
         player.playerEvents.OnGlidingStop.AddListener(HideGlider);
-    }
+    }   
 
     protected virtual void InitializeGlider()
     {

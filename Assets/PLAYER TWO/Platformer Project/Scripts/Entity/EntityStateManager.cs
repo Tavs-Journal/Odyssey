@@ -58,6 +58,14 @@ public abstract class EntityStateManager<T> : EntityStateManager where T : Entit
         }
     }
 
+    public virtual void OnContact(Collider other)
+    {
+        if(current != null && Time.timeScale > 0)
+        {
+            current.OnContact(entity, other);
+        }
+    }
+
     public virtual void Change<TState>() where TState : EntityState<T>
     {
         var type = typeof(TState);
@@ -83,5 +91,11 @@ public abstract class EntityStateManager<T> : EntityStateManager where T : Entit
             events.onEnter.Invoke(current.GetType());
             events.onChange?.Invoke();
         }
+    }
+
+    public virtual bool IsCurrentOfType(Type type)
+    {
+        if(current == null) return false;
+        return current.GetType() == type;
     }
 }

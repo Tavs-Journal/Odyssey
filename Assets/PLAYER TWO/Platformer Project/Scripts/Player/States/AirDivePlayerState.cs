@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 public class AirDivePlayerState : PlayerState
 {
-    protected override void OnContact(Player player, Collider other)
+    public override void OnContact(Player player, Collider other)
     {
-
+        if (player.isGrounded)
+        {
+            player.WallDrag(other);
+        }
     }
 
     protected override void OnEnter(Player player)

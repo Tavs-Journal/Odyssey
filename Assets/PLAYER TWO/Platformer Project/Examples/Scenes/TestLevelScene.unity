@@ -7431,32 +7431,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49b5b2fb205eb884e905eb687e372004, type: 3}
---- !u!1 &114649606 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7103543676289522692, guid: eb0f77ac3ce65a04db54ff55e59b0815,
-    type: 3}
-  m_PrefabInstance: {fileID: 1479944703}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &114649608
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 114649606}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 239d390cbfcc3cc439166a1bce7c3dab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  breakObjects: 1
-  damage: 1
-  rebound: 0
-  ReboundMinForce: 10
-  ReboundMaxForce: 25
-  pushBack: 0
-  pushBackMinMagnitude: 5
-  pushBackMaxMagnitude: 10
 --- !u!1001 &115252306
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25465,12 +25439,6 @@ MonoBehaviour:
       Door: {fileID: 0}
       DoorActivationMode: 0
     _jumpObstacleSound: {fileID: 0}
---- !u!95 &410218393 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 301645532738941841, guid: eb0f77ac3ce65a04db54ff55e59b0815,
-    type: 3}
-  m_PrefabInstance: {fileID: 1479944703}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &413512653
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34430,212 +34398,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1767774495}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &583133413 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6650432633027884458, guid: eb0f77ac3ce65a04db54ff55e59b0815,
-    type: 3}
-  m_PrefabInstance: {fileID: 1479944703}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &583133414
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 583133413}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c75fa150788d2a240939f8614c0fe6a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  events:
-    onChange:
-      m_PersistentCalls:
-        m_Calls: []
-    onEnter:
-      m_PersistentCalls:
-        m_Calls: []
-    onExit:
-      m_PersistentCalls:
-        m_Calls: []
-  states:
-  - IdleState
-  - WalkState
-  - BrakePlayerState
-  - FallPlayerState
-  - HurtPlayerState
-  - IdleState
-  - IdleState
-  - IdleState
-  - SwimPlayerState
-  - CrouchPlayerState
-  - CrawingPlayerState
-  - SpinPlayerState
-  - AirDivePlayerState
-  - StompPlayerState
-  - IdleState
-  - IdleState
-  - BackFlipPlayerState
-  - GlidePlayerState
-  - DashPlayerState
-  - IdleState
---- !u!114 &583133415
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 583133413}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a5f2762f95532841b474eff50f960b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entityEvents:
-    OnGroundEnter:
-      m_PersistentCalls:
-        m_Calls: []
-    OnGroundExit:
-      m_PersistentCalls:
-        m_Calls: []
-    OnRailsEnter:
-      m_PersistentCalls:
-        m_Calls: []
-    OnRailsExit:
-      m_PersistentCalls:
-        m_Calls: []
-  playerEvents:
-    OnJump:
-      m_PersistentCalls:
-        m_Calls: []
-    OnHurt:
-      m_PersistentCalls:
-        m_Calls: []
-    OnDie:
-      m_PersistentCalls:
-        m_Calls: []
-    OnSpin:
-      m_PersistentCalls:
-        m_Calls: []
-    OnPickUp:
-      m_PersistentCalls:
-        m_Calls: []
-    OnThrow:
-      m_PersistentCalls:
-        m_Calls: []
-    OnStompStarted:
-      m_PersistentCalls:
-        m_Calls: []
-    OnStompFalling:
-      m_PersistentCalls:
-        m_Calls: []
-    OnStompLanding:
-      m_PersistentCalls:
-        m_Calls: []
-    OnStompEnding:
-      m_PersistentCalls:
-        m_Calls: []
-    OnLedgeGrabbed:
-      m_PersistentCalls:
-        m_Calls: []
-    OnLedgeClimbing:
-      m_PersistentCalls:
-        m_Calls: []
-    OnAirDive:
-      m_PersistentCalls:
-        m_Calls: []
-    OnBackflip:
-      m_PersistentCalls:
-        m_Calls: []
-    OnGlidingStart:
-      m_PersistentCalls:
-        m_Calls: []
-    OnGlidingStop:
-      m_PersistentCalls:
-        m_Calls: []
-    OnDashStarted:
-      m_PersistentCalls:
-        m_Calls: []
-    OnDashEnded:
-      m_PersistentCalls:
-        m_Calls: []
---- !u!114 &583133416
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 583133413}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0863e081466344f4c880d57c47d8e0e6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actions: {fileID: -944628639613478452, guid: 6b99b82d3ff7bfd4199643130476cdf4, type: 3}
---- !u!114 &583133417
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 583133413}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82ed72aae805a7d418039f0ddba0a3ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stats:
-  - {fileID: 11400000, guid: 00bcb4afab4c5b64b839b19378747f53, type: 2}
---- !u!114 &583133419
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 583133413}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3469839cc81d35b469c3611b92e52ef1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minLateralAnimationSpeed: 0.5
-  forcedTransitions:
-  - fromStateId: 15
-    animationLayer: 0
-    toAnimationState: Idle
-  stateName: State
-  lastStateName: Last State
-  lateralSpeedName: Lateral Speed
-  verticalSpeedName: Vertical Speed
-  lateralAnimationSpeedName: Lateral Animation Speed
-  healthName: Health
-  jumpCounterName: Jump Counter
-  isGroundedName: Is Grounded
-  isHoldingName: Is Holding
-  onStateChangedName: On State Changed
-  animator: {fileID: 410218393}
---- !u!114 &583133421
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 583133413}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4f8b6c56526aa343b65daf0470ed44b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  intail: 3
-  max: 3
-  coolDown: 1
-  onChange:
-    m_PersistentCalls:
-      m_Calls: []
-  onDamage:
-    m_PersistentCalls:
-      m_Calls: []
-  m_currentHealth: 3
 --- !u!4 &583747742 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2153768078682293615, guid: b28f9319f6e967d4fbdbd49d12fe14fd,
@@ -65059,6 +64821,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 572e5677b520ba0439f122d8f7a25fcc, type: 3}
+--- !u!4 &1084514281 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7674229840038231450, guid: eb0f77ac3ce65a04db54ff55e59b0815,
+    type: 3}
+  m_PrefabInstance: {fileID: 1479944703}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1084683550 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3217452097194428231, guid: 6b944aac84403ee438064422b1374382,
@@ -91094,6 +90862,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1436836094151290185, guid: eb0f77ac3ce65a04db54ff55e59b0815,
+        type: 3}
+      propertyPath: skin
+      value: 
+      objectReference: {fileID: 1084514281}
+    - target: {fileID: 4601279804034680361, guid: eb0f77ac3ce65a04db54ff55e59b0815,
+        type: 3}
+      propertyPath: 'states.Array.data[6]'
+      value: WallDragPlayerState
+      objectReference: {fileID: 0}
     - target: {fileID: 6650432633027884458, guid: eb0f77ac3ce65a04db54ff55e59b0815,
         type: 3}
       propertyPath: m_Name
@@ -91149,7 +90927,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7955624928045367239, guid: eb0f77ac3ce65a04db54ff55e59b0815,
+    - target: {fileID: 8869803173118606066, guid: eb0f77ac3ce65a04db54ff55e59b0815,
         type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -91157,35 +90935,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6650432633027884458, guid: eb0f77ac3ce65a04db54ff55e59b0815,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 583133416}
-    - targetCorrespondingSourceObject: {fileID: 6650432633027884458, guid: eb0f77ac3ce65a04db54ff55e59b0815,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 583133417}
-    - targetCorrespondingSourceObject: {fileID: 6650432633027884458, guid: eb0f77ac3ce65a04db54ff55e59b0815,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 583133414}
-    - targetCorrespondingSourceObject: {fileID: 6650432633027884458, guid: eb0f77ac3ce65a04db54ff55e59b0815,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 583133421}
-    - targetCorrespondingSourceObject: {fileID: 6650432633027884458, guid: eb0f77ac3ce65a04db54ff55e59b0815,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 583133415}
-    - targetCorrespondingSourceObject: {fileID: 6650432633027884458, guid: eb0f77ac3ce65a04db54ff55e59b0815,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 583133419}
-    - targetCorrespondingSourceObject: {fileID: 7103543676289522692, guid: eb0f77ac3ce65a04db54ff55e59b0815,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 114649608}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb0f77ac3ce65a04db54ff55e59b0815, type: 3}
 --- !u!1 &1479958866
 GameObject:

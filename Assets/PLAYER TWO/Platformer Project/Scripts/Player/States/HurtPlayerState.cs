@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HurtPlayerState : PlayerState
 {
-    protected override void OnContact(Player player, Collider other)
+    public override void OnContact(Player player, Collider other)
     {
         
     }

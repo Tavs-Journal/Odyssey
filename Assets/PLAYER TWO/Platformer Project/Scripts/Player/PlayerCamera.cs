@@ -95,8 +95,9 @@ public class PlayerCamera : MonoBehaviour
 
     protected virtual bool VerticalFollowingStates()
     {
-        return true;
-    }
+        return player.states.IsCurrentOfType(typeof(SwimPlayerState)) ||
+               player.states.IsCurrentOfType(typeof(WallDragPlayerState));
+    }       
 
     protected virtual void HandleOrbit()
     {
