@@ -37,6 +37,7 @@ public class BackFlipPlayerState : PlayerState
             player.StomAttack();
             player.SpinAttack();
             player.AirDive();
+            player.Glide();
         }
         //这里是我自己想改动的代码。
         //原先这里没有速度大于零时候的判断

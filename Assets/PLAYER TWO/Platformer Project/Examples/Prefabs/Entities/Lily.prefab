@@ -794,7 +794,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8894101937282624714
 Transform:
   m_ObjectHideFlags: 0
@@ -2320,6 +2320,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6650432633027884459}
+  - component: {fileID: 1848540215947462519}
+  - component: {fileID: 2771458717738277513}
+  - component: {fileID: 4601279804034680361}
+  - component: {fileID: 8093953430616310803}
+  - component: {fileID: 1436836094151290185}
+  - component: {fileID: 5412829700823088771}
   m_Layer: 0
   m_Name: Lily
   m_TagString: Untagged
@@ -2348,6 +2354,206 @@ Transform:
   - {fileID: 494511523524256515}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1848540215947462519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6650432633027884458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0863e081466344f4c880d57c47d8e0e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actions: {fileID: -944628639613478452, guid: 6b99b82d3ff7bfd4199643130476cdf4, type: 3}
+--- !u!114 &2771458717738277513
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6650432633027884458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82ed72aae805a7d418039f0ddba0a3ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats:
+  - {fileID: 11400000, guid: 00bcb4afab4c5b64b839b19378747f53, type: 2}
+--- !u!114 &4601279804034680361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6650432633027884458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c75fa150788d2a240939f8614c0fe6a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  events:
+    onChange:
+      m_PersistentCalls:
+        m_Calls: []
+    onEnter:
+      m_PersistentCalls:
+        m_Calls: []
+    onExit:
+      m_PersistentCalls:
+        m_Calls: []
+  states:
+  - IdleState
+  - WalkState
+  - BrakePlayerState
+  - FallPlayerState
+  - HurtPlayerState
+  - IdleState
+  - IdleState
+  - IdleState
+  - SwimPlayerState
+  - CrouchPlayerState
+  - CrawingPlayerState
+  - SpinPlayerState
+  - AirDivePlayerState
+  - StompPlayerState
+  - IdleState
+  - IdleState
+  - BackFlipPlayerState
+  - GlidePlayerState
+  - DashPlayerState
+  - IdleState
+--- !u!114 &8093953430616310803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6650432633027884458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f8b6c56526aa343b65daf0470ed44b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  intail: 3
+  max: 3
+  coolDown: 1
+  onChange:
+    m_PersistentCalls:
+      m_Calls: []
+  onDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  m_currentHealth: 3
+--- !u!114 &1436836094151290185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6650432633027884458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a5f2762f95532841b474eff50f960b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityEvents:
+    OnGroundEnter:
+      m_PersistentCalls:
+        m_Calls: []
+    OnGroundExit:
+      m_PersistentCalls:
+        m_Calls: []
+    OnRailsEnter:
+      m_PersistentCalls:
+        m_Calls: []
+    OnRailsExit:
+      m_PersistentCalls:
+        m_Calls: []
+  playerEvents:
+    OnJump:
+      m_PersistentCalls:
+        m_Calls: []
+    OnHurt:
+      m_PersistentCalls:
+        m_Calls: []
+    OnDie:
+      m_PersistentCalls:
+        m_Calls: []
+    OnSpin:
+      m_PersistentCalls:
+        m_Calls: []
+    OnPickUp:
+      m_PersistentCalls:
+        m_Calls: []
+    OnThrow:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStompStarted:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStompFalling:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStompLanding:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStompEnding:
+      m_PersistentCalls:
+        m_Calls: []
+    OnLedgeGrabbed:
+      m_PersistentCalls:
+        m_Calls: []
+    OnLedgeClimbing:
+      m_PersistentCalls:
+        m_Calls: []
+    OnAirDive:
+      m_PersistentCalls:
+        m_Calls: []
+    OnBackflip:
+      m_PersistentCalls:
+        m_Calls: []
+    OnGlidingStart:
+      m_PersistentCalls:
+        m_Calls: []
+    OnGlidingStop:
+      m_PersistentCalls:
+        m_Calls: []
+    OnDashStarted:
+      m_PersistentCalls:
+        m_Calls: []
+    OnDashEnded:
+      m_PersistentCalls:
+        m_Calls: []
+--- !u!114 &5412829700823088771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6650432633027884458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3469839cc81d35b469c3611b92e52ef1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minLateralAnimationSpeed: 0.5
+  forcedTransitions:
+  - fromStateId: 15
+    animationLayer: 0
+    toAnimationState: Idle
+  stateName: State
+  lastStateName: Last State
+  lateralSpeedName: Lateral Speed
+  verticalSpeedName: Vertical Speed
+  lateralAnimationSpeedName: Lateral Animation Speed
+  healthName: Health
+  jumpCounterName: Jump Counter
+  isGroundedName: Is Grounded
+  isHoldingName: Is Holding
+  onStateChangedName: On State Changed
+  animator: {fileID: 301645532738941841}
 --- !u!1 &6670180705425501448
 GameObject:
   m_ObjectHideFlags: 0
@@ -2554,6 +2760,7 @@ GameObject:
   - component: {fileID: 4360251545403807621}
   - component: {fileID: 6703671857397190972}
   - component: {fileID: 3119261768481103709}
+  - component: {fileID: 3282830688853387075}
   m_Layer: 0
   m_Name: Spin Hitbox
   m_TagString: Untagged
@@ -2661,6 +2868,26 @@ MonoBehaviour:
         m_CallState: 2
   states:
   - SpinPlayerState
+--- !u!114 &3282830688853387075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7103543676289522692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 239d390cbfcc3cc439166a1bce7c3dab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  breakObjects: 1
+  damage: 1
+  rebound: 0
+  ReboundMinForce: 10
+  ReboundMaxForce: 25
+  pushBack: 0
+  pushBackMinMagnitude: 5
+  pushBackMaxMagnitude: 10
 --- !u!1 &7253796012327715477
 GameObject:
   m_ObjectHideFlags: 0
@@ -3466,13 +3693,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3749565669628705137}
+  - component: {fileID: 8698129564549059376}
   m_Layer: 0
   m_Name: Glider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3749565669628705137
 Transform:
   m_ObjectHideFlags: 0
@@ -3490,6 +3718,25 @@ Transform:
   - {fileID: 7754725362786864946}
   m_Father: {fileID: 7674229840038231450}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8698129564549059376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9223138182315322170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c289224112706f41b303931ff431cac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  trails:
+  - {fileID: 5399726064718231837}
+  - {fileID: 4478595269476217148}
+  scaleDuration: 0.35
+  openAudio: {fileID: 8300000, guid: 5731886b24a083d4b96f52451958df11, type: 3}
+  closeAudio: {fileID: 8300000, guid: c5c638c18ba02a04fa51ad14b3f318e3, type: 3}
 --- !u!1001 &842584420741695674
 PrefabInstance:
   m_ObjectHideFlags: 0

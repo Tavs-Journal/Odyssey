@@ -34467,7 +34467,7 @@ MonoBehaviour:
   - IdleState
   - IdleState
   - IdleState
-  - IdleState
+  - SwimPlayerState
   - CrouchPlayerState
   - CrawingPlayerState
   - SpinPlayerState
@@ -34476,7 +34476,7 @@ MonoBehaviour:
   - IdleState
   - IdleState
   - BackFlipPlayerState
-  - IdleState
+  - GlidePlayerState
   - DashPlayerState
   - IdleState
 --- !u!114 &583133415
@@ -61724,32 +61724,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2db4d6e9c2d679e48b0f8f094e246fb8, type: 3}
---- !u!1 &1022239765 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3412474596665875111, guid: 0a20ae9159e36a0409eefaf35cbb5b18,
-    type: 3}
-  m_PrefabInstance: {fileID: 1258969950}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1022239772
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1022239765}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 420449953ac70c2489248a89c1d0bb0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onEnter:
-    m_PersistentCalls:
-      m_Calls: []
-  onExit:
-    m_PersistentCalls:
-      m_Calls: []
-  enterclip: {fileID: 8300000, guid: d054d36892d86444d998d48d52ebf5fd, type: 3}
-  exitclip: {fileID: 8300000, guid: 2d25a7387036df94c98c381b35d5a05f, type: 3}
 --- !u!1 &1022297005
 GameObject:
   m_ObjectHideFlags: 0
@@ -76635,14 +76609,10 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 2239036366471371937, guid: 0a20ae9159e36a0409eefaf35cbb5b18, type: 3}
+    - {fileID: 0}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3412474596665875111, guid: 0a20ae9159e36a0409eefaf35cbb5b18,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1022239772}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a20ae9159e36a0409eefaf35cbb5b18, type: 3}
 --- !u!4 &1259361178 stripped
 Transform:

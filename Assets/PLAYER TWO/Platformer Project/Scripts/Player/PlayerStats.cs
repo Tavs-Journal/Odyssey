@@ -110,4 +110,11 @@ public class PlayerStats : EntityStats<PlayerStats>
     public float swimDeceleration = 3f;        // 游泳减速度
     public float swimTopSpeed = 4f;            // 游泳最高速度
     public float swimDiveForce = 15f;          // 潜水下潜力
+
+    //==============================【滑翔】==============================//
+    [Header("Gliding Stats")]
+    public bool canGlide = true;               // 是否能滑翔
+    public float glidingGravity = 10f;         // 滑翔时的重力
+    public float glidingMaxFallSpeed = 2f;     // 最大下落速度
+    public float glidingTurningDrag = 8f;      // 转向阻力
 }

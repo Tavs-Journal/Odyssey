@@ -184,6 +184,14 @@ public class Player : Entity<Player>
         }                     
     }
 
+    public virtual void Glide()
+    {
+        if(!isGrounded && input.GetGlide() && stats.current.canGlide && verticalVelocity.y <= 0)
+        {
+            states.Change<GlidePlayerState>();
+        }
+    }
+
     public virtual void AirDive()
     {
         if(stats.current.canAirDash && !isGrounded && !holding && input.GetAirDiveDown())
