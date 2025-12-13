@@ -149,23 +149,26 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
 
     public virtual void Accelerate(Vector3 direction, float turningDrag, float acceleration, float TopSpeed)
     {
-        var speed = Vector3.Dot(direction, lateralvelocity);
-        var velocity =  direction * speed;
-        var turningVelocity = lateralvelocity - velocity;
-        var turningDelta = turningDrag * turningDragMultiplier * Time.deltaTime;
-        var targetTopSpeed = TopSpeed * topSpeedMultiplier;
-
-        if(lateralvelocity.magnitude <  targetTopSpeed || speed < 0)
+        if(direction.sqrMagnitude > 0)
         {
-            speed += acceleration * accelerationMultiplier * Time.deltaTime;
-            speed = Mathf.Clamp(speed, -targetTopSpeed, targetTopSpeed);
+            var speed = Vector3.Dot(direction, lateralvelocity);
+            var velocity = direction * speed;
+            var turningVelocity = lateralvelocity - velocity;
+            var turningDelta = turningDrag * turningDragMultiplier * Time.deltaTime;
+            var targetTopSpeed = TopSpeed * topSpeedMultiplier;
+
+            if (lateralvelocity.magnitude < targetTopSpeed || speed < 0)
+            {
+                speed += acceleration * accelerationMultiplier * Time.deltaTime;
+                speed = Mathf.Clamp(speed, -targetTopSpeed, targetTopSpeed);
+            }
+
+            velocity = direction * speed;
+
+            turningVelocity = Vector3.MoveTowards(turningVelocity, Vector3.zero, turningDelta);
+
+            lateralvelocity = velocity + turningVelocity;
         }
-
-        velocity = direction * speed;
-
-        turningVelocity = Vector3.MoveTowards(turningVelocity, Vector3.zero, turningDelta);
-
-        lateralvelocity = velocity + turningVelocity;
     }
 
     public virtual void Gravity(float gravity)

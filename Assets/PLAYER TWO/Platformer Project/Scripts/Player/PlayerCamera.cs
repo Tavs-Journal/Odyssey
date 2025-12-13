@@ -141,23 +141,24 @@ public class PlayerCamera : MonoBehaviour
                 var offset = target.y - previousPosition.y + verticalDownDeadZone;
                 targetHeight += Mathf.Max(offset, -maxVerticalSpeed * Time.deltaTime);
             }
-            else if (target.y > previousPosition.y + verticalAirUpDeadZone)
-            {
-                var offset = target.y - previousPosition.y - verticalAirUpDeadZone;
-                targetHeight += Mathf.Min(offset, maxAirVerticalSpeed * Time.deltaTime);
-            }
-            else if (target.y < previousPosition.y - verticalAirDownDeadZone)
-            {
-                var offset = target.y - previousPosition.y + verticalAirDownDeadZone;
-                targetHeight += Mathf.Max(offset, -maxAirVerticalSpeed * Time.deltaTime);
-            }
-            m_cameraTargetPosition = new Vector3(target.x, targetHeight, target.z);
         }
+        else if (target.y > previousPosition.y + verticalAirUpDeadZone)
+        {
+            var offset = target.y - previousPosition.y - verticalAirUpDeadZone;
+            targetHeight += Mathf.Min(offset, maxAirVerticalSpeed * Time.deltaTime);
+        }
+        else if (target.y < previousPosition.y - verticalAirDownDeadZone)
+        {
+            var offset = target.y - previousPosition.y + verticalAirDownDeadZone;
+            targetHeight += Mathf.Max(offset, -maxAirVerticalSpeed * Time.deltaTime);
+        }
+
+        m_cameraTargetPosition = new Vector3(target.x, targetHeight, target.z);
     }
 
     protected virtual float ClampAngle(float angle, float min, float max)
     {
-        if (angle < 360) angle += 360;
+        if (angle < -360) angle += 360;
         if (angle > 360) angle -= 360;
         return Mathf.Clamp(angle, min, max);
     }

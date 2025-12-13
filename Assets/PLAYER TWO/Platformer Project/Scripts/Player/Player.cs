@@ -192,8 +192,10 @@ public class Player : Entity<Player>
     {
         jumpCounter++;
         lateralvelocity = direction * distance;
+        Debug.Log(lateralvelocity.z);
         verticalVelocity = Vector3.up * height;
-        playerEvents.OnJump?.Invoke(); 
+        Debug.Log(verticalVelocity.y);
+        playerEvents.OnJump?.Invoke();
     }
 
     public virtual void WallDrag(Collider other) 

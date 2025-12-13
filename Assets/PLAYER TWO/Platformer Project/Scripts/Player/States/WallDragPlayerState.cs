@@ -39,13 +39,12 @@ public class WallDragPlayerState : PlayerState
         {
             player.states.Change<IdleState>();
         }
-        if (player.input.GetJumpDown())
+        else if (player.input.GetJumpDown())
         {
             if (player.stats.current.wallJumpLockMovement)
             {
                 player.input.LockMovementDirection();
             }
-
             player.DirectionalJump(player.transform.forward, player.stats.current.wallJumpDistance
                 , player.stats.current.wallJumpHeight);
 
