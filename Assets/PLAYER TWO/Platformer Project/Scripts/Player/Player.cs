@@ -20,6 +20,8 @@ public class Player : Entity<Player>
 
     public Health health { get; protected set; }
 
+    public Pole pole { get; protected set; }
+
     public Transform skin;
 
     public bool holding { get; protected set; }
@@ -192,9 +194,7 @@ public class Player : Entity<Player>
     {
         jumpCounter++;
         lateralvelocity = direction * distance;
-        Debug.Log(lateralvelocity.z);
         verticalVelocity = Vector3.up * height;
-        Debug.Log(verticalVelocity.y);
         playerEvents.OnJump?.Invoke();
     }
 
@@ -209,6 +209,15 @@ public class Player : Entity<Player>
                 lastWallNormal = hit.normal;
                 states.Change<WallDragPlayerState>();
             }
+        }
+    }
+
+    public virtual void GrabPole(Collider other)
+    {
+        if(stats.current.canPoleClimb && velocity.y <= 0 && !holding && other.TryGetComponent(out Pole pole))
+        {
+            this.pole = pole;
+            states.Change<PoleClimbingPlayerState>();
         }
     }
 

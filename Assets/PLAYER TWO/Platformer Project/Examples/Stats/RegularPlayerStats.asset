@@ -96,5 +96,5 @@ MonoBehaviour:
     m_Bits: 3585
   wallDragSkinOffset: {x: 0, y: 0, z: 0}
   wallDragGravity: 12
-  wallJumpDistance: 16
-  wallJumpHeight: 15
+  wallJumpDistance: 8
+  wallJumpHeight: 16

@@ -127,4 +127,15 @@ public class PlayerStats : EntityStats<PlayerStats>
     public float wallDragGravity = 12f;        // 墙滑时的重力
     public float wallJumpDistance = 8f;        // 蹬墙跳水平距离
     public float wallJumpHeight = 15f;         // 蹬墙跳垂直高度
+
+    //==============================【爬杆】==============================//
+    [Header("Pole Climb Stats")]
+    public bool canPoleClimb = true;           // 是否能爬杆
+    public Vector3 poleClimbSkinOffset;        // 碰撞偏移
+    public float climbUpSpeed = 3f;            // 向上爬速度
+    public float climbDownSpeed = 8f;          // 向下爬速度
+    public float climbRotationSpeed = 2f;      // 转动速度
+    public float poleJumpDistance = 8f;        // 杆子跳水平距离
+    public float poleJumpHeight = 15f;         // 杆子跳高度
+
 }

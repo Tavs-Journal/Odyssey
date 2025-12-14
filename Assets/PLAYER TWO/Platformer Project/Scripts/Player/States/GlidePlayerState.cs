@@ -4,6 +4,7 @@ public class GlidePlayerState : PlayerState
     public override void OnContact(Player player, Collider other)
     {
         player.WallDrag(other);
+        player.GrabPole(other);
     }
 
     protected override void OnEnter(Player player)

@@ -154,7 +154,7 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
             var speed = Vector3.Dot(direction, lateralvelocity);
             var velocity = direction * speed;
             var turningVelocity = lateralvelocity - velocity;
-            var turningDelta = turningDrag * turningDragMultiplier * Time.deltaTime;
+            var turningDelta = turningDrag * turningDragMultiplier   * Time.deltaTime;
             var targetTopSpeed = TopSpeed * topSpeedMultiplier;
 
             if (lateralvelocity.magnitude < targetTopSpeed || speed < 0)
