@@ -45,6 +45,13 @@ public class Player : Entity<Player>
             ResetAirDash();
             ResetAirSpin();
         });
+        entityEvents.OnRailsEnter.AddListener(() =>
+        {
+            ResetJumps();
+            ResetAirDash();
+            ResetAirSpin();
+            StartGrind();
+        });
     }
 
     protected virtual void InitialTag() => tag = GameTags.Player;
@@ -124,7 +131,7 @@ public class Player : Entity<Player>
     {    
         var canMultiJump = (jumpCounter > 0) && (jumpCounter < stats.current.multiJumps);
         var canCoyoteJump = (jumpCounter == 0) && (Time.deltaTime < lastGroundTime + stats.current.coyoteJumpThreshold);
-        if (canMultiJump || canCoyoteJump || isGrounded) 
+        if ((canMultiJump || canCoyoteJump || isGrounded || onRails) && !holding) 
         {
             if (input.GetJumpDown())
             {
@@ -304,6 +311,7 @@ public class Player : Entity<Player>
             }
         }
     }
+    public virtual void StartGrind() => states.Change<RailGrindPlayerState>();
 
     public virtual bool canStandUp => !SphereCast(Vector3.up, originalHeight);
     

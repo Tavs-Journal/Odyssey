@@ -4,6 +4,7 @@ using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.Splines;
 
 public abstract class EntityBase : MonoBehaviour { 
 
@@ -11,7 +12,14 @@ public abstract class EntityBase : MonoBehaviour {
     public Vector3 unsizedPosition => position - transform.up * height * 0.5f + transform.up * originalHeight * 0.5f;
 
     protected Collider[] m_colliders = new Collider[10];
+
+    protected CapsuleCollider m_collider;
+
+    protected Rigidbody m_rigidbody;
+
     public bool isGrounded { get; protected set; } = true;
+
+    public bool onRails;
 
     public readonly float m_groundOffSet = 0.1f;
 
@@ -38,6 +46,8 @@ public abstract class EntityBase : MonoBehaviour {
     public float groundAngel { get; protected set; }
 
     public RaycastHit groundHit;
+
+    public SplineContainer rails { get; protected set; }
 
     public Vector3 groundNormal {  get; protected set; }
 
@@ -145,6 +155,22 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
         originalHeight = controller.height;
     }
 
+    protected virtual void InitializeRigidbody()
+    {
+        m_rigidbody = gameObject.AddComponent<Rigidbody>();
+        m_rigidbody.isKinematic = true;
+    }
+
+    protected virtual void InitializeCollider()
+    {
+        m_collider = gameObject.AddComponent<CapsuleCollider>();
+        m_collider.height = controller.height;
+        m_collider.radius = controller.radius;
+        m_collider.center = controller.center;
+        m_collider.isTrigger = controller.isTrigger;
+        m_collider.enabled = false;
+    }
+
     protected virtual void InitializeStateManager() => states = GetComponent<EntityStateManager<T>>();
 
     public virtual void Accelerate(Vector3 direction, float turningDrag, float acceleration, float TopSpeed)
@@ -243,6 +269,40 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
         }
     }
 
+    public virtual void UseCustomCollision(bool value)
+    {
+        controller.enabled = !value;
+        if (value)
+        {
+            InitializeCollider();
+            InitializeRigidbody();
+        }
+        else
+        {
+            Destroy(m_collider);
+            Destroy(m_rigidbody);
+        }
+    }
+
+    protected virtual void EnterRails(SplineContainer rails)
+    {
+        if (!onRails)
+        {
+            onRails = true;
+            this.rails = rails;
+            entityEvents.OnRailsEnter?.Invoke();
+        }
+    }
+
+    public virtual void ExitRails()
+    {
+        if (onRails)
+        {
+            onRails = false;
+            entityEvents.OnRailsExit?.Invoke();
+        }
+    }
+
     protected virtual void OnContact(Collider other)
     {
         if (other)
@@ -253,6 +313,7 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
 
     protected virtual void HandleGround()
     {
+        if (onRails) return;
         var distance = (height * 0.5f) + m_groundOffSet;
         if(SphereCast(Vector3.down, distance, out var hit) && verticalVelocity.y <= 0)
         {
@@ -298,6 +359,22 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
         }
     }
 
+    protected virtual void HandleSpline()
+    {
+        var distance = (height * 0.5f) + height * 0.5f;
+        if(SphereCast(-transform.up, distance, out var hit) && hit.collider.CompareTag(GameTags.InteractiveRail))
+        {
+            if(!onRails && verticalVelocity.y <= 0)
+            {
+                EnterRails(hit.collider.GetComponent<SplineContainer>());
+            }
+        }
+        else
+        {
+            ExitRails();
+        }
+    }
+
     protected virtual void HandleController()
     {
         if (controller.enabled)
@@ -317,11 +394,12 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
     
     protected virtual void Update()
     {
-        if (controller.enabled)
+        if (controller.enabled || m_collider != null)
         {
             HandleState();
             HandleController();
             HandleGround();
+            HandleSpline();
             HandleContacts();
         }
     }

@@ -89986,6 +89986,24 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1460686540}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1461360324 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6378738783146352442, guid: 0059383e189dc14489388db437941e22,
+    type: 3}
+  m_PrefabInstance: {fileID: 2025728954}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1461360330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1461360324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc2a8ec20f9987441ae4f045820b04fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1462300618
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -90871,6 +90889,16 @@ PrefabInstance:
         type: 3}
       propertyPath: 'states.Array.data[6]'
       value: WallDragPlayerState
+      objectReference: {fileID: 0}
+    - target: {fileID: 4601279804034680361, guid: eb0f77ac3ce65a04db54ff55e59b0815,
+        type: 3}
+      propertyPath: 'states.Array.data[7]'
+      value: PoleClimbingPlayerState
+      objectReference: {fileID: 0}
+    - target: {fileID: 4601279804034680361, guid: eb0f77ac3ce65a04db54ff55e59b0815,
+        type: 3}
+      propertyPath: 'states.Array.data[19]'
+      value: RailGrindPlayerState
       objectReference: {fileID: 0}
     - target: {fileID: 6650432633027884458, guid: eb0f77ac3ce65a04db54ff55e59b0815,
         type: 3}
@@ -124078,10 +124106,15 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 15.24
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6378738783146352447, guid: 0059383e189dc14489388db437941e22, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6378738783146352442, guid: 0059383e189dc14489388db437941e22,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1461360330}
   m_SourcePrefab: {fileID: 100100000, guid: 0059383e189dc14489388db437941e22, type: 3}
 --- !u!1001 &2026655567
 PrefabInstance:

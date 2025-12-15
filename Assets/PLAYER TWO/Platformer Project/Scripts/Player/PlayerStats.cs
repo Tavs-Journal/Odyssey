@@ -138,4 +138,25 @@ public class PlayerStats : EntityStats<PlayerStats>
     public float poleJumpDistance = 8f;        // 杆子跳水平距离
     public float poleJumpHeight = 15f;         // 杆子跳高度
 
+    //==============================【铁轨滑行（Grinding）】==============================//
+    [Header("Rail Grinding Stats")]
+    public bool useCustomCollision = true;     // 是否使用自定义碰撞检测
+    public float grindRadiusOffset = 0.26f;    // 贴合轨道的半径偏移
+    public float minGrindInitialSpeed = 10f;   // 开始滑轨的最小初速度
+    public float minGrindSpeed = 5f;           // 最小滑行速度
+    public float grindTopSpeed = 25f;          // 最大滑行速度
+    public float grindDownSlopeForce = 40f;    // 下坡时推力
+    public float grindUpSlopeForce = 30f;      // 上坡时推力
+
+    //==============================【铁轨刹车】==============================//
+    [Header("Rail Grinding Brake")]
+    public bool canGrindBrake = true;          // 是否能在滑轨时刹车
+    public float grindBrakeDeceleration = 10;  // 刹车减速度
+
+    //==============================【铁轨冲刺】==============================//
+    [Header("Rail Grinding Dash Stats")]
+    public bool canGrindDash = true;           // 是否能在滑轨时冲刺
+    public bool applyGrindingSlopeFactor = true;// 是否考虑坡度因子
+    public float grindDashCoolDown = 0.5f;     // 冲刺冷却时间
+    public float grindDashForce = 25f;         // 冲刺推力
 }
