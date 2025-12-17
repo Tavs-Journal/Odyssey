@@ -11,7 +11,7 @@ public class RailGrindPlayerState : PlayerState
 
     public override void OnContact(Player player, Collider other)
     {
-        
+
     }
 
     protected override void OnEnter(Player player)
@@ -51,13 +51,13 @@ public class RailGrindPlayerState : PlayerState
             HandleDash(player);
             if (player.stats.current.applyGrindingSlopeFactor)
             {
-                m_speed -= factor * multiplier *Time.deltaTime; 
+                m_speed -= factor * multiplier * Time.deltaTime;
             }
             m_speed = Mathf.Clamp(m_speed, player.stats.current.minGrindSpeed, player.stats.current.grindTopSpeed);
-            Rotation(player, forward, upward);
+            Rotation(player, direction, upward);
             player.velocity = m_speed * direction;
 
-            if(player.rails.Spline.Closed || (t > 0 && t < 0.9))
+            if (player.rails.Spline.Closed || (t > 0 && t < 0.9))
             {
                 UpdatePosition(player, point, upward);
             }
@@ -77,7 +77,7 @@ public class RailGrindPlayerState : PlayerState
 
         point = player.rails.transform.TransformPoint(nearest);
         forward = Vector3.Normalize(player.rails.EvaluateTangent(t));
-        upward = Vector3.Normalize(player.rails.EvaluateUpVector(t));   
+        upward = Vector3.Normalize(player.rails.EvaluateUpVector(t));
     }
 
     protected virtual void UpdatePosition(Player player, Vector3 point, Vector3 upward)
@@ -92,7 +92,7 @@ public class RailGrindPlayerState : PlayerState
 
     protected virtual void Rotation(Player player, Vector3 forward, Vector3 upward)
     {
-        if(forward != Vector3.zero)
+        if (forward != Vector3.zero)
         {
             player.transform.rotation = Quaternion.LookRotation(forward, player.transform.up);
         }
@@ -110,7 +110,7 @@ public class RailGrindPlayerState : PlayerState
 
     protected virtual void HandleDash(Player player)
     {
-        if(player.stats.current.canGrindDash && player.input.GetDashDown() 
+        if (player.stats.current.canGrindDash && player.input.GetDashDown()
             && Time.time >= m_lastDashTime + player.stats.current.grindDashCoolDown)
         {
             m_lastDashTime = Time.time;

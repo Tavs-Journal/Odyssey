@@ -45,6 +45,10 @@ public abstract class EntityBase : MonoBehaviour {
 
     public float groundAngel { get; protected set; }
 
+    public float positionDelta { get; set; } 
+    
+    public Vector3 laterPosition { get; protected set; }
+
     public RaycastHit groundHit;
 
     public SplineContainer rails { get; protected set; }
@@ -351,7 +355,7 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
                 }
                 //这里可以添加一个角色y方向速度大于零
                 //也就是速度上升的时候且撞到时才会触发
-                if (m_colliders[i].bounds.min.y < controller.bounds.max.y)
+                if (m_colliders[i].bounds.min.y > controller.bounds.max.y)
                 {
                     verticalVelocity = Vector3.Min(verticalVelocity, Vector3.zero);
                 }
@@ -384,6 +388,13 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
         }
         transform.position += velocity * Time.deltaTime;
     }
+
+    protected virtual void HandlePosition()
+    {
+        positionDelta = (position - laterPosition).magnitude;
+        laterPosition = position;
+    }
+
     protected virtual void HandleState() => states.Step();
 
     protected virtual void Awake()
@@ -401,6 +412,14 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
             HandleGround();
             HandleSpline();
             HandleContacts();
+        }
+    }
+
+    protected virtual void LateUpdate()
+    {
+        if (controller.enabled)
+        {
+            HandlePosition();
         }
     }
 }

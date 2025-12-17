@@ -29,6 +29,8 @@ public class GlidePlayerState : PlayerState
         player.Accelerate(inputdirection, player.stats.current.glidingTurningDrag,
                player.stats.current.airAcceleration, player.stats.current.topSpeed);
 
+        player.LedgeGrab();
+
         if (player.isGrounded)
         {
             player.states.Change<IdleState>();

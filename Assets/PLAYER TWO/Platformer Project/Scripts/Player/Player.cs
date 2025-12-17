@@ -245,6 +245,50 @@ public class Player : Entity<Player>
         }
     }
 
+    public virtual void LedgeGrab()
+    {
+        if(velocity.y < 0 && stats.current.canLedgeHang && !holding && 
+            states.ContainsStateOfType(typeof(LedgeHangPlayerState)) &&
+            DetectingLedge(stats.current.ledgeMaxForwardDistance, stats.current.ledgeMaxDownwardDistance, out var hit))
+        {
+            if(!(hit.collider is SphereCollider) && !(hit.collider is CapsuleCollider))
+            {
+                var ledgeDistance = radius + stats.current.ledgeMaxForwardDistance;
+                var lateralOffset = transform.forward * ledgeDistance;
+                var verticalOffset = Vector3.down * height * 0.5f - center;
+                velocity = Vector3.zero;
+                transform.parent = hit.collider.CompareTag(GameTags.Platform) ? hit.transform : null;
+                transform.position = hit.point - lateralOffset + verticalOffset;
+
+                states.Change<LedgeHangPlayerState>();
+                playerEvents.OnLedgeGrabbed?.Invoke();
+            }
+        }
+    }
+
+    protected virtual bool DetectingLedge(float forwardDistance, float downwardDistance, out RaycastHit ledgehit)
+    {
+        var contactOffset = Physics.defaultContactOffset + positionDelta;
+        var ledgeMaxDistance = radius + forwardDistance;
+        var ledgeHeightOffset = height * 0.5f + contactOffset;
+        var upwardOffset = transform.up * ledgeHeightOffset;
+        var forwardOffset = transform.forward * ledgeMaxDistance;
+
+        if(Physics.Raycast(position + upwardOffset, transform.forward, ledgeMaxDistance, 
+                Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore) || 
+           Physics.Raycast(position + forwardOffset * 0.1f, transform.up, ledgeHeightOffset, 
+                Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
+        {
+            ledgehit = new RaycastHit();
+            return false;
+        }
+
+        var origin = position + upwardOffset + forwardOffset;
+        var distance = downwardDistance + contactOffset;
+        return Physics.Raycast(origin, Vector3.down, out ledgehit, distance, 
+            stats.current.ledgeHangingLayers, QueryTriggerInteraction.Ignore);
+    }
+
     public virtual void SpinAttack()
     {
         var canSpin = (isGrounded || stats.current.canAirSpin) && airSpinCounter < stats.current.allowedAirSpins;

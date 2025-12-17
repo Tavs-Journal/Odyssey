@@ -26,6 +26,7 @@ public class FallPlayerState : PlayerState
         player.Dash();
         player.Glide();
         player.AirDive();
+        player.LedgeGrab();
         player.StomAttack();
         player.SpinAttack(); 
         player.AccelerateToInputDirection();

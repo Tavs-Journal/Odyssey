@@ -159,4 +159,16 @@ public class PlayerStats : EntityStats<PlayerStats>
     public bool applyGrindingSlopeFactor = true;// 是否考虑坡度因子
     public float grindDashCoolDown = 0.5f;     // 冲刺冷却时间
     public float grindDashForce = 25f;         // 冲刺推力
+
+    //==============================【悬挂在边缘】==============================//
+    [Header("Ledge Hanging Stats")]
+    public bool canLedgeHang = true;           // 是否可以悬挂
+    public LayerMask ledgeHangingLayers;       // 悬挂检测层
+    public Vector3 ledgeHangingSkinOffset;     // 碰撞偏移
+    public float ledgeMaxForwardDistance = 0.25f; // 前向最大检测距离
+    public float ledgeMaxDownwardDistance = 0.25f;// 下向最大检测距离
+    public float ledgeSideMaxDistance = 0.5f;     // 侧向最大检测距离
+    public float ledgeSideHeightOffset = 0.15f;   // 侧边高度偏移
+    public float ledgeSideCollisionRadius = 0.25f;// 侧边检测半径
+    public float ledgeMovementSpeed = 1.5f;       // 悬挂时移动速度
 }
