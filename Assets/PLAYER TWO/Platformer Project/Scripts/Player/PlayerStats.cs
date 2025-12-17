@@ -171,4 +171,11 @@ public class PlayerStats : EntityStats<PlayerStats>
     public float ledgeSideHeightOffset = 0.15f;   // 侧边高度偏移
     public float ledgeSideCollisionRadius = 0.25f;// 侧边检测半径
     public float ledgeMovementSpeed = 1.5f;       // 悬挂时移动速度
+
+    //==============================【攀爬边缘】==============================//
+    [Header("Ledge Climbing Stats")]
+    public bool canClimbLedges = true;         // 是否可以攀爬边缘
+    public LayerMask ledgeClimbingLayers;      // 攀爬检测层
+    public Vector3 ledgeClimbingSkinOffset;    // 碰撞偏移
+    public float ledgeClimbingDuration = 1f;   // 攀爬动作时长
 }

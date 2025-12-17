@@ -30,6 +30,9 @@ public class Player : Entity<Player>
 
     public Vector3 lastWallNormal {  get; protected set; }
 
+    protected Vector3 m_skinInitialPosition;
+    protected Quaternion m_skinInitialRotation;
+
     public Collider water {  get; protected set; }
 
     protected override void Awake()
@@ -125,7 +128,26 @@ public class Player : Entity<Player>
 
     public virtual void ResetAirDash() => airDashCounter = 0;
 
-    public virtual void ResetAirSpin() => airSpinCounter = 0;   
+    public virtual void ResetAirSpin() => airSpinCounter = 0;  
+    
+    public virtual void ResetSkinParent()
+    {
+        if (skin)
+        {
+            skin.parent = transform;
+            skin.localPosition = m_skinInitialPosition;
+            skin.rotation = m_skinInitialRotation;
+        }
+    }
+
+    public virtual void SetSkinParent(Transform parent)
+    {
+        if (skin)
+        {
+            skin.parent = parent;
+        }
+    }
+
 
     public virtual void Jump()
     {    
@@ -209,7 +231,8 @@ public class Player : Entity<Player>
     {
         if(stats.current.canWallDrag && !holding && velocity.y <= 0 && !other.TryGetComponent<Rigidbody>(out _))
         {
-            if(CapsuleCast(transform.forward, 0.25f, out var hit, stats.current.wallDragLayers))
+            if(CapsuleCast(transform.forward, 0.25f, out var hit, stats.current.wallDragLayers) &&
+                !DetectingLedge(0.25f, height, out _))
             {
                 if (hit.collider.CompareTag(GameTags.Platform))
                     transform.parent = hit.transform;
@@ -276,7 +299,7 @@ public class Player : Entity<Player>
 
         if(Physics.Raycast(position + upwardOffset, transform.forward, ledgeMaxDistance, 
                 Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore) || 
-           Physics.Raycast(position + forwardOffset * 0.1f, transform.up, ledgeHeightOffset, 
+           Physics.Raycast(position + forwardOffset * 0.01f, transform.up, ledgeHeightOffset, 
                 Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
         {
             ledgehit = new RaycastHit();
@@ -287,6 +310,17 @@ public class Player : Entity<Player>
         var distance = downwardDistance + contactOffset;
         return Physics.Raycast(origin, Vector3.down, out ledgehit, distance, 
             stats.current.ledgeHangingLayers, QueryTriggerInteraction.Ignore);
+    }
+
+    public virtual bool FitIntoPosition(Vector3 position)
+    {
+        var radius = controller.radius - controller.skinWidth;
+        var offset = height * 0.5f - radius;
+        var top = position + Vector3.up * offset;
+        var bottom = position - Vector3.up * offset;
+
+        return !Physics.CheckCapsule(top, bottom, radius, 
+            Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
     }
 
     public virtual void SpinAttack()

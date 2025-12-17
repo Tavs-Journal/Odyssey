@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
+//悬挂状态不易被检测到 且在跟着平台上下移动方面仍有一些bug
+//后续或许可以考虑增加一个脚下的检测 
 public class LedgeHangPlayerState : PlayerState
 {
     protected bool m_keepParent;
@@ -53,6 +55,8 @@ public class LedgeHangPlayerState : PlayerState
             var ledgeSideOrigin = sideOrigin + player.transform.right * Mathf.Sign(inputDirection.x) * player.radius;
             var sideForward = -new Vector3(sideHit.normal.x, 0, sideHit.normal.z).normalized;
             var ledgeHeight = topHit.point.y - player.height * 0.5f;
+            var destinationHeight = player.height * 0.5f + Physics.defaultContactOffset;
+            var climbDestination = topHit.point + Vector3.up * destinationHeight + player.transform.forward * player.radius;
             player.FaceDirection(sideForward);
             if(Physics.Raycast(ledgeSideOrigin, sideForward, rayDistance, 
                 player.stats.current.ledgeHangingLayers, QueryTriggerInteraction.Ignore))
@@ -75,6 +79,14 @@ public class LedgeHangPlayerState : PlayerState
             {
                 player.Jump(player.stats.current.maxJumpHeight);
                 player.states.Change<FallPlayerState>();
+            }
+            else if(inputDirection.z > 0 && player.stats.current.canClimbLedges && 
+                ((1 << topHit.collider.gameObject.layer) & player.stats.current.ledgeClimbingLayers) != 0
+                && player.FitIntoPosition(climbDestination))
+            {
+                m_keepParent = true;
+                player.states.Change<LedgeClimingPlayerState>();
+                player.playerEvents.OnLedgeClimbing?.Invoke();
             }
             
         }

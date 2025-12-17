@@ -98,3 +98,34 @@ MonoBehaviour:
   wallDragGravity: 12
   wallJumpDistance: 8
   wallJumpHeight: 16
+  canPoleClimb: 1
+  poleClimbSkinOffset: {x: 0, y: 0, z: 0}
+  climbUpSpeed: 3
+  climbDownSpeed: 8
+  climbRotationSpeed: 2
+  poleJumpDistance: 8
+  poleJumpHeight: 15
+  useCustomCollision: 1
+  grindRadiusOffset: 0.26
+  minGrindInitialSpeed: 10
+  minGrindSpeed: 5
+  grindTopSpeed: 25
+  grindDownSlopeForce: 40
+  grindUpSlopeForce: 30
+  canGrindBrake: 1
+  grindBrakeDeceleration: 10
+  canGrindDash: 1
+  applyGrindingSlopeFactor: 1
+  grindDashCoolDown: 0.5
+  grindDashForce: 25
+  canLedgeHang: 1
+  ledgeHangingLayers:
+    serializedVersion: 2
+    m_Bits: 11777
+  ledgeHangingSkinOffset: {x: 0, y: 0, z: 0}
+  ledgeMaxForwardDistance: 0.25
+  ledgeMaxDownwardDistance: 0.25
+  ledgeSideMaxDistance: 0.5
+  ledgeSideHeightOffset: 0.15
+  ledgeSideCollisionRadius: 0.25
+  ledgeMovementSpeed: 1.5
