@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
-public class LedgeClimingPlayerState : PlayerState
+public class LedgeClimbingPlayerState : PlayerState
 {
     protected IEnumerator m_routine;
 

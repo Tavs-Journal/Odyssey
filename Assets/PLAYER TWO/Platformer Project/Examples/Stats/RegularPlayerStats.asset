@@ -129,3 +129,9 @@ MonoBehaviour:
   ledgeSideHeightOffset: 0.15
   ledgeSideCollisionRadius: 0.25
   ledgeMovementSpeed: 1.5
+  canClimbLedges: 1
+  ledgeClimbingLayers:
+    serializedVersion: 2
+    m_Bits: 8709
+  ledgeClimbingSkinOffset: {x: 0, y: 0, z: 0}
+  ledgeClimbingDuration: 1

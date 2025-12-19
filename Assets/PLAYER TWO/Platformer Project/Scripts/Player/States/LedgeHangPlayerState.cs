@@ -85,10 +85,9 @@ public class LedgeHangPlayerState : PlayerState
                 && player.FitIntoPosition(climbDestination))
             {
                 m_keepParent = true;
-                player.states.Change<LedgeClimingPlayerState>();
+                player.states.Change<LedgeClimbingPlayerState>();
                 player.playerEvents.OnLedgeClimbing?.Invoke();
             }
-            
         }
         else
         {
