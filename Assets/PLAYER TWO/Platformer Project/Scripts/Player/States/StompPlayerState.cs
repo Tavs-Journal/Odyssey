@@ -42,7 +42,7 @@ public class StompPlayerState : PlayerState
         }
         if (player.isGrounded)
         {
-            if (m_landing)
+            if (!m_landing)
             {
                 m_landing = true;
                 player.playerEvents.OnStompLanding?.Invoke();
