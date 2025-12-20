@@ -51,6 +51,9 @@ MonoBehaviour:
   backflipGravity: 35
   backflipBackwardForce: 4
   backflipBackwardTurnForce: 8
+  runningAcceleration: 16
+  runningTopSpeed: 9
+  runningTurningDrag: 14
   canAirDash: 1
   canGroundDash: 1
   dashForce: 25

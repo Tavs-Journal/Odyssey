@@ -51459,11 +51459,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4496529499839230869, guid: 26b17b13a816046458b0917830c80e0b,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 961696974}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26b17b13a816046458b0917830c80e0b, type: 3}
 --- !u!1 &846888148
 GameObject:
@@ -57413,28 +57409,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.2
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &961696966 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4496529499839230869, guid: 26b17b13a816046458b0917830c80e0b,
-    type: 3}
-  m_PrefabInstance: {fileID: 845608059}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &961696974
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 961696966}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4928109816c156e4caedc9c268f2e98b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnStart:
-    m_PersistentCalls:
-      m_Calls: []
-  enablePlayerDelay: 1
 --- !u!4 &961773106 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7662158314878999624, guid: 2db4d6e9c2d679e48b0f8f094e246fb8,
