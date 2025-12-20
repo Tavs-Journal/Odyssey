@@ -62,6 +62,12 @@ public class PlayerStats : EntityStats<PlayerStats>
     public float backflipBackwardForce = 4f;   // 向后推力
     public float backflipBackwardTurnForce = 8f;// 向后转向力
 
+    //==============================【奔跑】==============================//
+    [Header("Running Stats")]
+    public float runningAcceleration = 16f;   // 奔跑加速度
+    public float runningTopSpeed = 7.5f;      // 奔跑最高速度
+    public float runningTurningDrag = 14f;    // 奔跑转向阻力
+
     //==============================【冲刺/疾跑】==============================//
     [Header("Dash Stats")]
     public bool canAirDash = true;             // 是否能空中冲刺

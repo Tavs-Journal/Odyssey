@@ -3,7 +3,7 @@ public class AirDivePlayerState : PlayerState
 {
     public override void OnContact(Player player, Collider other)
     {
-  
+        player.PushRigidBody(other);
     }
 
     protected override void OnEnter(Player player)

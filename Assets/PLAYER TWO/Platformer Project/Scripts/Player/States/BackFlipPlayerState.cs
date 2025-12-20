@@ -5,6 +5,7 @@ public class BackFlipPlayerState : PlayerState
     {
         player.WallDrag(other);
         player.GrabPole(other);
+        player.PushRigidBody(other);
     }
 
     protected override void OnEnter(Player player)

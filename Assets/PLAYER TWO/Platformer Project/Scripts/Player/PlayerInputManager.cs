@@ -20,6 +20,7 @@ public class PlayerInputManager :MonoBehaviour
     protected InputAction m_grindBrake;
     protected InputAction m_releaseLedge;
     protected InputAction m_pause;
+    protected InputAction m_run;
 
     protected Camera m_camera;
 
@@ -63,6 +64,7 @@ public class PlayerInputManager :MonoBehaviour
         m_grindBrake = actions["Grind Brake"];
         m_releaseLedge = actions["ReleaseLedge"];
         m_pause = actions["Pause"];
+        m_run = actions["Run"];
     }
 
     public virtual Vector3 GetLookDirection()
@@ -136,7 +138,9 @@ public class PlayerInputManager :MonoBehaviour
     public virtual bool GetReleaseLedgeDown() => m_releaseLedge.WasPressedThisFrame(); 
     public virtual bool GetPauseDown() => m_pause.WasPressedThisFrame();
     public virtual bool GetJumpUp() => m_jump.WasReleasedThisFrame();
+    public virtual bool GetRunUp() => m_run.WasReleasedThisFrame();
     public virtual bool GetCrouchAndCraw() => m_crouch.IsPressed();
+    public virtual bool GetRun() => m_run.IsPressed();
     public virtual bool GetGlide() => m_glide.IsPressed();
     public virtual bool GetDive() => m_dive.IsPressed();
     public virtual bool GetGrindBrake() => m_grindBrake.IsPressed();

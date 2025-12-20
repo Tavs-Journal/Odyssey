@@ -67,15 +67,10 @@ public class Player : Entity<Player>
 
     public virtual void Accelerate(Vector3 direction)
     {
-        //var turningDrag = isGrounded && inputs.GetRun() ? stats.current.runningTurningDrag : stats.current.turningDrag;
-        //var acceleration = isGrounded && input.GetRun() ? stats.current.runningAcceleration : stats.current.acceleration;
-        //var finalAcceleration = isGrounded ? acceleration : stats.current.acceleration;
-        //var topSpeed = input.GetRun() ? stats.current.runningTopSpeed : stats.current.topSpeed;
-
-        var turningDrag = stats.current.turningDrag;
-        var acceleration = stats.current.acceleration;
-        var finalAcceleration = acceleration;
-        var topSpeed = stats.current.topSpeed;
+        var turningDrag = isGrounded && input.GetRun() ? stats.current.runningTurningDrag : stats.current.turningDrag;
+        var acceleration = isGrounded && input.GetRun() ? stats.current.runningAcceleration : stats.current.acceleration;
+        var finalAcceleration = isGrounded ? acceleration : stats.current.acceleration;
+        var topSpeed = input.GetRun() ? stats.current.runningTopSpeed : stats.current.topSpeed;
 
         Accelerate(direction, turningDrag, finalAcceleration, topSpeed);
     }
@@ -369,6 +364,15 @@ public class Player : Entity<Player>
     protected virtual void ExitWater()
     {
         onWater = false;
+    }
+
+    public virtual void PushRigidBody(Collider other)
+    {
+        if(!IsPointUnderStep(other.bounds.max) && other.TryGetComponent<Rigidbody>(out Rigidbody rigidbody))
+        {
+            var force = lateralvelocity * stats.current.pushForce;
+            rigidbody.velocity += force / rigidbody.mass * Time.deltaTime;
+        }
     }
 
     protected virtual void OnTriggerStay(Collider other)
