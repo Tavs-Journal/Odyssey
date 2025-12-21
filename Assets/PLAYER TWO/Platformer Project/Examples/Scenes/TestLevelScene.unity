@@ -90885,6 +90885,11 @@ PrefabInstance:
       propertyPath: skin
       value: 
       objectReference: {fileID: 1084514281}
+    - target: {fileID: 3145912364195743504, guid: eb0f77ac3ce65a04db54ff55e59b0815,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4601279804034680361, guid: eb0f77ac3ce65a04db54ff55e59b0815,
         type: 3}
       propertyPath: 'states.Array.data[6]'
@@ -90909,6 +90914,16 @@ PrefabInstance:
         type: 3}
       propertyPath: 'states.Array.data[19]'
       value: RailGrindPlayerState
+      objectReference: {fileID: 0}
+    - target: {fileID: 6453685688964345546, guid: eb0f77ac3ce65a04db54ff55e59b0815,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6646044366102146408, guid: eb0f77ac3ce65a04db54ff55e59b0815,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6650432633027884458, guid: eb0f77ac3ce65a04db54ff55e59b0815,
         type: 3}
@@ -117505,6 +117520,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Coin (26)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5265982579517487539, guid: 252c5346c2bb85b49af1f2f472fa842c,
+        type: 3}
+      propertyPath: times
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5265982579517487539, guid: 252c5346c2bb85b49af1f2f472fa842c,
+        type: 3}
+      propertyPath: onCollect.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5265982579517487539, guid: 252c5346c2bb85b49af1f2f472fa842c,
+        type: 3}
+      propertyPath: onCollect.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

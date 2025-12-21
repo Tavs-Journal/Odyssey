@@ -64,6 +64,12 @@ public class Collectable : MonoBehaviour
         if (!m_vanish)
         {
             HandleGhosting();
+            HandleLifeTime();
+            if (usePhysics)
+            {
+                HandleMovement();
+                HandleSweep();
+            }
         }
     }
 
@@ -130,7 +136,46 @@ public class Collectable : MonoBehaviour
         }
     }
 
-    protected virtual void Collect(Player player)
+    protected virtual void HandleLifeTime()
+    {
+        if (hasLifeTime)
+        {
+            m_elapsedLifeTime += Time.deltaTime;
+            if (m_elapsedLifeTime >= lifeTimeDuration)
+            {
+                Vanish();
+            }
+        }
+    }
+
+    protected virtual void HandleMovement()
+    {
+        m_velocity.y -= gravity * Time.deltaTime;
+    }
+
+    protected virtual void HandleSweep()
+    {
+        var direction = m_velocity.normalized;
+        var magnitude = m_velocity.magnitude;
+        var distance = magnitude * Time.deltaTime;
+        if(Physics.SphereCast(transform.position, collisionRadius, direction, out var hit, 
+            distance, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
+        {
+            if (!hit.collider.CompareTag(GameTags.Player))
+            {
+                var bounceDirection = Vector3.Reflect(direction, hit.normal);
+                m_velocity = bounceDirection * bounciness * magnitude;
+                m_velocity.y = Mathf.Min(m_velocity.y, maxBounceYVelocity);
+                m_Audio.Stop();
+                m_Audio.PlayOneShot(collisionClip);
+            }
+            if(m_velocity.y <= minForceToStopPhysics)
+                usePhysics = false;
+        }
+        transform.position += m_velocity * Time.deltaTime;
+    }
+
+    public virtual void Collect(Player player)
     {
         if(!m_vanish && !m_ghosting)
         {
