@@ -262,8 +262,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offset: {x: 0, y: -0.1, z: 0}
   initiaPosition: {x: 0, y: 0, z: 0}
-  duration: 0
-  resetDuration: 0
+  duration: 0.25
+  resetDuration: 0.1
 --- !u!4 &8303011588387534678 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4cda29d24979aac47af3ec8fb449a1f5,
