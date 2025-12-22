@@ -26,7 +26,7 @@ public class Toggle : MonoBehaviour
                 state = true;
                 foreach(var toggle in multiTigger)
                 {
-                    toggle.Set(false);
+                    toggle.Set(true);
                 }
                 onActivate?.Invoke();
             }
