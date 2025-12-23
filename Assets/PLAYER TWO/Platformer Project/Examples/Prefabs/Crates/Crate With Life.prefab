@@ -5,6 +5,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 5761674021911013338}
     m_Modifications:
     - target: {fileID: 8776757965247024859, guid: ed09296353e28be45a5a8b413a4efe41,
@@ -72,11 +73,62 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8776757965247024856, guid: ed09296353e28be45a5a8b413a4efe41, type: 3}
+    - {fileID: 2308524629732860935, guid: ed09296353e28be45a5a8b413a4efe41, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8776757965247024863, guid: ed09296353e28be45a5a8b413a4efe41,
+        type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 8024170563492264931}
   m_SourcePrefab: {fileID: 100100000, guid: ed09296353e28be45a5a8b413a4efe41, type: 3}
 --- !u!1 &7893612701846550584 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8776757965247024863, guid: ed09296353e28be45a5a8b413a4efe41,
+    type: 3}
+  m_PrefabInstance: {fileID: 1461119218584008423}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8024170563492264931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7893612701846550584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f82932816326f114c849803fa60cf98a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collectOnContact: 1
+  times: 1
+  ghostingDuration: 0.5
+  display: {fileID: 0}
+  clip: {fileID: 0}
+  particle: {fileID: 0}
+  hidden: 0
+  quickShowHeight: 2
+  quickShowDuration: 0.25
+  hideDuration: 0.5
+  hasLifeTime: 0
+  lifeTimeDuration: 5
+  usePhysics: 0
+  minForceToStopPhysics: 3
+  collisionRadius: 0.5
+  gravity: 15
+  bounciness: 0.98
+  maxBounceYVelocity: 10
+  randomizeInitialDiraction: 1
+  initialVelocity: {x: 0, y: 12, z: 0}
+  collisionClip: {fileID: 0}
+  onCollect:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!4 &7893612701846550588 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8776757965247024859, guid: ed09296353e28be45a5a8b413a4efe41,
     type: 3}
   m_PrefabInstance: {fileID: 1461119218584008423}
   m_PrefabAsset: {fileID: 0}
@@ -85,6 +137,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4151346648260422249, guid: e5e33fbe10d53a343aabf9ae5aff9f15,
@@ -149,7 +202,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5936452032506756750, guid: e5e33fbe10d53a343aabf9ae5aff9f15,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 4618636433ff8c44e98c4ee744a54a67, type: 2}
     - target: {fileID: 7500328979922539701, guid: e5e33fbe10d53a343aabf9ae5aff9f15,
@@ -232,7 +285,22 @@ PrefabInstance:
       propertyPath: OnBreak.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.AudioClip, UnityEngine
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8730341637513308810, guid: e5e33fbe10d53a343aabf9ae5aff9f15,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 7814872700207036133, guid: e5e33fbe10d53a343aabf9ae5aff9f15, type: 3}
+    - {fileID: 7500328979922539701, guid: e5e33fbe10d53a343aabf9ae5aff9f15, type: 3}
+    - {fileID: 545787734711529360, guid: e5e33fbe10d53a343aabf9ae5aff9f15, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 4151346648260422250, guid: e5e33fbe10d53a343aabf9ae5aff9f15,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7893612701846550588}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5e33fbe10d53a343aabf9ae5aff9f15, type: 3}
 --- !u!4 &5761674021911013338 stripped
 Transform:
