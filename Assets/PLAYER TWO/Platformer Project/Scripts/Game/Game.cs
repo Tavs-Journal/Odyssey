@@ -14,6 +14,7 @@ public class Game : Singleton<Game>
             OnReTriesSet?.Invoke();
         }
     }
+
     public static void LockCursor(bool value = true)
     {
 #if UNITY_STANDALONE || UNITY_WEBGL

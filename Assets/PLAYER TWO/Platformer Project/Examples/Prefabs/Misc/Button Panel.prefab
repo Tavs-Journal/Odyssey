@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8408361727782729909}
   - component: {fileID: 1680779631437092008}
   - component: {fileID: 8408361727782729908}
+  - component: {fileID: 4879370047306138641}
   m_Layer: 0
   m_Name: Button Panel
   m_TagString: Untagged
@@ -153,6 +154,54 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4879370047306138641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8408361727782729910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1404877b8775fcb4d8c69d0618e0f58c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activated: 0
+  autoToggle: 1
+  requirePlayer: 0
+  requirePlayerStomp: 0
+  activateClip: {fileID: 0}
+  deactivateClip: {fileID: 0}
+  OnActivate:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4308775125713981047}
+        m_TargetAssemblyTypeName: Mover, Assembly-CSharp
+        m_MethodName: ApplyOffset
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnDeactivate:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4308775125713981047}
+        m_TargetAssemblyTypeName: Mover, Assembly-CSharp
+        m_MethodName: ResetOffset
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &8408361727614718141
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -228,10 +277,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4cda29d24979aac47af3ec8fb449a1f5,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8135596163529471915}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4cda29d24979aac47af3ec8fb449a1f5,
-        type: 3}
-      insertIndex: -1
       addedObject: {fileID: 3603018693360171123}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4cda29d24979aac47af3ec8fb449a1f5,
         type: 3}
@@ -276,54 +321,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8408361727614718141}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8135596163529471915
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8678974834509229548}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1404877b8775fcb4d8c69d0618e0f58c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  activated: 0
-  autoToggle: 1
-  requirePlayer: 0
-  requirePlayerStomp: 0
-  activateClip: {fileID: 0}
-  deactivateClip: {fileID: 0}
-  OnActivate:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4308775125713981047}
-        m_TargetAssemblyTypeName: Mover, Assembly-CSharp
-        m_MethodName: ApplyOffset
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnDeactivate:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4308775125713981047}
-        m_TargetAssemblyTypeName: Mover, Assembly-CSharp
-        m_MethodName: ResetOffset
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!64 &3603018693360171123
 MeshCollider:
   m_ObjectHideFlags: 0
