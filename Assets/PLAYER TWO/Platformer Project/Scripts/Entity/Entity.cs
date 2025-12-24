@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
@@ -64,6 +65,12 @@ public abstract class EntityBase : MonoBehaviour {
     public float radius => controller.radius;
 
     public Vector3 stepPosition => position - transform.up * (height * 0.5f - controller.stepOffset);
+
+    public const int normalsLength = 10;
+
+    public Vector3[] normals = new Vector3[normalsLength];
+
+    public int normalIndex;
 
     public virtual bool IsPointUnderStep(Vector3 point) => stepPosition.y > point.y;     
 
@@ -184,7 +191,7 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
             var speed = Vector3.Dot(direction, lateralvelocity);
             var velocity = direction * speed;
             var turningVelocity = lateralvelocity - velocity;
-            var turningDelta = turningDrag * turningDragMultiplier   * Time.deltaTime;
+            var turningDelta = turningDrag * turningDragMultiplier * Time.deltaTime;
             var targetTopSpeed = TopSpeed * topSpeedMultiplier;
 
             if (lateralvelocity.magnitude < targetTopSpeed || speed < 0)
@@ -328,7 +335,8 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
                     EnterGround(hit);
                 }
             }
-            else if (IsPointUnderStep(hit.point)){
+            else if (IsPointUnderStep(hit.point))
+            {
                 UpdateGround(hit);
             }
         }
@@ -336,6 +344,28 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
         {
             ExitGround(hit);
         }      
+    }
+
+    protected virtual void HandleNormals()
+    {
+        if (!isGrounded)
+        {
+            var baseVelocity = velocity;
+            for (int i = 0; i < normalIndex; i++)
+            {
+                var normal = normals[i];
+                var normalWithUp = Vector3.Angle(Vector3.up, normal);
+                if (normalWithUp > 110f) continue;
+                var delta = Vector3.Dot(baseVelocity, normal);
+                if(delta < 0)
+                {
+                    var target = baseVelocity - normal * delta;
+                    baseVelocity = Vector3.MoveTowards(baseVelocity, target, 5f * Time.deltaTime);
+                }
+            }
+            velocity = baseVelocity;
+        }
+        normalIndex = 0;
     }
 
     protected virtual void HandleContacts()
@@ -383,7 +413,7 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
     {
         if (controller.enabled)
         {
-            controller.Move(velocity *  Time.deltaTime);
+            controller.Move(velocity * Time.deltaTime);
             return;
         }
         transform.position += velocity * Time.deltaTime;
@@ -396,6 +426,14 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
     }
 
     protected virtual void HandleState() => states.Step();
+
+    protected virtual void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if(normalIndex < normalsLength - 1 && verticalVelocity.y < 0)
+        {
+            normals[normalIndex++] = hit.normal;
+        }
+    }
 
     protected virtual void Awake()
     {
@@ -412,6 +450,7 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
             HandleGround();
             HandleSpline();
             HandleContacts();
+            HandleNormals();
         }
     }
 
