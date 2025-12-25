@@ -184,4 +184,16 @@ public class PlayerStats : EntityStats<PlayerStats>
     public LayerMask ledgeClimbingLayers;      // 攀爬检测层
     public Vector3 ledgeClimbingSkinOffset;    // 碰撞偏移
     public float ledgeClimbingDuration = 1f;   // 攀爬动作时长
+
+    //==============================【人物倾斜】================================//
+    [Header("LeanSettings")]
+    public bool canLean = true;                //是否可以倾斜
+    public float leanOffSet = 0.5f;            //倾斜角度误差
+    public float maxGroundLeanAngle;           //倾斜的最大角度
+    public float maxGlideLeanAngle;            //空中倾斜的最大角度
+    public float leanSmoothTime;               //倾斜角度所需的时间（可以理解为阻尼的软硬）
+    public float leanResetTime;                //竖直所需的时间
+    public float leanVelocity;                 //每次倾斜的角速度
+    public float minGroundLeanSpeed;           //跑步时倾斜最少需要的速度 
+    public float minGlideLeanSpeed;            //滑翔时倾斜最少需要的速度
 }

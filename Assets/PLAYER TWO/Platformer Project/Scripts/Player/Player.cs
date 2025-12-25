@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Threading;
+using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Player : Entity<Player>
 {
@@ -26,9 +28,20 @@ public class Player : Entity<Player>
 
     public bool holding { get; protected set; }
 
+    public float leanVelocity;
+
+    public bool isSkinLean
+    {
+        get
+        {
+            return ((skin.transform.localEulerAngles.z > stats.current.leanOffSet) ||
+                (Mathf.Abs(360f - skin.transform.localEulerAngles.z) > stats.current.leanOffSet));
+        }
+    }
+
     protected const float k_waterExitOffSet = 0.25f;
 
-    public Vector3 lastWallNormal {  get; protected set; }
+    public Vector3 lastWallNormal { get; protected set; }
 
     protected Vector3 m_skinInitialPosition;
     protected Quaternion m_skinInitialRotation;
@@ -237,6 +250,43 @@ public class Player : Entity<Player>
         }
     }
 
+    public virtual void HandleSkinLean()
+    {
+        if (stats.current.canLean && !onRails)
+        {
+            if (states.IsCurrentOfType(typeof(WalkState)) || states.IsCurrentOfType(typeof(GlidePlayerState)))
+            {
+                bool isWalk = states.IsCurrentOfType(typeof(WalkState));
+                var minLean = isWalk ? stats.current.minGroundLeanSpeed : stats.current.minGlideLeanSpeed;
+                var maxLeanAngle = isWalk ? stats.current.maxGroundLeanAngle : stats.current.maxGlideLeanAngle;
+                var speed = lateralvelocity.magnitude;
+                if (speed >= minLean)
+                {
+                    var targetDirection = input.GetMovementCameraDirection();
+                    var moveDirection = lateralvelocity / speed;
+                    var angle = Vector3.SignedAngle(targetDirection, moveDirection, Vector3.up);
+                    var rot = Mathf.Clamp(angle, -maxLeanAngle, maxLeanAngle);
+                    ChangeSkinRotation(rot, stats.current.leanSmoothTime);
+                }
+                else
+                {
+                    ChangeSkinRotation(0f, stats.current.leanSmoothTime);
+                }
+            }
+            else if(isSkinLean)
+            {
+                ChangeSkinRotation(0f, stats.current.leanResetTime);
+            }
+        }
+    }
+
+    public virtual void ChangeSkinRotation(float rot, float leanResetTime)
+    {
+        var rotation = skin.localEulerAngles;
+        rotation.z = Mathf.SmoothDampAngle(rotation.z, rot, ref leanVelocity, leanResetTime);
+        skin.transform.localEulerAngles = rotation;
+    }
+
     public virtual void GrabPole(Collider other)
     {
         if(stats.current.canPoleClimb && velocity.y <= 0 && !holding && other.TryGetComponent(out Pole pole))
@@ -393,10 +443,17 @@ public class Player : Entity<Player>
             }
         }
     }
+
     public virtual void StartGrind() => states.Change<RailGrindPlayerState>();
 
     public virtual bool canStandUp => !SphereCast(Vector3.up, originalHeight);
     
     public virtual void FaceDirectionSmooth(Vector3 direction) => FaceDirection(direction, stats.current.rotationSpeed);
     public virtual void WaterFaceDirection(Vector3 direction) => FaceDirection(direction, stats.current.waterRotationSpeed);
+
+    protected override void LateUpdate()
+    {
+        base.LateUpdate();
+        HandleSkinLean();
+    }
 }
