@@ -449,8 +449,8 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
             HandleController();
             HandleGround();
             HandleSpline();
-            HandleContacts();
             HandleNormals();
+            HandleContacts();
         }
     }
 

@@ -321,6 +321,11 @@ PrefabInstance:
       propertyPath: collisionRadius
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 4236911794207900946, guid: bfe45d3df6474bb4daa8058c7a371e7b,
+        type: 3}
+      propertyPath: collectOnContact
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4657297245767263083, guid: bfe45d3df6474bb4daa8058c7a371e7b,
         type: 3}
       propertyPath: m_RootOrder
