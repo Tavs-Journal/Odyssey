@@ -24,6 +24,7 @@ public class IdleState : PlayerState
         player.Jump();
         player.Fall();
         player.SpinAttack();
+        player.PickAndThrow();
         var inputDireaction = player.input.GetMovementDirection();
 
         if(inputDireaction.sqrMagnitude > 0 || player.lateralvelocity.sqrMagnitude > 0) 

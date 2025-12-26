@@ -370,7 +370,7 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
 
     protected virtual void HandleContacts()
     {
-        var overlaps = OverlapEntity(m_colliders, 0.01f);
+        var overlaps = OverlapEntity(m_colliders);
 
         for(int i = 0; i < overlaps; i++)
         {

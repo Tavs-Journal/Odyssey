@@ -21,6 +21,7 @@ public class PlayerInputManager :MonoBehaviour
     protected InputAction m_releaseLedge;
     protected InputAction m_pause;
     protected InputAction m_run;
+    protected InputAction m_pickAndDrop;
 
     protected Camera m_camera;
 
@@ -65,6 +66,7 @@ public class PlayerInputManager :MonoBehaviour
         m_releaseLedge = actions["ReleaseLedge"];
         m_pause = actions["Pause"];
         m_run = actions["Run"];
+        m_pickAndDrop = actions["PickAndDrop"];
     }
 
     public virtual Vector3 GetLookDirection()
@@ -137,6 +139,7 @@ public class PlayerInputManager :MonoBehaviour
     public virtual bool GetAirDiveDown() => m_airDive.WasPressedThisFrame();
     public virtual bool GetReleaseLedgeDown() => m_releaseLedge.WasPressedThisFrame(); 
     public virtual bool GetPauseDown() => m_pause.WasPressedThisFrame();
+    public virtual bool GetPickAndDropDown() => m_pickAndDrop.WasPressedThisFrame();
     public virtual bool GetJumpUp() => m_jump.WasReleasedThisFrame();
     public virtual bool GetRunUp() => m_run.WasReleasedThisFrame();
     public virtual bool GetCrouchAndCraw() => m_crouch.IsPressed();

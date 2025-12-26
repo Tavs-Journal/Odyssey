@@ -30,6 +30,11 @@ MonoBehaviour:
   brakeThreshold: -0.8
   slopeUpwardForce: 25
   slopeDownwardForce: 28
+  canPickUp: 1
+  canPickUpOnAir: 1
+  canJumpWhileHolding: 1
+  pickDistance: 0.5
+  throwVelocityMultiplier: 1.5
   multiJumps: 1
   coyoteJumpThreshold: 0.15
   maxJumpHeight: 17
@@ -138,3 +143,12 @@ MonoBehaviour:
     m_Bits: 8709
   ledgeClimbingSkinOffset: {x: 0, y: 0, z: 0}
   ledgeClimbingDuration: 1
+  canLean: 1
+  leanOffSet: 0.5
+  maxGroundLeanAngle: 20
+  maxGlideLeanAngle: 25
+  leanSmoothTime: 0.2
+  leanResetTime: 0.08
+  leanVelocity: -11.87461
+  minGroundLeanSpeed: 7
+  minGlideLeanSpeed: 6

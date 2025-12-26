@@ -26,6 +26,14 @@ public class PlayerStats : EntityStats<PlayerStats>
     public float slopeUpwardForce = 25f;   // 上坡时的额外推力
     public float slopeDownwardForce = 28f; // 下坡时的额外推力
 
+    //==============================【拾取与投掷】==============================//
+    [Header("Pick'n Throw Stats")]
+    public bool canPickUp = true;          // 是否允许拾取物体
+    public bool canPickUpOnAir = false;    // 是否可以在空中拾取
+    public bool canJumpWhileHolding = true;// 拿着物体时是否可以跳跃
+    public float pickDistance = 0.5f;      // 拾取判定距离
+    public float throwVelocityMultiplier = 1.5f; // 投掷时的速度倍率
+
     //==============================【跳跃】==============================//
     [Header("Jump Stats")]
     public int multiJumps = 1;                 // 允许的额外跳跃次数（多段跳）

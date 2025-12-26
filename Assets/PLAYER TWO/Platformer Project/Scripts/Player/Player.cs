@@ -24,7 +24,11 @@ public class Player : Entity<Player>
 
     public Pole pole { get; protected set; }
 
+    public Pickable pickable { get; protected set; }
+
     public Transform skin;
+
+    public Transform pickableSlot;
 
     public bool holding { get; protected set; }
 
@@ -160,8 +164,9 @@ public class Player : Entity<Player>
     public virtual void Jump()
     {    
         var canMultiJump = (jumpCounter > 0) && (jumpCounter < stats.current.multiJumps);
-        var canCoyoteJump = (jumpCounter == 0) && (Time.deltaTime < lastGroundTime + stats.current.coyoteJumpThreshold);
-        if ((canMultiJump || canCoyoteJump || isGrounded || onRails) && !holding) 
+        var canCoyoteJump = (jumpCounter == 0) && (Time.time < lastGroundTime + stats.current.coyoteJumpThreshold);
+        var holdJump = stats.current.canJumpWhileHolding || !holding;
+        if ((canMultiJump || canCoyoteJump || isGrounded || onRails) && holdJump) 
         {
             if (input.GetJumpDown())
             {
@@ -213,6 +218,55 @@ public class Player : Entity<Player>
         }
     }
 
+    public virtual void PickAndThrow()
+    {
+        if (stats.current.canPickUp && input.GetPickAndDropDown())
+        {
+            if (!holding && CapsuleCast(transform.forward, stats.current.pickDistance, out var hit)
+                && hit.transform.TryGetComponent(out Pickable pickable))
+            {
+                PickUp(pickable);
+            }
+            else
+            {
+                Throw();
+            }
+        }
+    }
+
+    public virtual void PickUp(Pickable pickable)
+    {
+        if(!holding && (isGrounded || stats.current.canPickUpOnAir))
+        {
+            holding = true;
+            this.pickable = pickable;
+            pickable.PickUp(pickableSlot);
+            pickable.onRespawn.AddListener(RemovePickable);
+            playerEvents.OnPickUp?.Invoke();
+        }
+    }
+
+    public virtual void Throw()
+    {
+        if (holding)
+        {
+            var force = lateralvelocity.magnitude * stats.current.throwVelocityMultiplier;
+            pickable.Release(transform.forward, force);
+            pickable = null;
+            holding = false;
+            playerEvents.OnThrow?.Invoke();
+        }
+    }
+
+    public virtual void RemovePickable()
+    {
+        if (holding)
+        {
+            pickable = null;
+            holding = false;
+        }
+    }
+
     public virtual void Dash()
     {
         var canAirdash = stats.current.canAirDash && !isGrounded &&
@@ -248,43 +302,6 @@ public class Player : Entity<Player>
                 states.Change<WallDragPlayerState>();
             }
         }
-    }
-
-    public virtual void HandleSkinLean()
-    {
-        if (stats.current.canLean && !onRails)
-        {
-            if (states.IsCurrentOfType(typeof(WalkState)) || states.IsCurrentOfType(typeof(GlidePlayerState)))
-            {
-                bool isWalk = states.IsCurrentOfType(typeof(WalkState));
-                var minLean = isWalk ? stats.current.minGroundLeanSpeed : stats.current.minGlideLeanSpeed;
-                var maxLeanAngle = isWalk ? stats.current.maxGroundLeanAngle : stats.current.maxGlideLeanAngle;
-                var speed = lateralvelocity.magnitude;
-                if (speed >= minLean)
-                {
-                    var targetDirection = input.GetMovementCameraDirection();
-                    var moveDirection = lateralvelocity / speed;
-                    var angle = Vector3.SignedAngle(targetDirection, moveDirection, Vector3.up);
-                    var rot = Mathf.Clamp(angle, -maxLeanAngle, maxLeanAngle);
-                    ChangeSkinRotation(rot, stats.current.leanSmoothTime);
-                }
-                else
-                {
-                    ChangeSkinRotation(0f, stats.current.leanSmoothTime);
-                }
-            }
-            else if(isSkinLean)
-            {
-                ChangeSkinRotation(0f, stats.current.leanResetTime);
-            }
-        }
-    }
-
-    public virtual void ChangeSkinRotation(float rot, float leanResetTime)
-    {
-        var rotation = skin.localEulerAngles;
-        rotation.z = Mathf.SmoothDampAngle(rotation.z, rot, ref leanVelocity, leanResetTime);
-        skin.transform.localEulerAngles = rotation;
     }
 
     public virtual void GrabPole(Collider other)
@@ -332,6 +349,43 @@ public class Player : Entity<Player>
                 playerEvents.OnLedgeGrabbed?.Invoke();
             }
         }
+    }
+
+    public virtual void HandleSkinLean()
+    {
+        if (stats.current.canLean && !onRails)
+        {
+            if(states.IsCurrentOfType(typeof(WalkState)) || states.IsCurrentOfType(typeof(GlidePlayerState)))
+            {
+                bool isWalk = states.IsCurrentOfType(typeof(WalkState));
+                var minLean = isWalk ? stats.current.minGroundLeanSpeed : stats.current.minGlideLeanSpeed;
+                var maxLeanAngle = isWalk ? stats.current.maxGroundLeanAngle : stats.current.maxGlideLeanAngle;
+                var speed = lateralvelocity.magnitude;
+                if (speed >= minLean)
+                {
+                    var targetDirection = input.GetMovementCameraDirection();
+                    var moveDirection = lateralvelocity / speed;
+                    var angle = Vector3.SignedAngle(targetDirection, moveDirection, Vector3.up);
+                    var rot = Mathf.Clamp(angle, -maxLeanAngle, maxLeanAngle);
+                    ChangeSkinRotation(rot, stats.current.leanSmoothTime);
+                }
+                else
+                {
+                    ChangeSkinRotation(0f, stats.current.leanSmoothTime);
+                }
+            }
+            else if (isSkinLean)
+            {
+                ChangeSkinRotation(0f, stats.current.leanResetTime);
+            }
+        }
+    }
+
+    public virtual void ChangeSkinRotation(float rot, float leanResetTime)
+    {
+        var rotation = skin.localEulerAngles;
+        rotation.z = Mathf.SmoothDampAngle(rotation.z, rot, ref leanVelocity, leanResetTime);
+        skin.transform.localEulerAngles = rotation;
     }
 
     protected virtual bool DetectingLedge(float forwardDistance, float downwardDistance, out RaycastHit ledgehit)

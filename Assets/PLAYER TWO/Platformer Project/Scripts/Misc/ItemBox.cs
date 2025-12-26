@@ -25,9 +25,12 @@ public class ItemBox : MonoBehaviour, IEntityContact
     {
         if(entity is Player player)
         {
-            if(entity.velocity.y > 0 && entity.position.y < m_collider.bounds.min.y)
+            var offset = entity.height * 0.5f - entity.radius;
+            var head = entity.position + entity.transform.up * (offset - Physics.defaultContactOffset);
+            if(entity.velocity.y > 0 && head.y < m_collider.bounds.min.y)
             {
                 Collect(player);
+                entity.verticalVelocity = Vector3.zero;
             }
         }
     }

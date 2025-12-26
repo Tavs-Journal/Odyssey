@@ -182,7 +182,7 @@ public class Collectable : MonoBehaviour
             if (!hidden)
             {
                 Vanish();
-                if(!particle != null)
+                if(particle != null)
                 {
                     particle.Play();
                 }

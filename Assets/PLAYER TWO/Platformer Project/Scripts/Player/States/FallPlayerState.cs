@@ -30,6 +30,7 @@ public class FallPlayerState : PlayerState
         player.LedgeGrab();
         player.StomAttack();
         player.SpinAttack(); 
+        player.PickAndThrow();
         player.AccelerateToInputDirection();
         if (player.isGrounded)
         {

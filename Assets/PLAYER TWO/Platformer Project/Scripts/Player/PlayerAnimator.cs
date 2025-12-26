@@ -121,5 +121,6 @@ public class PlayerAnimator : MonoBehaviour
         animator.SetFloat(m_lateralAnimationSpeedHash, lateralAnimationSpeed);
         animator.SetInteger(m_jumpCounterHash, m_player.jumpCounter);
         animator.SetBool(m_isGroundedHash, m_player.isGrounded);
+        animator.SetBool(m_isHoldingHash, m_player.holding);
     }
 }
