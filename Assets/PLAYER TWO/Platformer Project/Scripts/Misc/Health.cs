@@ -30,7 +30,7 @@ public class Health : MonoBehaviour
         }
     }
 
-    public virtual bool IsEmpty => m_currentHealth == 0;
+    public virtual bool isEmpty => m_currentHealth == 0;
 
     public virtual bool recovering => Time.time < m_lastDamageTime + coolDown;
 

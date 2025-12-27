@@ -46,8 +46,18 @@ public abstract class EntityBase : MonoBehaviour {
 
     public float groundAngel { get; protected set; }
 
-    public float positionDelta { get; set; } 
-    
+    public float positionDelta { get; set; }
+
+    public float accelerationMultiplier { get; set; } = 1f;
+
+    public float gravityMultiplier { get; set; } = 1f;
+
+    public float topSpeedMultiplier { get; set; } = 1f;
+
+    public float turningDragMultiplier { get; set; } = 1f;
+
+    public float decelerationMultiplier { get; set; } = 1f;
+
     public Vector3 laterPosition { get; protected set; }
 
     public RaycastHit groundHit;
@@ -142,16 +152,6 @@ public abstract class EntityBase : MonoBehaviour {
 public abstract class Entity<T> :EntityBase where T :Entity<T>
 {
     public EntityStateManager<T> states {  get; private set; }
-
-    public float accelerationMultiplier { get; set; } = 1f;
-
-    public float gravityMultiplier { get; set; } = 1f;
-
-    public float topSpeedMultiplier {  get; set; } = 1f;
-
-    public float turningDragMultiplier {  get; set; } = 1f;
-
-    public float decelerationMultiplier { get; set; } = 1f;
 
     protected virtual void InitializeController()
     {

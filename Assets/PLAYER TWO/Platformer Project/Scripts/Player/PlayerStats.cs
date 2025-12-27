@@ -131,6 +131,7 @@ public class PlayerStats : EntityStats<PlayerStats>
     public float glidingGravity = 10f;         // 滑翔时的重力
     public float glidingMaxFallSpeed = 2f;     // 最大下落速度
     public float glidingTurningDrag = 8f;      // 转向阻力
+    public float glidingRotationSpeed = 0f;
 
     //==============================【墙壁滑行 & 蹬墙跳】==============================//
     [Header("Wall Drag Stats")]

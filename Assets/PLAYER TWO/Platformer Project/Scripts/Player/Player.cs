@@ -20,6 +20,8 @@ public class Player : Entity<Player>
 
     public bool onWater {  get; protected set; }
 
+    public virtual bool isAlive => !health.isEmpty;
+
     public Health health { get; protected set; }
 
     public Pole pole { get; protected set; }
@@ -197,7 +199,7 @@ public class Player : Entity<Player>
 
     public override void ApplyDamage(int damage, Vector3 origin)
     {
-         if(!health.IsEmpty && !health.recovering)
+         if(!health.isEmpty && !health.recovering)
         {
             health.Damage(damage);
             var damageDir = origin - transform.position;
@@ -211,7 +213,7 @@ public class Player : Entity<Player>
                 states.Change<HurtPlayerState>();
             }
             playerEvents.OnHurt?.Invoke();
-            if (health.IsEmpty)
+            if (health.isEmpty)
             {
                 
             }
@@ -457,7 +459,7 @@ public class Player : Entity<Player>
 
     protected virtual void EnterWater(Collider water)
     {
-        if (!onWater && !health.IsEmpty)
+        if (!onWater && !health.isEmpty)
         {
             onWater = true;
             this.water = water;

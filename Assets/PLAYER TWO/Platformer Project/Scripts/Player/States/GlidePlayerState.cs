@@ -24,7 +24,7 @@ public class GlidePlayerState : PlayerState
 
         HandleGlidingGravity(player);
 
-        player.FaceDirection(player.lateralvelocity);
+        player.FaceDirection(inputdirection, player.stats.current.glidingRotationSpeed);
 
         player.Accelerate(inputdirection, player.stats.current.glidingTurningDrag,
                player.stats.current.airAcceleration, player.stats.current.topSpeed);
