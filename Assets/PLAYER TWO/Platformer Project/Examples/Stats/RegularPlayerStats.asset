@@ -97,6 +97,7 @@ MonoBehaviour:
   glidingGravity: 10
   glidingMaxFallSpeed: 2
   glidingTurningDrag: 8
+  glidingRotationSpeed: 100
   canWallDrag: 1
   wallJumpLockMovement: 1
   wallDragLayers:
@@ -148,7 +149,7 @@ MonoBehaviour:
   maxGroundLeanAngle: 20
   maxGlideLeanAngle: 25
   leanSmoothTime: 0.2
-  leanResetTime: 0.08
+  leanResetTime: 0.04
   leanVelocity: -11.87461
   minGroundLeanSpeed: 7
   minGlideLeanSpeed: 6

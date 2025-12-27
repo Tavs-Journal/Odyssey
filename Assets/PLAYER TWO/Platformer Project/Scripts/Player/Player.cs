@@ -28,6 +28,9 @@ public class Player : Entity<Player>
 
     public Pickable pickable { get; protected set; }
 
+    protected Vector3 m_respawnPosition;
+    protected Quaternion m_respawnRotation;
+
     public Transform skin;
 
     public Transform pickableSlot;
@@ -60,6 +63,7 @@ public class Player : Entity<Player>
         InitializeInput();
         InitializeStats();
         InitialHealth();
+        InitialRespawn();
         InitialTag();
         entityEvents.OnGroundEnter.AddListener(() => 
         { 
@@ -455,6 +459,25 @@ public class Player : Entity<Player>
             states.Change<BackFlipPlayerState>();
             playerEvents.OnBackflip?.Invoke();
         }
+    }
+
+    public virtual void InitialRespawn()
+    {
+        m_respawnPosition = transform.position;
+        m_respawnRotation = transform.rotation;
+    }
+
+    public virtual void Respawn()
+    {
+        health.Reset();
+        transform.SetPositionAndRotation(m_respawnPosition, m_respawnRotation);
+        states.Change<IdleState>();
+    }
+
+    public virtual void SetRespawn(Vector3 position, Quaternion rotation)
+    {
+        m_respawnPosition = position;
+        m_respawnRotation = rotation;
     }
 
     protected virtual void EnterWater(Collider water)
