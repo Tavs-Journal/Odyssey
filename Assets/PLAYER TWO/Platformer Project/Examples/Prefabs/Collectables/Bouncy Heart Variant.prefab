@@ -5,8 +5,39 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3339811740740581205, guid: 81fc701e85e51e84e830931300902ee0,
+        type: 3}
+      propertyPath: hidden
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3339811740740581205, guid: 81fc701e85e51e84e830931300902ee0,
+        type: 3}
+      propertyPath: display
+      value: 
+      objectReference: {fileID: 16929951841438842}
+    - target: {fileID: 3339811740740581205, guid: 81fc701e85e51e84e830931300902ee0,
+        type: 3}
+      propertyPath: usePhysics
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3339811740740581205, guid: 81fc701e85e51e84e830931300902ee0,
+        type: 3}
+      propertyPath: hasLifeTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3339811740740581205, guid: 81fc701e85e51e84e830931300902ee0,
+        type: 3}
+      propertyPath: collectOnContact
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3339811740740581205, guid: 81fc701e85e51e84e830931300902ee0,
+        type: 3}
+      propertyPath: onCollect.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8378897265690657005, guid: 81fc701e85e51e84e830931300902ee0,
         type: 3}
       propertyPath: usePhysics
@@ -83,4 +114,35 @@ PrefabInstance:
       value: Bouncy Heart Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8378897265690657007, guid: 81fc701e85e51e84e830931300902ee0,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4536867057812043388}
   m_SourcePrefab: {fileID: 100100000, guid: 81fc701e85e51e84e830931300902ee0, type: 3}
+--- !u!1 &16929951575569014 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8378897265690657007, guid: 81fc701e85e51e84e830931300902ee0,
+    type: 3}
+  m_PrefabInstance: {fileID: 8393574017268855449}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4536867057812043388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 16929951575569014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 686b52f847e9343448c38f3f87462f5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &16929951841438842 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8378897265419419363, guid: 81fc701e85e51e84e830931300902ee0,
+    type: 3}
+  m_PrefabInstance: {fileID: 8393574017268855449}
+  m_PrefabAsset: {fileID: 0}
