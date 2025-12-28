@@ -20,7 +20,7 @@ public abstract class EntityBase : MonoBehaviour {
 
     public bool isGrounded { get; protected set; } = true;
 
-    public bool onRails;
+    public bool onRails { get; protected set; }
 
     public readonly float m_groundOffSet = 0.1f;
 
@@ -58,6 +58,8 @@ public abstract class EntityBase : MonoBehaviour {
 
     public float decelerationMultiplier { get; set; } = 1f;
 
+    public int normalIndex { get; protected set; }
+
     public Vector3 laterPosition { get; protected set; }
 
     public RaycastHit groundHit;
@@ -78,9 +80,7 @@ public abstract class EntityBase : MonoBehaviour {
 
     public const int normalsLength = 10;
 
-    public Vector3[] normals = new Vector3[normalsLength];
-
-    public int normalIndex;
+    protected Vector3[] normals = new Vector3[normalsLength];
 
     public virtual bool IsPointUnderStep(Vector3 point) => stepPosition.y > point.y;     
 
@@ -427,6 +427,8 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
 
     protected virtual void HandleState() => states.Step();
 
+    protected virtual void OnUpdate() { }
+
     protected virtual void OnControllerColliderHit(ControllerColliderHit hit)
     {
         if(normalIndex < normalsLength - 1 && verticalVelocity.y < 0)
@@ -451,6 +453,7 @@ public abstract class Entity<T> :EntityBase where T :Entity<T>
             HandleSpline();
             HandleNormals();
             HandleContacts();
+            OnUpdate();
         }
     }
 

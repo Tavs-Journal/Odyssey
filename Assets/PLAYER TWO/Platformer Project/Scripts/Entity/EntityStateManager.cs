@@ -93,6 +93,14 @@ public abstract class EntityStateManager<T> : EntityStateManager where T : Entit
         }
     }
 
+    public virtual void Change(int to)
+    {
+        if(to >= 0 && to < m_list.Count)
+        {
+            Change(m_list[to]);
+        }
+    }
+
     public virtual bool IsCurrentOfType(Type type)
     {
         if(current == null) return false;
