@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 8378897265690657006}
   - component: {fileID: 8378897265690657004}
   - component: {fileID: 3339811740740581205}
+  - component: {fileID: 8648998517582267144}
   m_Layer: 0
   m_Name: Heart
   m_TagString: Untagged
@@ -124,18 +125,30 @@ MonoBehaviour:
   onCollect:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 8648998517582267144}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: AddHealth
-        m_Mode: 0
+        m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgumentAssemblyTypeName: Player, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8648998517582267144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8378897265690657007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6be19f061e5fed242a6f40ec8bced357, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2279807260962140214
 PrefabInstance:
   m_ObjectHideFlags: 0

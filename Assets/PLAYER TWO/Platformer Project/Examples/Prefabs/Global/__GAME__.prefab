@@ -48,7 +48,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialRetriesSet: 3
-  levels: []
+  levels:
+  - locked: 0
+    scene: TestLevelScene
+    name: TestLevel
+    description: abcd
+    image: {fileID: 21300000, guid: b6c83d91877ad26418277a0d3cabbe17, type: 3}
+    coins: 0
+    time: 0
+    stars: 
   OnReTriesSet:
     m_PersistentCalls:
       m_Calls: []

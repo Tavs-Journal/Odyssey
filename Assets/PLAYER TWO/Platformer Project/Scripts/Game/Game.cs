@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 public class Game : Singleton<Game>
@@ -15,9 +16,10 @@ public class Game : Singleton<Game>
     public List<GameLevel> levels;
 
     public UnityEvent<int> OnReTriesSet;
+    public UnityEvent OnSavingRequested;
     public int retries
     {
-        get { return retries; }
+        get { return m_retries; }
         set
         {
             m_retries = value;
@@ -34,6 +36,8 @@ public class Game : Singleton<Game>
 
     public virtual void LoadState(int index, GameData data)
     {
+        Debug.Log($"[Game.LoadState] slot={index} retries={data.retries} levelsLen={data.levels?.Length}");
+
         m_dataindex = index;
         m_retries = data.retries;
         m_createdAt = DateTime.Parse(data.createdAt);
@@ -42,6 +46,50 @@ public class Game : Singleton<Game>
         {
             levels[i].LoadState(data.levels[i]);
         }
+    }
+
+    public virtual GameLevel GetCurrentLevel()
+    {
+        var scene = GameLoader.instance.currentScene;
+        return levels.Find((level) => level.scene == scene);
+    }
+
+    public virtual int GetCurrentLevelIndex()
+    {
+        var scene = GameLoader.instance.currentScene;
+        return levels.FindIndex((level) => level.scene == scene);
+    }
+
+    public virtual void RequestSaving()
+    {
+        Debug.Log($"[Game.RequestSaving] saving slot={m_dataindex} retries={retries}");
+        GameSaver.instance.Save(ToData(), m_dataindex);
+        OnSavingRequested?.Invoke();
+    }
+
+    public virtual void UnlockNextLevel()
+    {
+        var index = GetCurrentLevelIndex() + 1;
+
+        if (index >= 0 && index < levels.Count)
+        {
+            levels[index].locked = false;
+        }
+    }
+
+    public virtual GameData ToData()
+    {
+        return new GameData()
+        {
+            retries = m_retries,
+            levels = LevelsData(),
+            createdAt = m_createdAt.ToString(),
+            updatedAt = DateTime.UtcNow.ToString()
+        };
+    }
+    public virtual LevelData[] LevelsData()
+    {
+        return levels.Select(level => level.ToData()).ToArray();
     }
 
     public static void LockCursor(bool value = true)

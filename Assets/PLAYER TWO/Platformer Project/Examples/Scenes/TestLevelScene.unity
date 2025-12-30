@@ -39096,6 +39096,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3683257085154067450, guid: d6e66bcd3d2123049855d2670ef53005,
+        type: 3}
+      propertyPath: levels.Array.data[0].stars.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3683257085154067450, guid: d6e66bcd3d2123049855d2670ef53005,
+        type: 3}
+      propertyPath: 'levels.Array.data[0].stars.Array.data[0]'
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3683257085154067450, guid: d6e66bcd3d2123049855d2670ef53005,
+        type: 3}
+      propertyPath: 'levels.Array.data[0].stars.Array.data[1]'
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3253373330322208113, guid: d6e66bcd3d2123049855d2670ef53005, type: 3}
     m_RemovedGameObjects: []
@@ -40102,6 +40117,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1202095068}
     m_Modifications:
+    - target: {fileID: 3339811740740581205, guid: 81fc701e85e51e84e830931300902ee0,
+        type: 3}
+      propertyPath: onCollect.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 1786107573}
     - target: {fileID: 8378897265690657006, guid: 81fc701e85e51e84e830931300902ee0,
         type: 3}
       propertyPath: m_RootOrder
@@ -55275,6 +55295,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1202095068}
     m_Modifications:
+    - target: {fileID: 3339811740740581205, guid: 81fc701e85e51e84e830931300902ee0,
+        type: 3}
+      propertyPath: onCollect.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 1786107573}
     - target: {fileID: 8378897265690657006, guid: 81fc701e85e51e84e830931300902ee0,
         type: 3}
       propertyPath: m_RootOrder
@@ -62899,6 +62924,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1202095068}
     m_Modifications:
+    - target: {fileID: 3339811740740581205, guid: 81fc701e85e51e84e830931300902ee0,
+        type: 3}
+      propertyPath: onCollect.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 1786107573}
     - target: {fileID: 8378897265690657006, guid: 81fc701e85e51e84e830931300902ee0,
         type: 3}
       propertyPath: m_RootOrder
@@ -72445,6 +72475,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8078942918718225140, guid: 44f809803cfadd64cbc04f3f10cef2cf,
+        type: 3}
+      propertyPath: index
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -90505,6 +90540,11 @@ PrefabInstance:
       propertyPath: index
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8078942918718225140, guid: 44f809803cfadd64cbc04f3f10cef2cf,
+        type: 3}
+      propertyPath: index
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -91354,6 +91394,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4601279804034680361, guid: eb0f77ac3ce65a04db54ff55e59b0815,
+        type: 3}
+      propertyPath: 'states.Array.data[5]'
+      value: PlayerDieState
       objectReference: {fileID: 0}
     - target: {fileID: 4601279804034680361, guid: eb0f77ac3ce65a04db54ff55e59b0815,
         type: 3}

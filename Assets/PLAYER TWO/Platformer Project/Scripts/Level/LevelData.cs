@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 
 [Serializable]
-public class LevelData : MonoBehaviour
+public class LevelData 
 {
     public bool locked;
     public int coins;

@@ -219,7 +219,8 @@ public class Player : Entity<Player>
             playerEvents.OnHurt?.Invoke();
             if (health.isEmpty)
             {
-                
+                Throw();
+                playerEvents.OnDie?.Invoke();
             }
         }
     }

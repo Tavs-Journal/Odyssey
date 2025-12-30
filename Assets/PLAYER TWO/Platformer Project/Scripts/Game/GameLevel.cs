@@ -13,7 +13,7 @@ public class GameLevel
     public Sprite image;
     public int coins;
     public float time;
-    public static readonly int StarsPerLevel;
+    public static readonly int StarsPerLevel = 3;
 
     public bool[] stars = new bool[StarsPerLevel];
 
@@ -23,6 +23,17 @@ public class GameLevel
         coins = data.coins;    
         time = data.time;      
         stars = data.stars;    
+    }
+
+    public virtual LevelData ToData()
+    {
+        return new LevelData()
+        {
+            locked = this.locked,
+            coins = this.coins,
+            time = this.time,
+            stars = this.stars
+        };
     }
 
     public static string FormattedTime(float time)

@@ -14,6 +14,7 @@ public class LevelRespawner : Singleton<LevelRespawner>
 
     public float respawnFadeOutDelay = 1f;
     public float respawnFadeInDelay = .5f;
+    public float restartFadeOutDelay = .5f;
 
     public UnityEvent OnRespawn;
     public UnityEvent OnGameOver;
@@ -30,6 +31,12 @@ public class LevelRespawner : Singleton<LevelRespawner>
         StartCoroutine(Routine(constumeRetries));
     }
 
+    public virtual void ReStart()
+    {
+        StopAllCoroutines();
+        StartCoroutine(ReStartRoutine());
+    }
+
     protected virtual IEnumerator Routine(bool consumeRetries)
     {
         m_pauser.Pause(false);
@@ -37,7 +44,7 @@ public class LevelRespawner : Singleton<LevelRespawner>
         m_level.player.input.enabled = false;
         if (consumeRetries && m_game.retries == 0)
         {
-            //StartCoroutine(GameOverRoutine());
+            StartCoroutine(GameOverRoutine());
             yield break;
         }
         yield return new WaitForSeconds(respawnFadeOutDelay);
@@ -61,6 +68,15 @@ public class LevelRespawner : Singleton<LevelRespawner>
             m_pauser.canPause = true;
             m_level.player.input.enabled = true;
         });
+    }
+
+    protected virtual IEnumerator ReStartRoutine()
+    {
+        m_pauser.Pause(false);
+        m_pauser.canPause = false;
+        m_level.player.input.enabled = false;
+        yield return new WaitForSeconds(restartFadeOutDelay);
+        GameLoader.instance.ReLoad();
     }
 
     protected virtual void ResetCamera()
